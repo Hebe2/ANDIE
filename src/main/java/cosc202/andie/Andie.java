@@ -6,6 +6,8 @@ import javax.imageio.*;
 //hebe
 //HiAndie
 //andie3
+//koiii
+//ANDIE
 //destructive
 /**
  * <p>
