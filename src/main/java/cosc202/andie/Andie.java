@@ -6,7 +6,7 @@ import javax.imageio.*;
 //hebe
 //HiAndie
 //andie3
-
+ANDIE
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
