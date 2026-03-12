@@ -38,6 +38,7 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", KeyEvent.VK_G));
+        actions.add(new ThresholdAction("Threshold", null, "Apply threshold", KeyEvent.VK_T));
     }
 
     /**
@@ -56,6 +57,34 @@ public class ColourActions {
 
         return fileMenu;
     }
+    
+    public class ThresholdAction extends ImageAction {
+         ThresholdAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+         
+         @Override
+        public void actionPerformed(ActionEvent e) {
+            String input = JOptionPane.showInputDialog("Enter threshold value between 0-255: ");
+            try {
+                int threshold = Integer.parseInt(input);
+                if (threshold < 0 || threshold > 255){
+                    JOptionPane.showMessageDialog(null, "Invalid threshold value");
+                    return;
+                }
+                target.getImage().apply(new ImageThresholding(threshold));
+                target.repaint();
+                target.getParent().revalidate();
+                
+                } catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter an integer");
+                }
+            
+            }
+        }
+    
+    
+    
 
     /**
      * <p>
