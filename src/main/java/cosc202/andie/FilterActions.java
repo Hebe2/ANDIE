@@ -38,6 +38,7 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", KeyEvent.VK_M));
+        actions.add(new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", KeyEvent.VK_S));
     }
 
     /**
@@ -118,5 +119,18 @@ public class FilterActions {
             target.getParent().revalidate();
         }
 
+    }
+    
+    public class SharpenAction extends ImageAction {
+        
+        SharpenAction(String name,ImageIcon icon, String desc, Integer mnemonic){
+            super(name, icon, desc, mnemonic);
+        }
+        
+        public void actionPerformed(ActionEvent e){
+            target.getImage().apply(new SharpenFilter());
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 }
