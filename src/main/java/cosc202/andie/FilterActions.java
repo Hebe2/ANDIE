@@ -38,7 +38,21 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", KeyEvent.VK_M));
+        actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", KeyEvent.VK_D));
     }
+    
+     public class MedianFilterAction extends ImageAction {
+
+            MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+                super(name, icon, desc, mnemonic);
+            }
+
+            public void actionPerformed(ActionEvent e) {
+                target.getImage().apply(new MedianFilter());
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
 
     /**
      * <p>
