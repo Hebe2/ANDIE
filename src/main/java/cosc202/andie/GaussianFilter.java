@@ -18,7 +18,7 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
         this.radius = radius;
     }
 
-    //default cconstructor
+    //default constructor
     GaussianFilter() {
         radius = 1;
     }
@@ -42,7 +42,7 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
         double[][] kernel = new double[size][size];
         double sum = 0;
 
-        //gausian kernel
+        //gaussian kernel
         for (int ky = -radius; ky <= radius; ky++) {
             for (int kx = -radius; kx <= radius; kx++) {
                 double exponent = -((kx * kx) + (ky * ky)) / (2 * (sigma * sigma));
@@ -60,7 +60,7 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
             }
         }
 
-        //gaussian blue application
+        //gaussian blur application
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 double r = 0;
