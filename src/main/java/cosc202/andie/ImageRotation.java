@@ -8,27 +8,36 @@ package cosc202.andie;
  *
  * @author hebebebebe
  */
-
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 public class ImageRotation {
-    public BufferedImage rotateImage(BufferedImage image, double degrees){
-            int width = image.getWidth();
-            int height = image.getHeight();
-            
-            BufferedImage rotated = new BufferedImage(width, height, image.getType());
-            
-            Graphics2D g2d = rotated.createGraphics();
-            
-            AffineTransform transform = new AffineTransform();
-            transform.rotate(Math.toRadians(degrees),width/2.0,height/2.0);
-            
-            g2d.setTransform(transform);
-            g2d.drawImage(image,0,0, null);
-            g2d.dispose();
-            
-            return rotated;
-    }
+//  
+//BufferedImage inputImage = ImageIO.read(inputFile);
+//double rotationAngle = Math.toRadians(90);
+
+//AffineTransform transform = new AffineTransform();
+//transform.rotate(rotationAngle, newWidth/2, newHeight/2);
+//transform.translate((newWidth - width)/2), (newHeight - height)/2);
+//    
+public BufferedImage apply(BufferedImage input) {
+   int width = input.getWidth();
+int height = input.getHeight();
+
+int newWidth = (int) Math.abs(width * Math.cos(rotationAngle)) + (int) Math.abs(height * Math.sin(rotationAngle));
+
+int newHeight = (int) Math.abs(height * Math.cos(rotationAngle)) + (int) Math.abs(width * Math.sin(rotationAngle));
+
+BufferedImage outputImage = new BufferedImage(newWidth, newHeight, input.getType()); 
+    Graphics2D g2d = outputImage.createGraphics();
+g2d.setTransform(transform);
+g2d.drawImage(input, 0, 0, null);
+g2d.dispose();
+}
+
+
+
 }
