@@ -43,3 +43,5 @@ public interface ImageOperation {
      */
     public BufferedImage apply(BufferedImage input);
 }
+
+
