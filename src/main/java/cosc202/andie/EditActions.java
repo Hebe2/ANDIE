@@ -40,7 +40,7 @@ public class EditActions {
         actions = new ArrayList<>();
         actions.add(new UndoAction("Undo", null, "Undo", KeyEvent.VK_Z));
         actions.add(new RedoAction("Redo", null, "Redo", KeyEvent.VK_Y));
-        //actions.add(new RotateAction("Rotate", null, "Rotate", KeyEvent.VK_R));
+        
     }
 
     /**
@@ -147,46 +147,7 @@ public class EditActions {
             target.repaint();
             target.getParent().revalidate();
         }
-        public class RotateAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new rotate action.
-         * </p>
-         *
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
-         * null).
-         */
-        RotateAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the rotate action is triggered.
-         * </p>
-         *
-         * <p>
-         * This method is called whenever the RotateAction is triggered. It redoes
-         * rotates image by 90 degrees clockwise
-         * </p>
-         *
-         * @param e The event triggering this callback.
-         */
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            EditableImage editableImage = target.getImage();
-            BufferedImage currentImage = editableImage.getImage();
-            
-            ImageRotation rotation = new ImageRotation();
-            BufferedImage rotatedImage = rotation.rotate90Clockwise(currentImage);
-            editableImage.setImage(rotatedImage);
-            target.repaint();
-            target.getParent().revalidate();
-        }
+        
     
 
     }
