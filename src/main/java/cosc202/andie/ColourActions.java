@@ -85,21 +85,26 @@ public class ColourActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String input = JOptionPane.showInputDialog("Enter threshold value between 0-255: ");
-            try {
-                int threshold = Integer.parseInt(input);
-                if (threshold < 0 || threshold > 255) {
-                    JOptionPane.showMessageDialog(null, "Invalid threshold value");
+            while (true){
+                String input = JOptionPane.showInputDialog("Enter threshold value between 0-255: ");
+                if (input == null){
                     return;
                 }
-                target.getImage().apply(new ImageThresholding(threshold));
-                target.repaint();
-                target.getParent().revalidate();
+                try {
+                    int threshold = Integer.parseInt(input);
+                    if (threshold < 0 || threshold > 255) {
+                        JOptionPane.showMessageDialog(null, "Integer must be between 0 and 255");
+                        continue;
+                    }
+                    target.getImage().apply(new ImageThresholding(threshold));
+                    target.repaint();
+                    target.getParent().revalidate();
+                    break;
 
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Please enter an integer");
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter an integer");
+                }
             }
-
         }
     }
 

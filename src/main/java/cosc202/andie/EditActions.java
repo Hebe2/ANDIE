@@ -68,24 +68,27 @@ public class EditActions {
          
         @Override
         public void actionPerformed(ActionEvent e) {
-            String input = JOptionPane.showInputDialog("Enter scale factor(%): ");
-            try {
-                if (input == null){
-                    return;
+            while (true){
+                String input = JOptionPane.showInputDialog("Enter scale factor(%): ");
+                try {
+                    if (input == null){
+                        return;
+                    }
+                    int scaleFactor = Integer.parseInt(input);
+                    if (scaleFactor < 0){
+                        JOptionPane.showMessageDialog(null, "Scale factor cannot be negative");
+                        continue;
+                    }
+                    target.getImage().apply(new ImageResize(scaleFactor));
+                    target.repaint();
+                    target.getParent().revalidate();
+                    break;
+
+                    } catch (NumberFormatException ex){
+                        JOptionPane.showMessageDialog(null, "Please enter an integer");
+                    }
+
                 }
-                int scaleFactor = Integer.parseInt(input);
-                if (scaleFactor < 0){
-                    JOptionPane.showMessageDialog(null, "Scale factor cannot be negative");
-                    return;
-                }
-                target.getImage().apply(new ImageResize(scaleFactor));
-                target.repaint();
-                target.getParent().revalidate();
-                
-                } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(null, "Please enter a number");
-                }
-            
             }
         }
     
