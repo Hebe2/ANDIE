@@ -12,14 +12,14 @@ import javax.swing.*;
  *
  * @author manuella
  */
-public class SettingsAction {
+public class SettingAction {
 
     protected ArrayList<Action> actions;
 
-    public SettingsAction() {
+    public SettingAction() {
         actions = new ArrayList<>();
         actions.add(new SetEnglishAction("English", null, "Switch to English", null));
-        actions.add(new SetGermanAction("Germen", null, "Switch to German", null));
+        actions.add(new SetGermanAction("German", null, "Switch to German", null));
     }
 
     public JMenu createMenu() {
