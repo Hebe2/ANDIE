@@ -22,11 +22,11 @@ public class ImageResize implements ImageOperation{
     @Override
     public BufferedImage apply(BufferedImage input) {
         int scale = scaleFactor/100;
+        //int newWidth = 
         
         
         
-        
-        
+        return input;
     }
     
     
