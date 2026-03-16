@@ -25,6 +25,8 @@ import javax.swing.*;
  */
 public class ColourActions {
 
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/Bundle");
+
     /**
      * A list of actions for the Colour menu.
      */
@@ -37,8 +39,8 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<>();
-        actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", KeyEvent.VK_G));
-        actions.add(new ThresholdAction("Threshold", null, "Apply threshold", KeyEvent.VK_T));
+        actions.add(new ConvertToGreyAction(bundle.getString("GREYSCALE"), null, bundle.getString("CONVERT TO GREYSCALE"), KeyEvent.VK_G));
+        actions.add(new ThresholdAction(bundle.getString("THRESHOLD"), null, bundle.getString("APPLY THRESHOLD"), KeyEvent.VK_T));
     }
 
     /**
@@ -49,7 +51,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Colour");
+        JMenu fileMenu = new JMenu(bundle.getString("COLOUR"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -65,11 +67,11 @@ public class ColourActions {
          
         @Override
         public void actionPerformed(ActionEvent e) {
-            String input = JOptionPane.showInputDialog("Enter threshold value between 0-255: ");
+            String input = JOptionPane.showInputDialog(bundle.getString("ENTER THRESHOLD VALUE BETWEEN 0-255: "));
             try {
                 int threshold = Integer.parseInt(input);
                 if (threshold < 0 || threshold > 255){
-                    JOptionPane.showMessageDialog(null, "Invalid threshold value");
+                    JOptionPane.showMessageDialog(null, bundle.getString("INVALID THRESHOLD VALUE"));
                     return;
                 }
                 target.getImage().apply(new ImageThresholding(threshold));
@@ -77,7 +79,7 @@ public class ColourActions {
                 target.getParent().revalidate();
                 
                 } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(null, "Please enter an integer");
+                    JOptionPane.showMessageDialog(null, bundle.getString("PLEASE ENTER AN INTEGER"));
                 }
             
             }

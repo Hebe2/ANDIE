@@ -25,6 +25,8 @@ import javax.swing.*;
  */
 public class FilterActions {
 
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/Bundle");
+
     /**
      * A list of actions for the Filter menu.
      */
@@ -37,11 +39,11 @@ public class FilterActions {
      */
     public FilterActions() {
         actions = new ArrayList<>();
-        actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", KeyEvent.VK_M));
+        actions.add(new MeanFilterAction(bundle.getString("MEAN FILTER"), null, bundle.getString("APPLY A MEAN FILTER"), KeyEvent.VK_M));
 
-        actions.add(new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", KeyEvent.VK_S));
-        actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", KeyEvent.VK_D));
-        actions.add(new GaussianFilterAction("Gaussian filter", null, "Apply a Gaussian Blur Filter", KeyEvent.VK_G));
+        actions.add(new SharpenAction(bundle.getString("SHARPEN FILTER"), null, bundle.getString("APPLY A SHARPEN FILTER"), KeyEvent.VK_S));
+        actions.add(new MedianFilterAction(bundle.getString("MEDIAN FILTER"), null, bundle.getString("APPLY A MEDIAN FILTER"), KeyEvent.VK_D));
+        actions.add(new GaussianFilterAction(bundle.getString("GAUSSIAN FILTER"), null, bundle.getString("APPLY A GAUSSIAN BLUR FILTER"), KeyEvent.VK_G));
 
     }
     
@@ -66,7 +68,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(bundle.getString("FILTER"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -121,7 +123,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER FILTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -168,7 +170,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter Gaussian filter radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER GAUSSIAN FILTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
