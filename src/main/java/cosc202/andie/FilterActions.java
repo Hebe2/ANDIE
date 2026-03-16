@@ -145,9 +145,11 @@ public class FilterActions {
             super(name, icon, desc, mnemonic);
         }
         
+        @Override
         public void actionPerformed(ActionEvent e){
             target.getImage().apply(new SharpenFilter());
-            
+            target.repaint();
+            target.getParent().revalidate();
         }
     }
 
