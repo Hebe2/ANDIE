@@ -3,6 +3,9 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.image.*;
+import javax.imageio.*;
+
 
 /**
  * <p>
@@ -41,6 +44,8 @@ public class FileActions {
         actions.add(new FileSaveAction("Save", null, "Save the file", KeyEvent.VK_S));
         actions.add(new FileSaveAsAction("Save As", null, "Save a copy", KeyEvent.VK_A));
         actions.add(new FileExitAction("Exit", null, "Exit the program", 0));
+        actions.add(new FileExportAction("Export", null, "Export the image", KeyEvent.VK_E));
+                
     }
 
     /**
@@ -258,5 +263,30 @@ public class FileActions {
         }
 
     }
+    
+ public class FileExportAction extends ImageAction {
+
+    FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showSaveDialog(target);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+                String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                String ext = imageFilepath.contains(".") ?
+                    imageFilepath.substring(imageFilepath.lastIndexOf(".") + 1) : "png";
+                BufferedImage exportImage = target.getImage().getCurrentImage();
+                ImageIO.write(exportImage, ext, new java.io.File(imageFilepath));
+            } catch (Exception ex) {
+                System.exit(1);
+            }
+        }
+    }
+}   
 
 }
