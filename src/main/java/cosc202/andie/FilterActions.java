@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.Dimension;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -38,7 +39,6 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", KeyEvent.VK_M));
-
         actions.add(new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", KeyEvent.VK_S));
         actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", KeyEvent.VK_D));
         actions.add(new GaussianFilterAction("Gaussian filter", null, "Apply a Gaussian Blur Filter", KeyEvent.VK_G));
@@ -168,7 +168,13 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter Gaussian filter radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
+            
+            //wrap panel to increase size
+            JPanel panel = new JPanel();
+            panel.add(radiusSpinner);
+            panel.setPreferredSize(new Dimension(170, 50));
+            int option = JOptionPane.showOptionDialog(null, panel, "Select Gaussian filter radius(1-10)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
