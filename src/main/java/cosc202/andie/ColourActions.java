@@ -63,7 +63,7 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
          
-         @Override
+        @Override
         public void actionPerformed(ActionEvent e) {
             String input = JOptionPane.showInputDialog("Enter threshold value between 0-255: ");
             try {

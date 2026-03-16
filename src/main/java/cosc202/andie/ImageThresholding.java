@@ -17,7 +17,6 @@ public class ImageThresholding implements ImageOperation{
     public ImageThresholding(int threshold){
        this.threshold = threshold;
     }
-  
     
     @Override
     public BufferedImage apply(BufferedImage input) {

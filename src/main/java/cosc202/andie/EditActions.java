@@ -59,7 +59,32 @@ public class EditActions {
 
         return editMenu;
     }
-
+    
+    public class ResizeAction extends ImageAction {
+         ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+         
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String input = JOptionPane.showInputDialog("Enter scale factor: ");
+            try {
+                int scaleFactor = Integer.parseInt(input);
+                if (scaleFactor < 0){
+                    JOptionPane.showMessageDialog(null, "Scale factor cannot be negative");
+                    return;
+                }
+                //target.getImage().apply(new ImageResize(scale));
+                target.repaint();
+                target.getParent().revalidate();
+                
+                } catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter a number");
+                }
+            
+            }
+        }
+    
    
     /**
      * <p>

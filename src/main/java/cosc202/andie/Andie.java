@@ -3,12 +3,6 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
-//hebe
-//HiAndie
-//andie3
-//koiii
-//ANDIE
-//destructive
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
