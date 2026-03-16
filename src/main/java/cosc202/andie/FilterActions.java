@@ -148,6 +148,9 @@ public class FilterActions {
         
         public void actionPerformed(ActionEvent e){
             target.getImage().apply(new SharpenFilter());
+    
+        }
+    }
 
     public class GaussianFilterAction extends ImageAction{
     
