@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 /**
@@ -39,6 +40,7 @@ public class EditActions {
         actions = new ArrayList<>();
         actions.add(new UndoAction("Undo", null, "Undo", KeyEvent.VK_Z));
         actions.add(new RedoAction("Redo", null, "Redo", KeyEvent.VK_Y));
+        
     }
 
     /**
@@ -58,6 +60,7 @@ public class EditActions {
         return editMenu;
     }
 
+   
     /**
      * <p>
      * Action to undo an {@link ImageOperation}.
@@ -144,6 +147,9 @@ public class EditActions {
             target.repaint();
             target.getParent().revalidate();
         }
+        
+    
+
     }
 
 }
