@@ -28,7 +28,8 @@ import javax.imageio.*;
  */
 public class FileActions {
 
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/Bundle");
+    //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+    private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
      * A list of actions for the File menu.

@@ -14,7 +14,8 @@ import javax.swing.*;
  */
 public class RotateActions {
 
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/Bundle");
+    //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+    private static ResourceBundle bundle = LanguageUtil.getBundle();
 
 
     /**
