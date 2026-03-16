@@ -14,6 +14,8 @@ import javax.swing.*;
  */
 public class RotateActions {
 
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("cosc202/andie/Bundle");
+
 
     /**
      * A list of actions for the Filter menu.
@@ -27,9 +29,9 @@ public class RotateActions {
      */
     public RotateActions() {
         actions = new ArrayList<>();
-        actions.add(new CWAction("90° clockwise", null, "rotate clockwise 90", KeyEvent.VK_C));
-        actions.add(new ACWAction("90° anticlockwise", null, "rotate anticlockwise 90", KeyEvent.VK_A));
-        actions.add(new One80Action("180° rotate", null, "180° rotate", KeyEvent.VK_O));
+        actions.add(new CWAction(bundle.getString("90° CLOCKWISE"), null, bundle.getString("ROTATE CLOCKWISE 90"), KeyEvent.VK_C));
+        actions.add(new ACWAction(bundle.getString("90° ANTICLOCKWISE"), null, bundle.getString("ROTATE ANTICLOCKWISE 90"), KeyEvent.VK_A));
+        actions.add(new One80Action(bundle.getString("180° ROTATE"), null, bundle.getString("180° ROTATE"), KeyEvent.VK_O));
 
 
     }
@@ -42,7 +44,7 @@ public class RotateActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu rotateMenu = new JMenu("Rotate");
+        JMenu rotateMenu = new JMenu(bundle.getString("ROTATE"));
 
         for (Action action : actions) {
             rotateMenu.add(new JMenuItem(action));
