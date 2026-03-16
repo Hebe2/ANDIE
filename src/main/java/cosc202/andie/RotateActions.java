@@ -28,6 +28,8 @@ public class RotateActions {
     public RotateActions() {
         actions = new ArrayList<>();
         actions.add(new CWAction("90° clockwise", null, "rotate clockwise 90", KeyEvent.VK_C));
+        actions.add(new ACWAction("90° anticlockwise", null, "rotate anticlockwise 90", KeyEvent.VK_A));
+
     }
 
     /**
@@ -45,6 +47,20 @@ public class RotateActions {
         }
 
         return rotateMenu;
+    }
+
+    private static class ACWAction extends ImageAction {
+
+        ACWAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new ImageRotation90ACW());
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
     /**
