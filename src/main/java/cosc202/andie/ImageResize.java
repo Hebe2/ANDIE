@@ -4,6 +4,8 @@
  */
 package cosc202.andie;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 /**
@@ -21,15 +23,19 @@ public class ImageResize implements ImageOperation{
     //calculate new width and height by multiplying by percent
     @Override
     public BufferedImage apply(BufferedImage input) {
-        int scale = scaleFactor/100;
-        //int newWidth = 
+        double scale = scaleFactor/100.0;
+        int newWidth = (int)(input.getWidth() * scale);
+        int newHeight = (int)(input.getHeight() * scale);
         
+        BufferedImage output = new BufferedImage(newWidth, newHeight, input.getType());
         
-        
-        return input;
+        AffineTransform transform = new AffineTransform();
+        transform.scale(scale, scale);
+        AffineTransformOp opTransform = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+        opTransform.filter(input, output);
+  
+       
+        return output;
     }
-    
-    
-    
     
 }

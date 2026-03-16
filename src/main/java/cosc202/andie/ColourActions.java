@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import static cosc202.andie.ImageAction.target;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -40,8 +41,18 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<>();
+
         actions.add(new ConvertToGreyAction(bundle.getString("GREYSCALE"), null, bundle.getString("CONVERT TO GREYSCALE"), KeyEvent.VK_G));
         actions.add(new ThresholdAction(bundle.getString("THRESHOLD"), null, bundle.getString("APPLY THRESHOLD"), KeyEvent.VK_T));
+
+        actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", KeyEvent.VK_G));
+        actions.add(new ThresholdAction("Threshold", null, "Apply threshold", KeyEvent.VK_T));
+        actions.add(new InversionAction("Inversion", null, "Apply Inversion", KeyEvent.VK_I));
+        actions.add(new SwapRandBAction("Swap Red and Blue", null, "Swap Red and Blue", KeyEvent.VK_R));
+        actions.add(new SwapGandBAction("Swap Green and Blue", null, "Swap green and Blue", KeyEvent.VK_G));
+
+
+
     }
 
     /**
@@ -60,14 +71,15 @@ public class ColourActions {
 
         return fileMenu;
     }
-    
-    public class ThresholdAction extends ImageAction {
-         ThresholdAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    private static class SwapGandBAction extends ImageAction {
+
+        public SwapGandBAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-         
+
         @Override
         public void actionPerformed(ActionEvent e) {
+
             String input = JOptionPane.showInputDialog(bundle.getString("ENTER THRESHOLD VALUE BETWEEN 0-255: "));
             try {
                 int threshold = Integer.parseInt(input);
@@ -81,13 +93,77 @@ public class ColourActions {
                 
                 } catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, bundle.getString("PLEASE ENTER AN INTEGER"));
+
+
+            target.getImage().apply(new SwapGandB());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+    private static class SwapRandBAction extends ImageAction {
+
+        public SwapRandBAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new SwapRandB());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    private static class InversionAction extends ImageAction {
+
+        public InversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new ImageInversion());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    public class ThresholdAction extends ImageAction {
+
+        ThresholdAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            while (true){
+                String input = JOptionPane.showInputDialog("Enter threshold value between 0-255: ");
+                if (input == null){
+                    return;
                 }
-            
+                try {
+                    int threshold = Integer.parseInt(input);
+                    if (threshold < 0 || threshold > 255) {
+                        JOptionPane.showMessageDialog(null, "Integer must be between 0 and 255");
+                        continue;
+                    }
+                    target.getImage().apply(new ImageThresholding(threshold));
+                    target.repaint();
+                    target.getParent().revalidate();
+                    break;
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter an integer");
+
+                }
             }
         }
-    
-    
-    
+    }
 
     /**
      * <p>

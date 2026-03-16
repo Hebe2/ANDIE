@@ -41,8 +41,14 @@ public class EditActions {
      */
     public EditActions() {
         actions = new ArrayList<>();
+
         actions.add(new UndoAction(bundle.getString("UNDO"), null, bundle.getString("UNDO"), KeyEvent.VK_Z));
         actions.add(new RedoAction(bundle.getString("REDO"), null, bundle.getString("REDO"), KeyEvent.VK_Y));
+
+        actions.add(new UndoAction("Undo", null, "Undo", KeyEvent.VK_Z));
+        actions.add(new RedoAction("Redo", null, "Redo", KeyEvent.VK_Y));
+        actions.add(new ResizeAction("Resize", null, "Resize", KeyEvent.VK_X));
+
         
     }
 
@@ -85,6 +91,28 @@ public class EditActions {
                     JOptionPane.showMessageDialog(null, bundle.getString("PLEASE ENTER A NUMBER"));
                 }
             
+
+            while (true){
+                String input = JOptionPane.showInputDialog("Enter scale factor(%): ");
+                try {
+                    if (input == null){
+                        return;
+                    }
+                    int scaleFactor = Integer.parseInt(input);
+                    if (scaleFactor < 0){
+                        JOptionPane.showMessageDialog(null, "Scale factor cannot be negative");
+                        continue;
+                    }
+                    target.getImage().apply(new ImageResize(scaleFactor));
+                    target.repaint();
+                    target.getParent().revalidate();
+                    break;
+
+                    } catch (NumberFormatException ex){
+                        JOptionPane.showMessageDialog(null, "Please enter an integer");
+                    }
+
+                }
             }
         }
     
