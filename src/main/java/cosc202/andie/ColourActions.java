@@ -26,6 +26,9 @@ import javax.swing.*;
  */
 public class ColourActions {
 
+    //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+    private static ResourceBundle bundle = LanguageUtil.getBundle();
+
     /**
      * A list of actions for the Colour menu.
      */
@@ -38,11 +41,16 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<>();
+
+        actions.add(new ConvertToGreyAction(bundle.getString("GREYSCALE"), null, bundle.getString("CONVERT TO GREYSCALE"), KeyEvent.VK_G));
+        actions.add(new ThresholdAction(bundle.getString("THRESHOLD"), null, bundle.getString("APPLY THRESHOLD"), KeyEvent.VK_T));
+
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", KeyEvent.VK_G));
         actions.add(new ThresholdAction("Threshold", null, "Apply threshold", KeyEvent.VK_T));
         actions.add(new InversionAction("Inversion", null, "Apply Inversion", KeyEvent.VK_I));
         actions.add(new SwapRandBAction("Swap Red and Blue", null, "Swap Red and Blue", KeyEvent.VK_R));
         actions.add(new SwapGandBAction("Swap Green and Blue", null, "Swap green and Blue", KeyEvent.VK_G));
+
 
 
     }
@@ -55,7 +63,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Colour");
+        JMenu fileMenu = new JMenu(bundle.getString("COLOUR"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -71,6 +79,21 @@ public class ColourActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            String input = JOptionPane.showInputDialog(bundle.getString("ENTER THRESHOLD VALUE BETWEEN 0-255: "));
+            try {
+                int threshold = Integer.parseInt(input);
+                if (threshold < 0 || threshold > 255){
+                    JOptionPane.showMessageDialog(null, bundle.getString("INVALID THRESHOLD VALUE"));
+                    return;
+                }
+                target.getImage().apply(new ImageThresholding(threshold));
+                target.repaint();
+                target.getParent().revalidate();
+                
+                } catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, bundle.getString("PLEASE ENTER AN INTEGER"));
+
 
             target.getImage().apply(new SwapGandB());
             target.repaint();
@@ -136,6 +159,7 @@ public class ColourActions {
 
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Please enter an integer");
+
                 }
             }
         }

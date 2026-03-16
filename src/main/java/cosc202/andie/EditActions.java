@@ -26,6 +26,9 @@ import javax.swing.*;
  */
 public class EditActions {
 
+    //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+    private static ResourceBundle bundle = LanguageUtil.getBundle();
+
     /**
      * A list of actions for the Edit menu.
      */
@@ -38,9 +41,14 @@ public class EditActions {
      */
     public EditActions() {
         actions = new ArrayList<>();
+
+        actions.add(new UndoAction(bundle.getString("UNDO"), null, bundle.getString("UNDO"), KeyEvent.VK_Z));
+        actions.add(new RedoAction(bundle.getString("REDO"), null, bundle.getString("REDO"), KeyEvent.VK_Y));
+
         actions.add(new UndoAction("Undo", null, "Undo", KeyEvent.VK_Z));
         actions.add(new RedoAction("Redo", null, "Redo", KeyEvent.VK_Y));
         actions.add(new ResizeAction("Resize", null, "Resize", KeyEvent.VK_X));
+
         
     }
 
@@ -52,7 +60,7 @@ public class EditActions {
      * @return The edit menu UI element.
      */
     public JMenu createMenu() {
-        JMenu editMenu = new JMenu("Edit");
+        JMenu editMenu = new JMenu(bundle.getString("EDIT"));
 
         for (Action action : actions) {
             editMenu.add(new JMenuItem(action));
@@ -68,6 +76,22 @@ public class EditActions {
          
         @Override
         public void actionPerformed(ActionEvent e) {
+            String input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR: "));
+            try {
+                int scaleFactor = Integer.parseInt(input);
+                if (scaleFactor < 0){
+                    JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR CANNOT BE NEGATIVE"));
+                    return;
+                }
+                //target.getImage().apply(new ImageResize(scale));
+                target.repaint();
+                target.getParent().revalidate();
+                
+                } catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, bundle.getString("PLEASE ENTER A NUMBER"));
+                }
+            
+
             while (true){
                 String input = JOptionPane.showInputDialog("Enter scale factor(%): ");
                 try {
