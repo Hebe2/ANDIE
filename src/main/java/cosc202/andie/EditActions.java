@@ -40,6 +40,7 @@ public class EditActions {
         actions = new ArrayList<>();
         actions.add(new UndoAction("Undo", null, "Undo", KeyEvent.VK_Z));
         actions.add(new RedoAction("Redo", null, "Redo", KeyEvent.VK_Y));
+        actions.add(new ResizeAction("Resize", null, "Resize", KeyEvent.VK_X));
         
     }
 
@@ -67,14 +68,17 @@ public class EditActions {
          
         @Override
         public void actionPerformed(ActionEvent e) {
-            String input = JOptionPane.showInputDialog("Enter scale factor: ");
+            String input = JOptionPane.showInputDialog("Enter scale factor(%): ");
             try {
+                if (input == null){
+                    return;
+                }
                 int scaleFactor = Integer.parseInt(input);
                 if (scaleFactor < 0){
                     JOptionPane.showMessageDialog(null, "Scale factor cannot be negative");
                     return;
                 }
-                //target.getImage().apply(new ImageResize(scale));
+                target.getImage().apply(new ImageResize(scaleFactor));
                 target.repaint();
                 target.getParent().revalidate();
                 
