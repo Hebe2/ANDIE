@@ -38,8 +38,12 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", KeyEvent.VK_M));
+
+        actions.add(new SharpenAction("Sharpen filter", null, "Apply a sharpen filter", KeyEvent.VK_S));
+
         actions.add(new MedianFilterAction("Median filter", null, "Apply a median filter", KeyEvent.VK_D));
         actions.add(new GaussianFilterAction("Gaussian filter", null, "Apply a Gaussian Blur Filter", KeyEvent.VK_G));
+
     }
     
      public class MedianFilterAction extends ImageAction {
@@ -135,6 +139,16 @@ public class FilterActions {
 
     }
     
+
+    public class SharpenAction extends ImageAction {
+        
+        SharpenAction(String name,ImageIcon icon, String desc, Integer mnemonic){
+            super(name, icon, desc, mnemonic);
+        }
+        
+        public void actionPerformed(ActionEvent e){
+            target.getImage().apply(new SharpenFilter());
+
     public class GaussianFilterAction extends ImageAction{
     
         GaussianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -161,6 +175,7 @@ public class FilterActions {
 
             // Create and apply the filter
             target.getImage().apply(new GaussianFilter(radius));
+
             target.repaint();
             target.getParent().revalidate();
         }
