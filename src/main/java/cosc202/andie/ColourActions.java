@@ -41,6 +41,9 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", KeyEvent.VK_G));
         actions.add(new ThresholdAction("Threshold", null, "Apply threshold", KeyEvent.VK_T));
         actions.add(new InversionAction("Inversion", null, "Apply Inversion", KeyEvent.VK_I));
+        actions.add(new SwapRandBAction("Swap Red and Blue", null, "Swap Red and Blue", KeyEvent.VK_R));
+        actions.add(new SwapGandBAction("Swap Green and Blue", null, "Swap green and Blue", KeyEvent.VK_G));
+
 
     }
 
@@ -59,6 +62,36 @@ public class ColourActions {
         }
 
         return fileMenu;
+    }
+    private static class SwapGandBAction extends ImageAction {
+
+        public SwapGandBAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new SwapGandB());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+    private static class SwapRandBAction extends ImageAction {
+
+        public SwapRandBAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new SwapRandB());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
     }
 
     private static class InversionAction extends ImageAction {
