@@ -26,7 +26,7 @@ import javax.swing.*;
  */
 public class ColourActions {
 
-    private static ResourceBundle bundle2 = LanguageUtil.getBundle();
+    private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
      * A list of actions for the Colour menu.
@@ -41,12 +41,11 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<>();
 
-        actions.add(new ConvertToGreyAction(bundle2.getString("GREYSCALE"), null, bundle2.getString("CONVERT TO GREYSCALE"), KeyEvent.VK_G));
-        actions.add(new ThresholdAction(bundle2.getString("THRESHOLD"), null, bundle2.getString("APPLY THRESHOLD"), KeyEvent.VK_T));
-        actions.add(new InversionAction(bundle2.getString("INVERSION"), null, bundle2.getString("APPLY INVERSION"), KeyEvent.VK_I));
-        actions.add(new SwapRandBAction(bundle2.getString("SWAP RED AND BLUE"), null, bundle2.getString("SWAP RED AND BLUE"), KeyEvent.VK_R));
-        actions.add(new SwapGandBAction(bundle2.getString("SWAP GREEN AND BLUE"), null, bundle2.getString("SWAP GREEN AND BLUE"), KeyEvent.VK_G));
-
+        actions.add(new ConvertToGreyAction(bundle.getString("GREYSCALE"), null, bundle.getString("CONVERT TO GREYSCALE"), KeyEvent.VK_G));
+        actions.add(new ThresholdAction(bundle.getString("THRESHOLD"), null, bundle.getString("APPLY THRESHOLD"), KeyEvent.VK_T));
+        actions.add(new InversionAction(bundle.getString("INVERSION"), null, bundle.getString("APPLY INVERSION"), KeyEvent.VK_I));
+        actions.add(new SwapRandBAction(bundle.getString("SWAP RED AND BLUE"), null, bundle.getString("SWAP RED AND BLUE"), KeyEvent.VK_R));
+        actions.add(new SwapGandBAction(bundle.getString("SWAP GREEN AND BLUE"), null, bundle.getString("SWAP GREEN AND BLUE"), KeyEvent.VK_G));
     }
 
     /**
@@ -57,7 +56,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(bundle2.getString("COLOUR"));
+        JMenu fileMenu = new JMenu(bundle.getString("COLOUR"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -75,11 +74,11 @@ public class ColourActions {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            String input = JOptionPane.showInputDialog(bundle2.getString("ENTER THRESHOLD VALUE BETWEEN 0-255: "));
+            String input = JOptionPane.showInputDialog(bundle.getString("ENTER THRESHOLD VALUE BETWEEN 0-255: "));
             try {
                 int threshold = Integer.parseInt(input);
                 if (threshold < 0 || threshold > 255) {
-                    JOptionPane.showMessageDialog(null, bundle2.getString("INVALID THRESHOLD VALUE"));
+                    JOptionPane.showMessageDialog(null, bundle.getString("INVALID THRESHOLD VALUE"));
                     return;
                 }
                 target.getImage().apply(new ImageThresholding(threshold));
@@ -87,7 +86,7 @@ public class ColourActions {
                 target.getParent().revalidate();
 
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, bundle2.getString("PLEASE ENTER AN INTEGER"));
+                JOptionPane.showMessageDialog(null, bundle.getString("PLEASE ENTER AN INTEGER"));
 
                 target.getImage().apply(new SwapGandB());
                 target.repaint();

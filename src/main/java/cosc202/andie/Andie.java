@@ -88,8 +88,8 @@ public class Andie {
         RotateActions rotateActions = new RotateActions();
         menuBar.add(rotateActions.createMenu());
         
-        SettingsAction settingsActions = new SettingsAction();
-        menuBar.add(settingsActions.createMenu());
+        SettingAction settingActions = new SettingAction();
+        menuBar.add(settingActions.createMenu());
 
 
         frame.setJMenuBar(menuBar);
