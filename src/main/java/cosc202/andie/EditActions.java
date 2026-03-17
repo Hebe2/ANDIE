@@ -45,6 +45,7 @@ public class EditActions {
         actions.add(new UndoAction(bundle.getString("UNDO"), null, bundle.getString("UNDO"), KeyEvent.VK_Z));
         actions.add(new RedoAction(bundle.getString("REDO"), null, bundle.getString("REDO"), KeyEvent.VK_Y));
         actions.add(new ResizeAction(bundle.getString("RESIZE"), null, bundle.getString("RESIZE"), KeyEvent.VK_X));
+        actions.add(new HorizontalFlipAction("Flip - Horizontal", null, "Flip Imagine Hoizontally", KeyEvent.VK_H));
 
         
     }
@@ -203,6 +204,20 @@ public class EditActions {
         
     
 
+    }
+    
+    public class HorizontalFlipAction extends ImageAction {
+
+        HorizontalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new HorizontalFlip());
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
 }
