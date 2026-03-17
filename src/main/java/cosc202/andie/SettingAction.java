@@ -14,16 +14,18 @@ import javax.swing.*;
  */
 public class SettingAction {
 
+ private static ResourceBundle bundle = LanguageUtil.getBundle();
+
     protected ArrayList<Action> actions;
 
     public SettingAction() {
         actions = new ArrayList<>();
-        actions.add(new SetEnglishAction("English", null, "Switch to English", null));
-        actions.add(new SetGermanAction("German", null, "Switch to German", null));
+        actions.add(new SetEnglishAction("English", null, bundle.getString("SWITCH TO ENGLISH"), null));
+        actions.add(new SetGermanAction("German", null, bundle.getString("SWITCH TO GERMAN"), null));
     }
 
     public JMenu createMenu() {
-        JMenu settingsMenu = new JMenu("Settings");
+        JMenu settingsMenu = new JMenu(bundle.getString("SETTINGS"));
         for (Action action : actions) {
             settingsMenu.add(new JMenuItem(action));
         }
@@ -37,7 +39,7 @@ public class SettingAction {
         @Override
         public void actionPerformed(ActionEvent e) {
             LanguageUtil.setLanguage("NZ", "en");
-            JOptionPane.showMessageDialog(null, "Please restart ANDIE to apply language change.");
+            JOptionPane.showMessageDialog(null, bundle.getString("PLEASE RESTART ANDIE TO APPLY LANGUAGE CHANGE."));
         }
     }
 
@@ -48,7 +50,7 @@ public class SettingAction {
         @Override
         public void actionPerformed(ActionEvent e) {
             LanguageUtil.setLanguage("DE", "de");
-            JOptionPane.showMessageDialog(null, "Please restart ANDIE to apply language change.");
+            JOptionPane.showMessageDialog(null, bundle.getString("PLEASE RESTART ANDIE TO APPLY LANGUAGE CHANGE."));
         }
     }
 }
