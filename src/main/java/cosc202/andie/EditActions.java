@@ -45,7 +45,7 @@ public class EditActions {
         actions.add(new UndoAction(bundle.getString("UNDO"), null, bundle.getString("UNDO"), KeyEvent.VK_Z));
         actions.add(new RedoAction(bundle.getString("REDO"), null, bundle.getString("REDO"), KeyEvent.VK_Y));
         actions.add(new ResizeAction(bundle.getString("RESIZE"), null, bundle.getString("RESIZE"), KeyEvent.VK_X));
-        actions.add(new HorizontalFlipAction("Flip - Horizontal", null, "Flip Imagine Hoizontally", KeyEvent.VK_H));
+        actions.add(new HorizontalFlipAction(bundle.getString("FLIP - HORIZONTAL"), null, bundle.getString("FLIP IMAGINE HOIZONTALLY"), KeyEvent.VK_H));
 
         
     }
