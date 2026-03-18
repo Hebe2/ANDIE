@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 /**
  *
  * @author shika747
+ * @author habebebebe
  */
 public class ColorChannelSwap implements ImageOperation {
 
