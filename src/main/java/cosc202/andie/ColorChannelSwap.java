@@ -31,33 +31,43 @@ public class ColorChannelSwap implements ImageOperation {
                 int green = (pixel >> 8) & 0xff;
                 int blue = pixel & 0xff;
 
-                int r = red;
-                int b = blue;
-                int g = green;
+                int newRed = red;
+                int newGreen = green;
+                int newBlue = blue;
 
                 if (order.equals("RGB")) {
-                    green = b;
-                    blue = g;
+                    newRed = red;
+                    newGreen = green;
+                    newBlue = blue;
+                } else if (order.equals("RBG")) {
+                    newRed = red;
+                    newGreen = blue;
+                    newBlue = green;
                 } else if (order.equals("GRB")) {
-                    red = g;
-                    green = r;
+                    newRed = green;
+                    newGreen = red;
+                    newBlue = blue;
+
                 } else if (order.equals("GBR")) {
-                    red = g;
-                    green = b;
-                    blue = r;
+                    newRed = green;
+                    newGreen = blue;
+                    newBlue = red;                    
+                    
                 } else if (order.equals("BRG")) {
-                    red = b;
-                    green = r;
-                    blue = g;
+                    newRed = blue;
+                    newGreen = red;
+                    newBlue = green;
                 } else if (order.equals("BGR")) {
-                    red = b;
-                    blue = r;
+                    newRed = blue;
+                    newGreen = green;
+                    newBlue = red;
                 }
-                pixel = (alpha << 24) | (red << 16) | (green << 8) | blue;
+
+                pixel = (alpha << 24) | (newRed << 16) | (newGreen << 8) | newBlue;
                 input.setRGB(x, y, pixel);
             }
 
         }
-        return input; 
+        return input;
     }
 }
