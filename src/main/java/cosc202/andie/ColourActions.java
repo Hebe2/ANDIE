@@ -44,7 +44,6 @@ public class ColourActions {
         actions.add(new SwapRandBAction("Swap Red and Blue", null, "Swap Red and Blue", KeyEvent.VK_R));
         actions.add(new SwapGandBAction("Swap Green and Blue", null, "Swap green and Blue", KeyEvent.VK_G));
 
-
     }
 
     /**
