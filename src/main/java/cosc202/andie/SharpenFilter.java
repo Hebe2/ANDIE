@@ -15,15 +15,12 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
     }
     
     public BufferedImage apply (BufferedImage input){
-        //values for kernel as an array
         float [] array = {  0  ,  -1/2.0f ,  0  , 
                           -1/2.0f  ,  3  ,  -1/2.0f,
                             0 , -1/2.0f , 0  };
-        
-        //3x3 kernel from teh array
+         
         Kernel kernel = new Kernel(3,3,array);
         
-        //apply this as convolution
         ConvolveOp convOp = new ConvolveOp(kernel);
         BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
         convOp.filter(input,output);

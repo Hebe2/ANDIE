@@ -8,6 +8,7 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
+
 /**
  *
  * @author hebebebebe
@@ -17,9 +18,8 @@ public class RotateActions {
     //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
-
     /**
-     * A list of actions for the Filter menu.
+     * A list of actions for the Rotate menu.
      */
     protected ArrayList<Action> actions;
 
@@ -34,12 +34,11 @@ public class RotateActions {
         actions.add(new ACWAction(bundle.getString("90° ANTICLOCKWISE"), null, bundle.getString("ROTATE ANTICLOCKWISE 90"), KeyEvent.VK_A));
         actions.add(new One80Action(bundle.getString("180° ROTATE"), null, bundle.getString("180° ROTATE"), KeyEvent.VK_O));
 
-
     }
 
     /**
      * <p>
-     * Create a menu containing the list of Filter actions.
+     * Create a menu containing the list of Rotate actions.
      * </p>
      *
      * @return The filter menu UI element.
@@ -54,12 +53,29 @@ public class RotateActions {
         return rotateMenu;
     }
 
-     private static class One80Action extends ImageAction {
+    /**
+     * <p>
+     * Action to rotate image 180.
+     * </p>
+     *
+     */
+    private static class One80Action extends ImageAction {
 
         One80Action(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-        
+
+        /**
+         * <p>
+         * Callback for when the rotate 180 action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the rotate 180 Action is triggered.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
 
             target.getImage().apply(new ImageRotation180());
@@ -68,12 +84,29 @@ public class RotateActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to rotate image anticlockwise.
+     * </p>
+     *
+     */
     private static class ACWAction extends ImageAction {
 
         ACWAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-        
+
+        /**
+         * <p>
+         * Callback for when the rotate anticlockwise action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the rotate 90 ACW Action is triggered.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
 
             target.getImage().apply(new ImageRotation90ACW());
@@ -84,16 +117,15 @@ public class RotateActions {
 
     /**
      * <p>
-     * Action to blur an image with a mean filter.
+     * Action to rotate image clockwise.
      * </p>
      *
-     * @see MeanFilter
      */
     public class CWAction extends ImageAction {
 
         /**
          * <p>
-         * Create a new mean-filter action.
+         * Create a rotate clockwise action.
          * </p>
          *
          * @param name The name of the action (ignored if null).
@@ -108,7 +140,7 @@ public class RotateActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the rotate clockwise action is triggered.
          * </p>
          *
          * <p>
@@ -127,5 +159,3 @@ public class RotateActions {
 
     }
 }
-
-
