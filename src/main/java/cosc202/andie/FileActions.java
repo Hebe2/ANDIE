@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.image.*;
 import javax.imageio.*;
 
-
 /**
  * <p>
  * Actions provided by the File menu.
@@ -48,7 +47,7 @@ public class FileActions {
         actions.add(new FileSaveAsAction(bundle.getString("SAVE AS"), null, bundle.getString("SAVE A COPY"), KeyEvent.VK_A));
         actions.add(new FileExitAction(bundle.getString("EXIT"), null, bundle.getString("EXIT THE PROGRAM"), 0));
         actions.add(new FileExportAction(bundle.getString("EXPORT"), null, bundle.getString("EXPORT THE IMAGE"), KeyEvent.VK_E));
-                
+
     }
 
     /**
@@ -266,30 +265,58 @@ public class FileActions {
         }
 
     }
-    
- public class FileExportAction extends ImageAction {
 
-    FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-        super(name, icon, desc, mnemonic);
-    }
+    public class FileExportAction extends ImageAction {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showSaveDialog(target);
+        FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            try {
-                String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                String ext = imageFilepath.contains(".") ?
-                    imageFilepath.substring(imageFilepath.lastIndexOf(".") + 1) : "png";
-                BufferedImage exportImage = target.getImage().getCurrentImage();
-                ImageIO.write(exportImage, ext, new java.io.File(imageFilepath));
-            } catch (Exception ex) {
-                System.exit(1);
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showSaveDialog(target);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    String ext = imageFilepath.contains(".")
+                            ? imageFilepath.substring(imageFilepath.lastIndexOf(".") + 1) : "png";
+                    BufferedImage exportImage = target.getImage().getCurrentImage();
+                    if (hasTransparentPixels(exportImage)) {
+                        JOptionPane.showMessageDialog(
+                                target,
+                                "We do not support this type: image contains transparent pixels.",
+                                "Unsupported Image Type",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
+
+                    ImageIO.write(exportImage, ext, new java.io.File(imageFilepath));
+                } catch (Exception ex) {
+                    System.exit(1);
+                }
             }
         }
+
+        private boolean hasTransparentPixels(BufferedImage exportImage) {
+            if (exportImage == null) {
+                return false;
+            }
+            for (int y = 0; y < exportImage.getHeight(); y++) {
+                for (int x = 0; x < exportImage.getWidth(); x++) {
+                    int pixel = exportImage.getRGB(x, y);
+                    int alpha = (pixel >> 24) & 0xff;
+                    if (alpha < 255) {
+                        return true;
+                    }
+
+                }
+            }
+
+            return false;
+        }
     }
-}   
 
 }
