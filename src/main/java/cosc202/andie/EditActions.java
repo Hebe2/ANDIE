@@ -73,25 +73,10 @@ public class EditActions {
         }
          
         @Override
-        public void actionPerformed(ActionEvent e) {
-            String input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR: "));
-            try {
-                int scaleFactor = Integer.parseInt(input);
-                if (scaleFactor < 0){
-                    JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR CANNOT BE NEGATIVE"));
-                    return;
-                }
-                //target.getImage().apply(new ImageResize(scale));
-                target.repaint();
-                target.getParent().revalidate();
-                
-                } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(null, bundle.getString("PLEASE ENTER A NUMBER"));
-                }
-            
+        public void actionPerformed(ActionEvent e) {            
 
             while (true){
-                 input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR(%): "));
+                String input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR(%): "));
                 try {
                     if (input == null){
                         return;
