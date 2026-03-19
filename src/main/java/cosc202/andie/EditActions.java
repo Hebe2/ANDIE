@@ -67,23 +67,58 @@ public class EditActions {
         return editMenu;
     }
     
+    /**
+     * <p>
+     * ImageAction to resize an image
+     * </p>
+     * @see ImageResize
+     */
     public class ResizeAction extends ImageAction {
+         /**
+         * <p>
+         * Create a new resize action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
          ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
          
+        /**
+         * <p>
+         * Callback for when the resize action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the ResizeAction is triggered. It asks the user for a scale factor 
+         * given as a percent and checks to make sure the input is between 0-300, if it is outside of this 
+         * range or is not an integer, the program informs the user of the issue and prompts them to enter
+         * an appropriate scale factor. With a valid input it resizes the given image by the scale factor. 
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {            
 
             while (true){
-                String input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR(%): "));
+                String input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR(1-300%): "));
                 try {
                     if (input == null){
                         return;
                     }
                     int scaleFactor = Integer.parseInt(input);
-                    if (scaleFactor < 0){
-                        JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR CANNOT BE NEGATIVE"));
+                    if (scaleFactor <= 0){
+                        JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR CANNOT BE 0 or NEGATIVE"));
+                        continue;
+                    }
+                     if (scaleFactor > 300){
+                        JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR MUST BE LESS THAN OR EQUAL TO 300"));
                         continue;
                     }
                     target.getImage().apply(new ImageResize(scaleFactor));

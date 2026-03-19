@@ -8,28 +8,40 @@ import java.awt.image.BufferedImage;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
- *
+ *<p>
+ * ImageOperation to apply the threshold conversion to an image
+ * </p>
+ * 
+ * * <p>
+ * This operation takes in an image and passes the threshold conversion to it, returning the modified image 
+ * </p>
+ * 
  * @author timnanevo
  */
 public class ImageThresholding implements ImageOperation{
     private int threshold;
  
+    /**
+     * <p>
+     * Create a new ImageThresholding operation.
+     * </p>
+     * 
+     * @param threshold the threshold by which pixels will be evaluated against, given as a number between 0-255.   
+     */
     public ImageThresholding(int threshold){
        this.threshold = threshold;
     }
     
-     /**
-     * Create a menu containing the list of Colour actions.
-     * @param input 
-     *
-     * @return 
-     */
     /**
      * <p>
-     * Apply threshold conversion to an image.
+     * Apply threshold conversion to an image. 
      * </p>
      *
-     * @param input The image to be converted with threshold
+     * <p>
+     * This conversion turns all pixels below the inputted threshold black and all pixels above the inputted threshold white
+     * <p>
+     * 
+     * @param input The image to be converted 
      * @return BufferedImage of input with threshold color changes applied
      */
     @Override
