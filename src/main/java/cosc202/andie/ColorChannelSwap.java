@@ -50,14 +50,17 @@ public class ColorChannelSwap implements ImageOperation {
                     newBlue = blue;
 
                 } else if (order.equals("GBR")) {
+                    newRed = blue;
+                    newGreen = red;
+                    newBlue = green;
+                    
+                    
+                } else if (order.equals("BRG")) {
                     newRed = green;
                     newGreen = blue;
                     newBlue = red;                    
                     
-                } else if (order.equals("BRG")) {
-                    newRed = blue;
-                    newGreen = red;
-                    newBlue = green;
+                    
                 } else if (order.equals("BGR")) {
                     newRed = blue;
                     newGreen = green;
