@@ -127,6 +127,12 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
+            
+            //disable typing
+            JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) radiusSpinner.getEditor();
+            editor.getTextField().setEditable(false);
+            
+            
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER FILTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -174,15 +180,16 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER GAUSSIAN FILTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
+            //disable text editing
             ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
-            
+            //((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setFocusable(false);
             //wrap panel to increase size
             JPanel panel = new JPanel();
             panel.add(radiusSpinner);
             panel.setPreferredSize(new Dimension(170, 50));
-             option = JOptionPane.showOptionDialog(null, panel, "Select Gaussian filter radius(1-10)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER FILTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
