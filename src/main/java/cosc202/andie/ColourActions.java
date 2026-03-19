@@ -199,8 +199,8 @@ public class ColourActions {
 
             String choice = (String) JOptionPane.showInputDialog(
                     null,
-                    "Choose channel order: ",
-                    "Color channel swap",
+                    bundle.getString("CHOOSE CHANNEL ORDER: "),
+                    bundle.getString("COLOR CHANNEL SWAP"),
                     JOptionPane.QUESTION_MESSAGE,
                     null,
                     options,
