@@ -1,18 +1,23 @@
-## Getting Started
+Team Name: Immortal Jellyfish
+Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+User Guide
 
-## Folder Structure
+Edit Operations
+ImageResize: Once an image is uploaded, click on the edit menu at the top bar, then resize. A pop up will appear asking to give a scale factor as a percent. Enter any integer between 1 and 300 and click ok.
 
-The workspace contains two folders by default, where:
+Color Operations
+ImageThresholding: Once an image is uploaded, click on colour on the top bar, then threshold. Enter any integer between 0 and 255 and click ok.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
-## Dependency Management
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+Requirements
+A brief user guide of how to operate the application including each new feature that
+was added.
+• A description of how the system was tested.
+• A description of any known bugs or other problems that the user may encounter.
+• A description of any significant refactoring (if any) that has been done to the ANDIE
+project beyond the features that were added.
