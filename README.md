@@ -41,7 +41,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## Settings
 
-**LanguageChange:** If you'd like to switch the language, head to Settings, and it will drop down with the option of Englishor German. Click your preferred language, and a pop-up will appear letting you know you need to restart ANDIE for the change to take effect. Once you reopen ANDIE, the language will have changed. You can do the same thing to switch back anytime.
+**LanguageChange:** If you'd like to switch the language, head to **Settings** — it will drop down with the option of **English** or **German**. Click your preferred language and a pop-up will appear letting you know you need to restart ANDIE for the change to take effect. Once you reopen ANDIE, the language will have changed. You can do the same thing to switch back anytime.
 
 ## Extra Features
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
