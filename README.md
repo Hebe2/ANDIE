@@ -9,13 +9,15 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Flip-Horizontal**
 
+**Flip-Vertical**
+
 ## Color Operations
 
 **ImageThresholding:** Once an image is uploaded, click on colour on the top bar, then threshold. Enter any integer between 0 and 255 and click ok.
 
 **GreyScale**
 
-**Inversion**
+**Inversion** Once image is uploaded, click colour on the top bar, then Inversion. Image will then be inverted.
 
 **Color Channel Swapping** 
 
@@ -25,19 +27,20 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## Filter Operations
 
-**MedianFilter** Once your image is uploaded, click Filter on the menu bar and select Median Filter. Each time you click it, the filter will be applied again.Keep clicking until you're happy with the result.
+**MedianFilter** Once your image is uploaded, click Filter on the menu bar and select Median Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
 
-**SharpenFilter**
+**SharpenFilter** Once your image is uploaded, click Filter on the menu bar and select Sharpen Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
 
 **GaussianFilter**
 
 ## Rotate Operations
 
-**90degreesClockwise:**
+**90degreesClockwise:** Once your image is uploaded, click Rotate on the menu bar and select 90° clockwise. Each time you click it, the image will rotate again.
 
-**90degreesAntieClockwise:**
+**90degreesAntiClockwise:**  Once your image is uploaded, click Rotate on the menu bar and select 90° anticlockwise. Each time you click it, the image will rotate again.
 
-**180 rotate:** 
+**180 rotate:**  Once your image is uploaded, click Rotate on the menu bar and select 180° rotate. Each time you click it, the image will rotate again.
+
 
 ## Settings
 
