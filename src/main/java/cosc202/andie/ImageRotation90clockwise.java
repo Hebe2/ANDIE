@@ -13,7 +13,21 @@ import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
 
 public class ImageRotation90clockwise implements ImageOperation{
-
+    
+    /**
+     * <p>
+     * Apply a 90 degree clockwise rotation to an image.
+     * </p>
+     *
+     * <p>
+     * The image is rotated 90 degrees clockwise about its centre point.
+     * The output image has its width and height swapped relative to the input
+     * to accommodate the rotated content.
+     * </p>
+     *
+     * @param input The image to rotate.
+     * @return The resulting (rotated 90° clockwise) image.
+     */
     public BufferedImage apply(BufferedImage input) {
         
         
