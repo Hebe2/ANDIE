@@ -9,7 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- *
+ * Provides language settings actions for the ANDIE menu.
  * @author manuella
  */
 public class SettingAction {
@@ -17,6 +17,10 @@ public class SettingAction {
  private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     protected ArrayList<Action> actions;
+    
+     /**
+     * Initialises the settings menu with available language options.
+     */
 
     public SettingAction() {
         actions = new ArrayList<>();
@@ -25,6 +29,10 @@ public class SettingAction {
        
     }
 
+        /**
+     * Builds and returns the settings JMenu.
+     * @return the populated settings menu
+     */
     public JMenu createMenu() {
         JMenu settingsMenu = new JMenu(bundle.getString("SETTINGS"));
         for (Action action : actions) {
@@ -33,6 +41,9 @@ public class SettingAction {
         return settingsMenu;
     }
 
+    /**
+     * Action to switch the application language to English.
+     */
     public class SetEnglishAction extends AbstractAction {
         SetEnglishAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon);
@@ -44,6 +55,7 @@ public class SettingAction {
         }
     }
 
+     /** Sets language to English and prompts the user to restart. */
     public class SetGermanAction extends AbstractAction {
         SetGermanAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon);
