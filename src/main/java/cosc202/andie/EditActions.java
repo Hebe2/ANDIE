@@ -237,11 +237,34 @@ public class EditActions {
     }
 
     public class HorizontalFlipAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new resize action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
 
         HorizontalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the redo action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the RedoAction is triggered. It redoes
+         * the most recently undone operation.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!imageCheck()) {
@@ -254,11 +277,34 @@ public class EditActions {
     }
 
     public class VerticalFlipAction extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new resize action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
 
         VerticalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
+        /**
+         * <p>
+         * Callback for when the redo action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the RedoAction is triggered. It redoes
+         * the most recently undone operation.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!imageCheck()) {

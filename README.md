@@ -49,6 +49,8 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 ## Extra Features
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
 
+**Heads up:**
+
 --remove once everyone has done their stuff-- 
 
 Requirements
