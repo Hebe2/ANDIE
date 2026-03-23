@@ -271,7 +271,7 @@ public class EditActions {
     }
         public static boolean imageCheck() {
             if (!target.getImage().hasImage()) {
-                JOptionPane.showMessageDialog(target, "Please open an image");
+                JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));
                 return false;
             }
             return true;
