@@ -12,12 +12,28 @@ import java.awt.image.BufferedImage;
  * @author habebebebe
  */
 public class ColorChannelSwap implements ImageOperation {
+    /**
+     * The target channel order, e.g. {@code "RGB"}, {@code "BGR"}, {@code "GRB"}, etc.
+     * Must be one of the six permutations of R, G, and B.
+     */
 
+    
+    /** The channel order, e.g. {@code "BGR"} or {@code "GRB"}. */
     private String order;
-
+    
+    /**
+     * @param order the RGB permutation to apply (e.g. {@code "BGR"}, {@code "GRB"})
+     */
     public ColorChannelSwap(String order) {
         this.order = order;
     }
+    
+    /**
+     * Applies the channel swap to the image in place, preserving alpha.
+     *
+     * @param input the image to modify
+     * @return the modified image
+     */
 
     @Override
     public BufferedImage apply(BufferedImage input) {

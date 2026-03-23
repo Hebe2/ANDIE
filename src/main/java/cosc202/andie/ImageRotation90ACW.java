@@ -9,10 +9,34 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 /**
+ * <p>
+ * Rotates an image 90 degrees anticlockwise.
+ * </p>
  *
- * @author hebebebebe
+ * <p>
+ * The rotation is performed using an {@link AffineTransform} applied with a
+ * {@link Graphics2D} context. The output image result image 
+*swap dimensions - width becomes height, height becomes width
+ * </p>
+ * 
+ * @author leuhe253
  */
 public class ImageRotation90ACW implements ImageOperation{
+    
+    /**
+     * <p>
+     * Apply a 90 degree anticlockwise rotation to an image.
+     * </p>
+     *
+     * <p>
+     * The image is rotated 90 degrees anticlockwise about its centre point.
+     * The output image has its width and height swapped relative to the input
+     * to accommodate the rotated content.
+     * </p>
+     *
+     * @param input The image to rotate.
+     * @return The resulting (rotated 90° anticlockwise) image.
+     */
     public BufferedImage apply(BufferedImage input) {
         
         
