@@ -70,15 +70,23 @@ Checked that entering invalid user inputs for Guassian Filter, Mean Filter, Thre
 **Testing Image** 
 The testing image was used to check proper color swapping and that the alpha channel was not thrown away.
 
-##Bugs and refactoring
+## Bugs and refactoring
 no known bugs or problems exist and no signficant refactoring was done to ANDIE
 
 
 
-Requirements
-A brief user guide of how to operate the application including each new feature that
-was added.
-• A description of how the system was tested.
-• A description of any known bugs or other problems that the user may encounter.
-• A description of any significant refactoring (if any) that has been done to the ANDIE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 project beyond the features that were added.
