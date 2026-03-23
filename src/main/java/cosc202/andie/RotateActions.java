@@ -12,8 +12,16 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 /**
+ * <p>
+ * Actions provided by the Rotate menu.
+ * </p>
  *
- * @author hebebebebe
+ * <p>
+ * The Rotate menu contains actions that rotate the image by a given angle.
+ * This includes 90 degrees clockwise, 90 degrees anticlockwise, and 180 degrees.
+ * </p>
+ *
+ * @author leuhe253
  */
 public class RotateActions {
 
@@ -43,7 +51,7 @@ public class RotateActions {
      * Create a menu containing the list of Rotate actions.
      * </p>
      *
-     * @return The filter menu UI element.
+     * @return The rotate menu UI element.
      */
     public JMenu createMenu() {
         JMenu rotateMenu = new JMenu(bundle.getString("ROTATE"));
@@ -90,7 +98,7 @@ public class RotateActions {
 
     /**
      * <p>
-     * Action to rotate image anticlockwise.
+     * Action to rotate image 90° anticlockwise.
      * </p>
      *
      */
@@ -102,7 +110,7 @@ public class RotateActions {
 
         /**
          * <p>
-         * Callback for when the rotate anticlockwise action is triggered.
+         * Callback for when the rotate 90° anticlockwise action is triggered.
          * </p>
          *
          * <p>
@@ -123,7 +131,7 @@ public class RotateActions {
 
     /**
      * <p>
-     * Action to rotate image clockwise.
+     * Action to rotate 90° image clockwise.
      * </p>
      *
      */
@@ -131,7 +139,7 @@ public class RotateActions {
 
         /**
          * <p>
-         * Create a rotate clockwise action.
+         * Create a rotate 90° clockwise action.
          * </p>
          *
          * @param name The name of the action (ignored if null).
@@ -146,7 +154,7 @@ public class RotateActions {
 
         /**
          * <p>
-         * Callback for when the rotate clockwise action is triggered.
+         * Callback for when the rotate 90° clockwise action is triggered.
          * </p>
          *
          * <p>
