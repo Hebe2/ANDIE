@@ -45,8 +45,8 @@ public class EditActions {
         actions.add(new UndoAction(bundle.getString("UNDO"), null, bundle.getString("UNDO"), KeyEvent.VK_Z));
         actions.add(new RedoAction(bundle.getString("REDO"), null, bundle.getString("REDO"), KeyEvent.VK_Y));
         actions.add(new ResizeAction(bundle.getString("RESIZE"), null, bundle.getString("RESIZE"), KeyEvent.VK_X));
-        actions.add(new HorizontalFlipAction(bundle.getString("FLIP - HORIZONTAL"), null, bundle.getString("FLIP IMAGINE HOIZONTALLY"), KeyEvent.VK_H));
-
+        actions.add(new HorizontalFlipAction(bundle.getString("FLIP - HORIZONTAL"), null, bundle.getString("FLIP IMAGE HORIZONTALLY"), KeyEvent.VK_H));
+        actions.add(new VerticalFlipAction (bundle.getString("FLIP - VERTICAL"), null, bundle.getString("FLIP IMAGE VERTICALLY"), KeyEvent.VK_V));
         
     }
 
@@ -238,6 +238,20 @@ public class EditActions {
             target.repaint();
             target.getParent().revalidate();
         }
+    }
+    
+    public class VerticalFlipAction extends ImageAction{
+    VerticalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new VerticalFlip());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    
     }
 
 }
