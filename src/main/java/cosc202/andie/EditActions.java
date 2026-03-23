@@ -269,14 +269,29 @@ public class EditActions {
             target.getParent().revalidate();
         }
     }
-        public static boolean imageCheck() {
-            if (!target.getImage().hasImage()) {
-                JOptionPane.showMessageDialog(target, "Please open an image");
-                return false;
-            }
-            return true;
+    private static int errorCount = 0;
 
+    public static boolean imageCheck() {
+        if (!target.getImage().hasImage()) {
+            errorCount++;
+
+            if (errorCount > 3) {
+                ImageIcon meme = new ImageIcon("meme.jpg");
+                JOptionPane.showMessageDialog(
+                        target,
+                        meme,
+                        "Bro...",
+                        JOptionPane.PLAIN_MESSAGE
+                );
+            } else {
+                JOptionPane.showMessageDialog(target, "Please open an image");
+            }
+            return false;
         }
 
-    }
+        // reset once an image is opened :)
+        errorCount = 0;
+        return true;
 
+    }
+}
