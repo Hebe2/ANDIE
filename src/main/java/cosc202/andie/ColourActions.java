@@ -41,7 +41,6 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<>();
-
         actions.add(new ConvertToGreyAction(bundle.getString("GREYSCALE"), null, bundle.getString("CONVERT TO GREYSCALE"), KeyEvent.VK_G));
         actions.add(new ThresholdAction(bundle.getString("THRESHOLD"), null, bundle.getString("APPLY THRESHOLD"), KeyEvent.VK_T));
         actions.add(new InversionAction(bundle.getString("INVERSION"), null, bundle.getString("APPLY INVERSION"), KeyEvent.VK_I));
@@ -65,12 +64,42 @@ public class ColourActions {
         return fileMenu;
     }
 
+    /**
+     * <p>
+     * Action to invert an image.
+     * </p>
+     *
+     * @see ImageInversion
+     */
     private static class InversionAction extends ImageAction {
-
+        
+        /**
+         * <p>
+         * Create a new invert image action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
         public InversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
+        
+        /**
+         * <p>
+         * Callback for when the invert image action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the InversionAction is triggered.
+         * It inverts the image.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             if(!imageCheck()){
@@ -90,9 +119,10 @@ public class ColourActions {
      * @see ImageThresholding
      */
     public class ThresholdAction extends ImageAction {
-         /**
+        
+        /**
          * <p>
-         * Create a new resize action.
+         * Create a new threshold image action.
          * </p>
          *
          * @param name The name of the action (ignored if null).
@@ -195,13 +225,37 @@ public class ColourActions {
         }
 
     }
-
+    
+    
     private static class ColorChannelSwapAction extends ImageAction {
-
+        
+         /**
+         * <p>
+         * Create a new color channel swap action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
         public ColorChannelSwapAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
+        
+        /**
+         * <p>
+         * Callback for when the Color channel swap action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the ColorChannelSwapAction is triggered.
+         * It changes the image color channels.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             if(!imageCheck()){
