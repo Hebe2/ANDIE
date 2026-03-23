@@ -14,7 +14,7 @@ import javax.swing.*;
  * <p>
  * The Colour menu contains actions that affect the colour of each pixel
  * directly without reference to the rest of the image. This includes conversion
- * to greyscale in the sample code, but more operations will need to be added.
+ * to greyscale in the sample code, threshold, invert image and colour channel swap.
  * </p>
  *
  * <p>
