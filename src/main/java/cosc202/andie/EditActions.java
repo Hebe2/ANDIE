@@ -269,6 +269,7 @@ public class EditActions {
             target.getParent().revalidate();
         }
     }
+
     private static int errorCount = 0;
 
     public static boolean imageCheck() {
