@@ -39,7 +39,7 @@ public class ImageThresholding implements ImageOperation{
      *
      * <p>
      * This conversion turns all pixels below the inputted threshold black and all pixels above the inputted threshold white
-     * <p>
+     * </p>
      * 
      * @param input The image to be converted 
      * @return BufferedImage of input with threshold color changes applied
