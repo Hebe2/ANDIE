@@ -7,9 +7,9 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **ImageResize** Once an image is uploaded, click on the edit menu at the top bar, then resize. A pop up will appear asking to give a scale factor as a percent. Enter any integer between 1 and 300 and click ok.
 
-**Flip-Horizontal**
+**Flip-Horizontal** Once an image is uploaded, click on Edit from the menu bar and select Flip - Horizontal to flip your image horizontally.  
 
-**Flip-Vertical**
+**Flip-Vertical** Once an image is uploaded, click on Edit from the menu bar and select Flip - Vertical to flip your image vertically.  
 
 ## Color Operations
 
@@ -19,7 +19,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Inversion** Once image is uploaded, click colour on the top bar, then Inversion. Image will then be inverted.
 
-**Color Channel Swapping** 
+**Color Channel Swapping**  Once your image is uploaded, click Colour from the menu bar and select Color Channel Swap. A window with a dropdown menu will appear and you can click on the arrow to pick which color channels you'd like to swap. 
 
 ## File Operations
 
@@ -31,7 +31,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **SharpenFilter** Once your image is uploaded, click Filter on the menu bar and select Sharpen Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
 
-**GaussianFilter**
+**GaussianFilter** Once your image is uploaded, click Filter on the menu bar and select Gaussian Filter. Press the up or down arrows to adjust the radius to your liking.
 
 ## Rotate Operations
 
@@ -48,6 +48,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## Extra Features
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
+
 
 **Heads up:**
 

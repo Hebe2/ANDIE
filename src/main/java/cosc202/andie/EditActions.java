@@ -1,6 +1,5 @@
 package cosc202.andie;
 
-import static cosc202.andie.ColourActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
 import java.util.*;
 import java.awt.event.*;
@@ -114,18 +113,18 @@ public class EditActions {
                 return;
             }
             while (true) {
-                String input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR(1-300%): "));
+                String input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR: "));
                 try {
                     if (input == null) {
                         return;
                     }
                     int scaleFactor = Integer.parseInt(input);
                     if (scaleFactor <= 0) {
-                        JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR CANNOT BE 0 or NEGATIVE"));
+                        JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR CANNOT BE NEGATIVE"));
                         continue;
                     }
                     if (scaleFactor > 300) {
-                        JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR MUST BE LESS THAN OR EQUAL TO 300"));
+                        JOptionPane.showMessageDialog(null, bundle.getString("SCALE FACTOR TOO LARGE"));
                         continue;
                     }
                     target.getImage().apply(new ImageResize(scaleFactor));
