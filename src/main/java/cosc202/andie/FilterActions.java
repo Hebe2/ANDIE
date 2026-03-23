@@ -1,5 +1,7 @@
 package cosc202.andie;
 
+import static cosc202.andie.ColourActions.imageCheck;
+import static cosc202.andie.ImageAction.target;
 import java.awt.Dimension;
 import java.util.*;
 import java.awt.event.*;
@@ -43,7 +45,6 @@ public class FilterActions {
         actions = new ArrayList<>();
 
         actions.add(new MeanFilterAction(bundle.getString("MEAN FILTER"), null, bundle.getString("APPLY A MEAN FILTER"), KeyEvent.VK_M));
-
         actions.add(new SharpenAction(bundle.getString("SHARPEN FILTER"), null, bundle.getString("APPLY A SHARPEN FILTER"), KeyEvent.VK_S));
         actions.add(new MedianFilterAction(bundle.getString("MEDIAN FILTER"), null, bundle.getString("APPLY A MEDIAN FILTER"), KeyEvent.VK_D));
         actions.add(new GaussianFilterAction(bundle.getString("GAUSSIAN FILTER"), null, bundle.getString("APPLY A GAUSSIAN BLUR FILTER"), KeyEvent.VK_G));
@@ -58,6 +59,9 @@ public class FilterActions {
             }
 
             public void actionPerformed(ActionEvent e) {
+                if(!imageCheck()){
+                return;
+            }
                 target.getImage().apply(new MedianFilter());
                 target.repaint();
                 target.getParent().revalidate();
@@ -120,7 +124,9 @@ public class FilterActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if(!imageCheck()){
+                return;
+            }
             // Determine the radius - ask the user.
             int radius = 1;
 
@@ -159,6 +165,9 @@ public class FilterActions {
         
         @Override
         public void actionPerformed(ActionEvent e){
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().apply(new SharpenFilter());
             target.repaint();
             target.getParent().revalidate();
@@ -173,7 +182,9 @@ public class FilterActions {
             
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if(!imageCheck()){
+                return;
+            }
             // Determine the radius - ask the user.
             int radius = 1;
 
@@ -200,10 +211,17 @@ public class FilterActions {
 
             // Create and apply the filter
             target.getImage().apply(new GaussianFilter(radius));
-
             target.repaint();
             target.getParent().revalidate();
         }
+    }
+    
+    public static boolean imageCheck(){
+        if (!target.getImage().hasImage()){
+            JOptionPane.showMessageDialog(target, "Please open an image" );
+            return false;
+        }
+        return true;
     }
 }
 

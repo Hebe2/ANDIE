@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import static cosc202.andie.EditActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
 import java.util.*;
 import java.awt.event.*;
@@ -72,7 +73,9 @@ public class ColourActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().apply(new ImageInversion());
             target.repaint();
             target.getParent().revalidate();
@@ -118,6 +121,9 @@ public class ColourActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!imageCheck()){
+                return;
+            }
             while (true) {
                 String input = JOptionPane.showInputDialog("Enter threshold value between 0-255: ");
                 if (input == null) {
@@ -180,6 +186,9 @@ public class ColourActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().apply(new ConvertToGrey());
             target.repaint();
             target.getParent().revalidate();
@@ -195,6 +204,9 @@ public class ColourActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!imageCheck()){
+                return;
+            }
             String[] options = {"RGB","RBG", "GRB", "GBR", "BRG", "BGR"};
 
             String choice = (String) JOptionPane.showInputDialog(
@@ -213,6 +225,14 @@ public class ColourActions {
                 target.getParent().revalidate();
             }
         }
+    }
+    
+    public static boolean imageCheck(){
+        if (!target.getImage().hasImage()){
+            JOptionPane.showMessageDialog(target, "Please open an image" );
+            return false;
+        }
+        return true;
     }
 
 }

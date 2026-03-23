@@ -4,6 +4,8 @@
  */
 package cosc202.andie;
 
+import static cosc202.andie.FilterActions.imageCheck;
+import static cosc202.andie.ImageAction.target;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -77,7 +79,9 @@ public class RotateActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().apply(new ImageRotation180());
             target.repaint();
             target.getParent().revalidate();
@@ -108,7 +112,9 @@ public class RotateActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().apply(new ImageRotation90ACW());
             target.repaint();
             target.getParent().revalidate();
@@ -151,11 +157,21 @@ public class RotateActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().apply(new ImageRotation90clockwise());
             target.repaint();
             target.getParent().revalidate();
         }
 
+    }
+    
+    public static boolean imageCheck(){
+        if (!target.getImage().hasImage()){
+            JOptionPane.showMessageDialog(target, "Please open an image" );
+            return false;
+        }
+        return true;
     }
 }

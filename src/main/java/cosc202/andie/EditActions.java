@@ -1,5 +1,7 @@
 package cosc202.andie;
 
+import static cosc202.andie.ColourActions.imageCheck;
+import static cosc202.andie.ImageAction.target;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -105,7 +107,9 @@ public class EditActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {            
-
+            if(!imageCheck()){
+                return;
+            }
             while (true){
                 String input = JOptionPane.showInputDialog(bundle.getString("ENTER SCALE FACTOR(1-300%): "));
                 try {
@@ -173,6 +177,9 @@ public class EditActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().undo();
             target.repaint();
             target.getParent().revalidate();
@@ -217,6 +224,9 @@ public class EditActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().redo();
             target.repaint();
             target.getParent().revalidate();
@@ -234,10 +244,21 @@ public class EditActions {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!imageCheck()){
+                return;
+            }
             target.getImage().apply(new HorizontalFlip());
             target.repaint();
             target.getParent().revalidate();
         }
+    }
+    
+    public static boolean imageCheck(){
+        if (!target.getImage().hasImage()){
+            JOptionPane.showMessageDialog(target, "Please open an image" );
+            return false;
+        }
+        return true;
     }
 
 }
