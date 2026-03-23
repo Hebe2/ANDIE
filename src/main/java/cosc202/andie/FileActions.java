@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -105,6 +106,20 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (target.getImage().hasUnsavedChanges()) {
+        int result = JOptionPane.showConfirmDialog(
+            target,
+            bundle.getString("UNSAVED CHANGES MESSAGE"),
+            bundle.getString("UNSAVED CHANGES TITLE"),
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+        if (result == JOptionPane.YES_OPTION) {
+            try { target.getImage().save(); } catch (Exception ex) {}
+        } else if (result == JOptionPane.CANCEL_OPTION) {
+            return;
+        }
+    }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
@@ -208,6 +223,7 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
@@ -228,7 +244,7 @@ public class FileActions {
      * Action to quit the ANDIE application.
      * </p>
      */
-    public class FileExitAction extends AbstractAction {
+    public class FileExitAction extends ImageAction {
 
         /**
          * <p>
@@ -242,9 +258,8 @@ public class FileActions {
          * null).
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon);
-            putValue(SHORT_DESCRIPTION, desc);
-            putValue(MNEMONIC_KEY, mnemonic);
+            super(name, icon, desc, mnemonic);
+           
         }
 
         /**
@@ -261,8 +276,25 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+        if (target.getImage().hasUnsavedChanges()) {
+            int result = JOptionPane.showConfirmDialog(
+                target,
+                bundle.getString("UNSAVED CHANGES MESSAGE"),
+                bundle.getString("UNSAVED CHANGES TITLE"),
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+            if (result == JOptionPane.YES_OPTION) {
+                try { target.getImage().save(); } catch (Exception ex) {}
+                System.exit(0);
+            } else if (result == JOptionPane.NO_OPTION) {
+                System.exit(0);
+            }
+           
+        } else {
             System.exit(0);
         }
+    }
 
     }
     /**
@@ -354,5 +386,7 @@ public class FileActions {
             return false;
         }
     }
+    
+    
 
 }
