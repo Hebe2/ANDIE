@@ -60,14 +60,14 @@ public class LanguageUtil {
 	private static void loadBundle() {
 		// load language properties from file
 		try {
-			languageProperties.load(new FileReader("language.properties")); // NOI18N
+			languageProperties.load(new FileReader("language.properties")); 
 		} catch (IOException ex) {
 			Logger.getLogger(LanguageUtil.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 		// get region and language from properties (using NZ and en as defaults if no properties exist)
-		String region = languageProperties.getProperty("region", "NZ"); // NOI18N
-		String language = languageProperties.getProperty("language", "en"); // NOI18N
+		String region = languageProperties.getProperty("region", "NZ"); 
+		String language = languageProperties.getProperty("language", "en"); 
 
 		// create locale from region/language
 		Locale locale = new Locale.Builder()
@@ -76,7 +76,7 @@ public class LanguageUtil {
 			 .build();
 
 		// load bundle for locale
-		bundle = ResourceBundle.getBundle("Bundle", locale); // NOI18N
+		bundle = ResourceBundle.getBundle("Bundle", locale); 
 	}
 
 	/**
@@ -90,12 +90,12 @@ public class LanguageUtil {
 	 */
 	public static void setLanguage(String region, String language) {
 		// store region/language in properties
-		languageProperties.setProperty("region", region); // NOI18N
-		languageProperties.setProperty("language", language); // NOI18N
+		languageProperties.setProperty("region", region); 
+		languageProperties.setProperty("language", language); 
 
 		// write properties to file
 		try {
-			languageProperties.store(new FileWriter("language.properties"), null); // NOI18N
+			languageProperties.store(new FileWriter("language.properties"), null); 
 		} catch (IOException ex) {
 			Logger.getLogger(LanguageUtil.class.getName()).log(Level.SEVERE, null, ex);
 		}
