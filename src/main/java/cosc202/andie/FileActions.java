@@ -265,13 +265,40 @@ public class FileActions {
         }
 
     }
-
+    /**
+     * <p>
+     * File Export Action to export image 
+     * </p>
+     */
     public class FileExportAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new file-save action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
 
         FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+         /**
+         * <p>
+         * Callback for when the file-exit action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the FileExitAction is triggered. It
+         * quits the program.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
@@ -300,6 +327,15 @@ public class FileActions {
             }
         }
 
+        
+       
+    /**
+ * Checks whether the given image contains any transparent or semi-transparent pixels.
+ *
+ * @param exportImage the {@link BufferedImage} to check for transparency
+ * @return {@code true} if any pixel has an alpha value less than 255, {@code false} otherwise
+ *         or if the image is {@code null}
+ */
         private boolean hasTransparentPixels(BufferedImage exportImage) {
             if (exportImage == null) {
                 return false;
