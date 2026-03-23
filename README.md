@@ -5,7 +5,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## Edit Operations
 
-**ImageResize** Once an image is uploaded, click on the edit menu at the top bar, then resize. A pop up will appear asking to give a scale factor as a percent. Enter any integer between 1 and 300 and click ok.
+**ImageResize** Once an image is uploaded, click on the edit menu at the top bar, then resize. A pop up will appear asking to give a scale factor as a percent. Enter any integer between 1 and 300 and click ok. If the integer is outside of the range or not an integer, the computer will explain the issue. Then click ok and you will be prompted to enter an integer again.
 
 **Flip-Horizontal**
 
@@ -13,7 +13,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## Color Operations
 
-**ImageThresholding:** Once an image is uploaded, click on colour on the top bar, then threshold. Enter any integer between 0 and 255 and click ok.
+**ImageThresholding:** Once an image is uploaded, click on colour on the top bar, then threshold. Enter any integer between 0 and 255 and click ok. If the input is outside of the range or not an integer, the computer will explain the issue. Then click ok and you will be prompted to enter an integer again.
 
 **GreyScale**
 
@@ -51,7 +51,25 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Heads up:**
 
---remove once everyone has done their stuff-- 
+## Testing
+**Unit Test** a unit test to ensure the ImageResize operation worked after doubling and halving an image
+
+**Visual** 
+**General Images**
+Checked that entering invalid user inputs for Guassian Filter, Mean Filter, Threshold, or Resize is either not possible, or prompts the user to try again after explaining the issue. Tested that pop-ups show up when the user tries to change an image before something has been uploaded. Checked that rotations and flips did the desired action on the image. Checked that all settings, filters and pop-ups turn german when the setting is switched to german.
+**Testing Image** 
+The testing image was used to check proper color swapping and that the alpha channel was not thrown away.
+
+##Bugs and refactoring
+no known bugs or problems exist and no signficant refactoring was done to ANDIE
+
+--remove once everyone has done their stuff--
+• A brief user guide of how to operate the application including each new feature that
+was added.
+• A description of how the system was tested.
+• A description of any known bugs or other problems that the user may encounter.
+• A description of any significant refactoring (if any) that has been done to the ANDIE
+project beyond the features that were added. 
 
 Requirements
 A brief user guide of how to operate the application including each new feature that

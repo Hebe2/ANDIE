@@ -7,12 +7,33 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 
 /**
+ * <p>
+ * Inverts the colours of an image.
+ * </p>
  *
- * @author hebebebebe
+ * <p>
+ * Image inversion works by subtracting each RGB channel value from 255,
+ * effectively replacing each pixel with its complementary colour. The alpha
+ * channel is left unchanged.
+ * </p>
+ *
+ * @author leuhe253
  */
 public class ImageInversion implements ImageOperation{
 
-
+    /**
+     * <p>
+     * Apply colour inversion to an image.
+     * </p>
+     *
+     * <p>
+     * Each pixel's red, green, and blue channel values are subtracted from 255.
+     * The operation is applied in-place and the result image is returned.
+     * </p>
+     *
+     * @param input The image to apply inversion to.
+     * @return The resulting (inverted) image.
+     */
     @Override
     public BufferedImage apply(BufferedImage input) {
         int w = input.getWidth();

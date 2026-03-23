@@ -47,7 +47,7 @@ public class ImageResize implements ImageOperation{
      * is used to translate the pixels to the new image size. 
      * </p>
      *
-     * @param input The image to be resize
+     * @param input The image to be resized
      * @return new BufferedImage as a newly resized image of input.
      */
     @Override
@@ -57,7 +57,7 @@ public class ImageResize implements ImageOperation{
         int newWidth = (int)(input.getWidth() * scale);
         int newHeight = (int)(input.getHeight() * scale);
         
-        BufferedImage output = new BufferedImage(newWidth, newHeight, input.getType());
+        BufferedImage output = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
         
         AffineTransform transform = new AffineTransform();
         transform.scale(scale, scale);
