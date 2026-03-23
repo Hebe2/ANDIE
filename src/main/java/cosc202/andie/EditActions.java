@@ -235,6 +235,13 @@ public class EditActions {
         }
 
     }
+    /**
+     * <p>
+     * HorizontalFlipAction flips the image 
+     * </p>
+     *
+     * @see ImageResize
+     */
 
     public class HorizontalFlipAction extends ImageAction {
         /**
@@ -276,6 +283,13 @@ public class EditActions {
         }
     }
 
+    /**
+     * <p>
+     * VerticalFlipAction flips the image vertically 
+     * </p>
+     *
+     * @see ImageResize
+     */
     public class VerticalFlipAction extends ImageAction {
         
         /**
