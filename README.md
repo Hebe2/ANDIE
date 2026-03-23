@@ -5,21 +5,21 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## Edit Operations
 
-**ImageResize** Once an image is uploaded, click on the edit menu at the top bar, then resize. A pop up will appear asking to give a scale factor as a percent. Enter any integer between 1 and 300 and click ok.
+**ImageResize** Once an image is uploaded, click on the edit menu at the top bar, then resize. A pop up will appear asking to give a scale factor as a percent. Enter any integer between 1 and 300 and click ok. If the integer is outside of the range or not an integer, the computer will explain the issue. Then click ok and you will be prompted to enter an integer again.
 
-**Flip-Horizontal** Once an image is uploaded, click on Edit from the menu bar and select Flip - Horizontal to flip your image horizontally.  
+**Flip-Horizontal**
 
-**Flip-Vertical** Once an image is uploaded, click on Edit from the menu bar and select Flip - Vertical to flip your image vertically.  
+**Flip-Vertical**
 
 ## Color Operations
 
-**ImageThresholding:** Once an image is uploaded, click on colour on the top bar, then threshold. Enter any integer between 0 and 255 and click ok.
+**ImageThresholding:** Once an image is uploaded, click on colour on the top bar, then threshold. Enter any integer between 0 and 255 and click ok. If the input is outside of the range or not an integer, the computer will explain the issue. Then click ok and you will be prompted to enter an integer again.
 
 **GreyScale**
 
 **Inversion** Once image is uploaded, click colour on the top bar, then Inversion. Image will then be inverted.
 
-**Color Channel Swapping**  Once your image is uploaded, click Colour from the menu bar and select Color Channel Swap. A window with a dropdown menu will appear and you can click on the arrow to pick which color channels you'd like to swap. 
+**Color Channel Swapping** 
 
 ## File Operations
 
@@ -31,7 +31,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **SharpenFilter** Once your image is uploaded, click Filter on the menu bar and select Sharpen Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
 
-**GaussianFilter** Once your image is uploaded, click Filter on the menu bar and select Gaussian Filter. Press the up or down arrows to adjust the radius to your liking.
+**GaussianFilter**
 
 ## Rotate Operations
 
@@ -49,10 +49,27 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 ## Extra Features
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
 
-
 **Heads up:**
 
---remove once everyone has done their stuff-- 
+## Testing
+**Unit Test** a unit test to ensure the ImageResize operation worked after doubling and halving an image
+
+**Visual** 
+**General Images**
+Checked that entering invalid user inputs for Guassian Filter, Mean Filter, Threshold, or Resize is either not possible, or prompts the user to try again after explaining the issue. Tested that pop-ups show up when the user tries to change an image before something has been uploaded. Checked that rotations and flips did the desired action on the image. Checked that all settings, filters and pop-ups turn german when the setting is switched to german.
+**Testing Image** 
+The testing image was used to check proper color swapping and that the alpha channel was not thrown away.
+
+##Bugs and refactoring
+no known bugs or problems exist and no signficant refactoring was done to ANDIE
+
+--remove once everyone has done their stuff--
+• A brief user guide of how to operate the application including each new feature that
+was added.
+• A description of how the system was tested.
+• A description of any known bugs or other problems that the user may encounter.
+• A description of any significant refactoring (if any) that has been done to the ANDIE
+project beyond the features that were added. 
 
 Requirements
 A brief user guide of how to operate the application including each new feature that
