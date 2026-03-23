@@ -20,8 +20,8 @@ public class SettingAction {
 
     public SettingAction() {
         actions = new ArrayList<>();
-        actions.add(new SetEnglishAction("English", null, bundle.getString("SWITCH TO ENGLISH"), null));
-        actions.add(new SetGermanAction("German", null, bundle.getString("SWITCH TO GERMAN"), null));
+        actions.add(new SetEnglishAction("English", null, bundle.getString("ENGLISH"), null));
+        actions.add(new SetGermanAction("German", null, bundle.getString("GERMAN"), null));
     }
 
     public JMenu createMenu() {
