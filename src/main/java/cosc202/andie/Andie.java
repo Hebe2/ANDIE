@@ -3,12 +3,6 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
-//hebe
-//HiAndie
-//andie3
-//koiii
-//ANDIE
-//destructive
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
@@ -51,6 +45,8 @@ public class Andie {
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
+     * @see RotateActions
+     * @see SettingActions
      *
      * @throws Exception if something goes wrong.
      */
@@ -91,8 +87,13 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
         
+        // Rotate the images 90 degrees clockwise
         RotateActions rotateActions = new RotateActions();
         menuBar.add(rotateActions.createMenu());
+        
+        // Settings to change language, english and german
+        SettingAction settingActions = new SettingAction();
+        menuBar.add(settingActions.createMenu());
 
 
         frame.setJMenuBar(menuBar);

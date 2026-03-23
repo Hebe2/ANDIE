@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.image.*;
 import javax.imageio.*;
 
-
 /**
  * <p>
  * Actions provided by the File menu.
@@ -28,6 +27,9 @@ import javax.imageio.*;
  */
 public class FileActions {
 
+    //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+    private static ResourceBundle bundle = LanguageUtil.getBundle();
+
     /**
      * A list of actions for the File menu.
      */
@@ -40,12 +42,12 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<>();
-        actions.add(new FileOpenAction("Open", null, "Open a file", KeyEvent.VK_O));
-        actions.add(new FileSaveAction("Save", null, "Save the file", KeyEvent.VK_S));
-        actions.add(new FileSaveAsAction("Save As", null, "Save a copy", KeyEvent.VK_A));
-        actions.add(new FileExitAction("Exit", null, "Exit the program", 0));
-        actions.add(new FileExportAction("Export", null, "Export the image", KeyEvent.VK_E));
-                
+        actions.add(new FileOpenAction(bundle.getString("OPEN"), null, bundle.getString("OPEN A FILE"), KeyEvent.VK_O));
+        actions.add(new FileSaveAction(bundle.getString("SAVE"), null, bundle.getString("SAVE THE FILE"), KeyEvent.VK_S));
+        actions.add(new FileSaveAsAction(bundle.getString("SAVE AS"), null, bundle.getString("SAVE A COPY"), KeyEvent.VK_A));
+        actions.add(new FileExitAction(bundle.getString("EXIT"), null, bundle.getString("EXIT THE PROGRAM"), 0));
+        actions.add(new FileExportAction(bundle.getString("EXPORT"), null, bundle.getString("EXPORT THE IMAGE"), KeyEvent.VK_E));
+
     }
 
     /**
@@ -56,7 +58,7 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu(bundle.getString("FILE"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -263,30 +265,94 @@ public class FileActions {
         }
 
     }
-    
- public class FileExportAction extends ImageAction {
+    /**
+     * <p>
+     * File Export Action to export image 
+     * </p>
+     */
+    public class FileExportAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new file-save action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
 
-    FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-        super(name, icon, desc, mnemonic);
-    }
+        FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showSaveDialog(target);
+         /**
+         * <p>
+         * Callback for when the file-exit action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the FileExitAction is triggered. It
+         * quits the program.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showSaveDialog(target);
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            try {
-                String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                String ext = imageFilepath.contains(".") ?
-                    imageFilepath.substring(imageFilepath.lastIndexOf(".") + 1) : "png";
-                BufferedImage exportImage = target.getImage().getCurrentImage();
-                ImageIO.write(exportImage, ext, new java.io.File(imageFilepath));
-            } catch (Exception ex) {
-                System.exit(1);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    String ext = imageFilepath.contains(".")
+                            ? imageFilepath.substring(imageFilepath.lastIndexOf(".") + 1) : "png";
+                    BufferedImage exportImage = target.getImage().getCurrentImage();
+                    if (hasTransparentPixels(exportImage)) {
+                        JOptionPane.showMessageDialog(
+                                target,
+                                "We do not support this type: image contains transparent pixels.",
+                                "Unsupported Image Type",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
+
+                    ImageIO.write(exportImage, ext, new java.io.File(imageFilepath));
+                } catch (Exception ex) {
+                    System.exit(1);
+                }
             }
         }
+
+        
+       
+    /**
+ * Checks whether the given image contains any transparent or semi-transparent pixels.
+ *
+ * @param exportImage the {@link BufferedImage} to check for transparency
+ * @return {@code true} if any pixel has an alpha value less than 255, {@code false} otherwise
+ *         or if the image is {@code null}
+ */
+        private boolean hasTransparentPixels(BufferedImage exportImage) {
+            if (exportImage == null) {
+                return false;
+            }
+            for (int y = 0; y < exportImage.getHeight(); y++) {
+                for (int x = 0; x < exportImage.getWidth(); x++) {
+                    int pixel = exportImage.getRGB(x, y);
+                    int alpha = (pixel >> 24) & 0xff;
+                    if (alpha < 255) {
+                        return true;
+                    }
+
+                }
+            }
+
+            return false;
+        }
     }
-}   
 
 }
