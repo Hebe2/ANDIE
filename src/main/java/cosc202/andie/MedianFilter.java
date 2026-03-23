@@ -32,25 +32,29 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
             List<Integer> rValues = new ArrayList<>();
             List<Integer> gValues = new ArrayList<>();
             List<Integer> bValues = new ArrayList<>();
+            List<Integer> aValues = new ArrayList<>();
 
             for (int ky = -radius; ky <= radius; ky++) {
                 for (int kx = -radius; kx <= radius; kx++) {
                     int nx = Math.max(0, Math.min(x + kx, width - 1));
                     int ny = Math.max(0, Math.min(y + ky, height - 1));
                     int argb = input.getRGB(nx, ny);
+                    int a = (argb >> 24) & 0xFF;
                     rValues.add((argb >> 16) & 0xFF);
                     gValues.add((argb >> 8) & 0xFF);
                     bValues.add(argb & 0xFF);
+                    aValues.add((argb >> 24) & 0xFF);
                 }
             }
         
             Collections.sort(rValues);
             Collections.sort(gValues);
             Collections.sort(bValues);
+            Collections.sort(aValues);
 
            
             int mid = rValues.size() / 2;
-            int argb = (0xFF << 24) | (rValues.get(mid) << 16) | (gValues.get(mid) << 8) | bValues.get(mid);
+            int argb = (aValues.get(mid) << 24) | (rValues.get(mid) << 16) | (gValues.get(mid) << 8) | bValues.get(mid);
             output.setRGB(x, y, argb);
         }
     }
