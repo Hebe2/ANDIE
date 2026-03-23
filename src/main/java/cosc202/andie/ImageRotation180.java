@@ -9,12 +9,34 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 /**
+ * <p>
+ * Rotates an image 180 degrees about its centre.
+ * </p>
  *
- * @author hebebebebe
+ * <p>
+ * The rotation is performed using an {@link AffineTransform} applied with a
+ * {@link Graphics2D} context. The output image has the same dimensions and
+ * type as the input.
+ * </p>
+ * 
+ * @author leuhe253
  */
 public class ImageRotation180 implements ImageOperation{
+    
+    /**
+     * <p>
+     * Apply a 180 degree rotation to an image.
+     * </p>
+     *
+     * <p>
+     * The image is rotated at around its centre point, so the result image will
+     * appears flipped both horizontally and vertically.
+     * </p>
+     *
+     * @param input The image to rotate.
+     * @return The resulting (rotated 180°) image.
+     */
     public BufferedImage apply(BufferedImage input) {
-        
         
         int width = input.getWidth();
         int height = input.getHeight();
@@ -29,8 +51,6 @@ public class ImageRotation180 implements ImageOperation{
         double angle = Math.toRadians(180);
         AffineTransform transform = new AffineTransform();
         transform.rotate(angle, width/2, height/2);
-
-        //transform.translate(width, height);
   
         g2d.setTransform(transform);
         g2d.drawImage(input, 0, 0, null);
