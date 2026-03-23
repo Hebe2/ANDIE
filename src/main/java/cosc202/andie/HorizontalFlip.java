@@ -13,8 +13,19 @@ import cosc202.andie.ImageOperation;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+/**
+ * Flips an image horizontally (mirror along the vertical axis).
+ *
+ * 
+ */
 
 public class HorizontalFlip implements ImageOperation, java.io.Serializable {
+    /**
+     * Applies a horizontal flip to the given image.
+     *
+     * @param input the image to flip
+     * @return a new horizontally flipped image
+     */
 
     @Override
     public BufferedImage apply(BufferedImage input) {
