@@ -9,7 +9,8 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ *Flips an image vertically
+ * 
  * @author shika747
  */
 
@@ -19,6 +20,11 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class VerticalFlip implements ImageOperation, java.io.Serializable {
+    /**
+     * Applies vertical flip to image
+     * @param input - image to be flipped
+     * @return a new vertically flipped image
+     */
 
     @Override
     public BufferedImage apply(BufferedImage input) {
