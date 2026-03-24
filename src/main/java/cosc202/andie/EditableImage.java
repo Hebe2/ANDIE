@@ -307,6 +307,7 @@ class EditableImage {
      */
     public void redo() {
         apply(redoOps.pop());
+        //l
     }
 
     /**
