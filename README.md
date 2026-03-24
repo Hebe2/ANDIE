@@ -50,8 +50,10 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
 
 **Unsaved Changes Warning**:ANDIE will warn you if you have unsaved changes in two situations:
-- **Exiting the program** – if you attempt to exit with unsaved changes, a dialog will appear asking if you want to save before closing.
+- **Exiting the program** – if you attempt to exit with unsaved changes, a message will appear asking if you want to save before closing.
+
 - **Opening a new image** – if you attempt to open a new image with unsaved changes, a dialog will appear asking if you want to save first.
+
 In both cases you can choose:
 - **Yes** – saves your changes then continues
 - **No** – discards your changes and continues
