@@ -19,6 +19,8 @@ import java.util.Scanner;
  * @author timnanevo
  */
 public class ImageThresholding implements ImageOperation{
+    
+    /** The threshold pixels will be compared to, an integer between 0-255 */
     private int threshold;
  
     /**
@@ -49,7 +51,7 @@ public class ImageThresholding implements ImageOperation{
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
                 int argb = input.getRGB(x, y);
-                int alpha = (argb >> 24) & 0xff; // extract alpha
+                int alpha = (argb >> 24) & 0xff; 
                 int r = (argb >> 16) & 0xff;
                 int g = (argb >> 8) & 0xff;
                 int b = argb & 0xff;

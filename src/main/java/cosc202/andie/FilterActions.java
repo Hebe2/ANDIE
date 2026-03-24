@@ -28,7 +28,7 @@ import javax.swing.*;
  */
 public class FilterActions {
 
-    //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+    /** A @ResourceBundle that retrieves strings throughout the class in the proper language */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
@@ -183,7 +183,7 @@ public class FilterActions {
     
     /**
      * <p>
-     * Action to sharpen an image.
+     * ImageAction to sharpen an image.
      * </p>
      *
      * @see SharpenFilter
@@ -228,7 +228,7 @@ public class FilterActions {
     
     /**
      * <p>
-     * Action to blur an image with a gaussian filter.
+     * ImageAction to blur an image with a gaussian filter.
      * </p>
      *
      * @see GaussianFilter

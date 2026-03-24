@@ -25,7 +25,7 @@ import javax.swing.*;
  */
 public class RotateActions {
 
-    //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+     /** A @ResourceBundle that retrieves strings throughout the class in the proper language */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
@@ -65,12 +65,22 @@ public class RotateActions {
 
     /**
      * <p>
-     * Action to rotate image 180.
+     * ImageAction to rotate image 180°.
      * </p>
      *
      */
     private static class One80Action extends ImageAction {
-
+        /**
+         * <p>
+         * Create a new One80 action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
         One80Action(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
@@ -81,7 +91,8 @@ public class RotateActions {
          * </p>
          *
          * <p>
-         * This method is called whenever the rotate 180 Action is triggered.
+         * This method is called whenever the rotate 180 Action is triggered. It rotates an image 
+         * 180°. 
          * </p>
          *
          * @param e The event triggering this callback.
@@ -98,23 +109,32 @@ public class RotateActions {
 
     /**
      * <p>
-     * Action to rotate image 90° anticlockwise.
+     * ImageAction to rotate image 90° anticlockwise.
      * </p>
      *
      */
     private static class ACWAction extends ImageAction {
-
+        /**
+         * <p>
+         * Create a new ACW action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
         ACWAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
         /**
          * <p>
          * Callback for when the rotate 90° anticlockwise action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the rotate 90 ACW Action is triggered.
+         * This method is called whenever the rotate 90 ACW Action is triggered. It rotates an image 90° anticlockwise. 
          * </p>
          *
          * @param e The event triggering this callback.
@@ -131,7 +151,7 @@ public class RotateActions {
 
     /**
      * <p>
-     * Action to rotate 90° image clockwise.
+     * ImageAction to rotate 90° image clockwise.
      * </p>
      *
      */
@@ -158,7 +178,7 @@ public class RotateActions {
          * </p>
          *
          * <p>
-         * This method is called whenever the rotate 90 CW Action is triggered.
+         * This method is called whenever the rotate 90 CW Action is triggered. It rotates an image 90° clockwise.
          * </p>
          *
          * @param e The event triggering this callback.
@@ -175,6 +195,18 @@ public class RotateActions {
 
     }
     
+    /**
+     * <p>
+     * Checks if an image has been uploaded 
+     * </p>
+     *
+     * <p>
+     * This checks if an image has been uploaded and tells the user to open an 
+     * image if it has not been opened. 
+     * </p>
+     * 
+     * @return true if an image is open, false otherwise
+     */
     public static boolean imageCheck(){
         if (!target.getImage().hasImage()){
             JOptionPane.showMessageDialog(target, "Please open an image" );

@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
  */
 public class ImageResize implements ImageOperation{
     
+    /**the factor by which the image will be resized, given as a percent.*/
     private int scaleFactor;
     
     /**
@@ -43,8 +44,8 @@ public class ImageResize implements ImageOperation{
      * <p>
      * The conversion creates another image with the resized dimensions. The scale 
      * factor is given as a percentage where values greater than 100 will increase 
-     * the image size while values smaller than 100 will shrink the image. AffineTransform
-     * is used to translate the pixels to the new image size. 
+     * the image size while values smaller than 100 will shrink the image. The resize is performed with an 
+     * {@link AffineTransform} to translate the pixels to the new image size. 
      * </p>
      *
      * @param input The image to be resized

@@ -25,7 +25,7 @@ import javax.swing.*;
  */
 public class ViewActions {
 
-    //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
+    /** A @ResourceBundle that retrieves strings throughout the class in the proper language */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**

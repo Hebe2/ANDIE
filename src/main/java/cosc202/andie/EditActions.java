@@ -27,6 +27,7 @@ import javax.swing.*;
  */
 public class EditActions {
 
+    /** A @ResourceBundle that retrieves strings throughout the class in the proper language */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
@@ -236,16 +237,16 @@ public class EditActions {
     }
     /**
      * <p>
-     * HorizontalFlipAction flips the image 
+     * ImageAction to flips an image horizontally
      * </p>
      *
-     * @see ImageResize
+     * @see HorizontalFlip
      */
 
     public class HorizontalFlipAction extends ImageAction {
         /**
          * <p>
-         * Create a new resize action.
+         * Create a new HorizontalFlip action.
          * </p>
          *
          * @param name The name of the action (ignored if null).
@@ -261,12 +262,11 @@ public class EditActions {
 
         /**
          * <p>
-         * Callback for when the redo action is triggered.
+         * Callback for when the HorizontalFlip action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the RedoAction is triggered. It redoes
-         * the most recently undone operation.
+         * This method is called whenever the HorizontalFlip is triggered. It flips the image horizontally.
          * </p>
          *
          * @param e The event triggering this callback.
@@ -284,16 +284,16 @@ public class EditActions {
 
     /**
      * <p>
-     * VerticalFlipAction flips the image vertically 
+     * ImageAction to flips an image vertically 
      * </p>
      *
-     * @see ImageResize
+     * @see VerticalFlip
      */
     public class VerticalFlipAction extends ImageAction {
         
         /**
          * <p>
-         * Create a new resize action.
+         * Create a new VerticalFlip action.
          * </p>
          *
          * @param name The name of the action (ignored if null).
@@ -308,12 +308,11 @@ public class EditActions {
         }
         /**
          * <p>
-         * Callback for when the redo action is triggered.
+         * Callback for when the VerticalFlip action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the RedoAction is triggered. It redoes
-         * the most recently undone operation.
+         * This method is called whenever the VerticalFlip is triggered. It flips an image vertically.
          * </p>
          *
          * @param e The event triggering this callback.
@@ -328,9 +327,23 @@ public class EditActions {
             target.getParent().revalidate();
         }
     }
-
+    
+    /** tracks the number of times a user tries to apply a filter without opening an image, set to 0 at the start */
     private static int errorCount = 0;
-
+    
+    /**
+     * <p>
+     * Checks if an image has been uploaded and keeps track of how many times an image has not been uploaded
+     * </p>
+     *
+     * <p>
+     * This checks if an image has been uploaded and tells the user to open an 
+     * image if it has not been opened the first three times. If the user does not open an image more than three times
+     * then a meme shows up instead. 
+     * </p>
+     * 
+     * @return true if an image is open, false otherwise
+     */
     public static boolean imageCheck() {
         if (!target.getImage().hasImage()) {
             errorCount++;

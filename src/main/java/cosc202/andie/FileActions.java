@@ -299,13 +299,13 @@ public class FileActions {
     }
     /**
      * <p>
-     * File Export Action to export image 
+     * ImageAction to export an image 
      * </p>
      */
     public class FileExportAction extends ImageAction {
         /**
          * <p>
-         * Create a new file-save action.
+         * Create a new file-export action.
          * </p>
          *
          * @param name The name of the action (ignored if null).
@@ -321,12 +321,13 @@ public class FileActions {
 
          /**
          * <p>
-         * Callback for when the file-exit action is triggered.
+         * Callback for when the file-export action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the FileExitAction is triggered. It
-         * quits the program.
+         * This method is called whenever the FileExportAction is triggered. It
+         * opens a file chooser that prompts users to select a location and name for 
+         * their image to save on their computer. 
          * </p>
          *
          * @param e The event triggering this callback.

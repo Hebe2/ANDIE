@@ -26,7 +26,8 @@ import javax.swing.*;
  * @version 1.0
  */
 public class ColourActions {
-
+    
+    /** A @ResourceBundle that retrieves strings throughout the class in the proper language */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
@@ -226,7 +227,13 @@ public class ColourActions {
 
     }
     
-    
+    /**
+     * <p>
+     * Action to swap color channels in an image
+     * </p>
+     *
+     * @see ColorChannelSwap
+     */
     private static class ColorChannelSwapAction extends ImageAction {
         
          /**
@@ -281,6 +288,18 @@ public class ColourActions {
         }
     }
     
+    /**
+     * <p>
+     * Checks if an image has been uploaded 
+     * </p>
+     *
+     * <p>
+     * This checks if an image has been uploaded and tells the user to open an 
+     * image if it has not been opened. 
+     * </p>
+     * 
+     * @return true if an image is open, false otherwise
+     */
     public static boolean imageCheck(){
         if (!target.getImage().hasImage()){
             JOptionPane.showMessageDialog(target, "Please open an image" );
