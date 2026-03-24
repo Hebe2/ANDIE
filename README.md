@@ -9,7 +9,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Flip-Horizontal** Once an image is uploaded, click on the Edit menu at the top menu bar. Click on "Flip - Horizontal" to flip your image horizontally.
 
-**Flip-Vertical**Once an image is uploaded, click on the Edit menu at the top menu bar. Click on "Flip - Vertical" to flip your image vertically.
+**Flip-Vertical** Once an image is uploaded, click on the Edit menu at the top menu bar. Click on "Flip - Vertical" to flip your image vertically.
 
 ## Color Operations
 
