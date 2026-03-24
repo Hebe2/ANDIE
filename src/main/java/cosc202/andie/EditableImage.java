@@ -65,7 +65,12 @@ class EditableImage {
      * The file where the operation sequence is stored.
      */
     private String opsFilename;
-
+    
+    
+    /**
+     * The file where the operation checks if the image is saved or not
+     */
+    private boolean unsavedChanges = false;
     /**
      * <p>
      * Create a new EditableImage.
@@ -95,7 +100,31 @@ class EditableImage {
     public boolean hasImage() {
         return current != null;
     }
+    
+    /**
+     * <p>
+     * Check if there is the image has unsaved changes .
+     * </p>
+     *
+     * @return True if there is, false otherwise.
+     */
+    
+    public boolean hasUnsavedChanges() { 
+        return unsavedChanges; 
+    }
+    
+    /**
+ * <p>
+ * Set the unsaved changes flag.
+ * </p>
+ *
+ * @param val True to mark the image as having unsaved changes, false otherwise.
+ */
 
+    public void setUnsavedChanges(boolean val) {
+        unsavedChanges = val;
+    }
+    
     /**
      * <p>
      * Make a 'deep' copy of a BufferedImage.
@@ -188,6 +217,7 @@ class EditableImage {
             redoOps.clear();
         }
         this.refresh();
+        unsavedChanges = false;
     }
 
     /**
@@ -215,7 +245,9 @@ class EditableImage {
         try ( // Write operations file
                 FileOutputStream fileOut = new FileOutputStream(this.opsFilename); ObjectOutputStream objOut = new ObjectOutputStream(fileOut);) {
             objOut.writeObject(this.ops);
+            
         }
+        unsavedChanges = false;
     }
 
     /**
@@ -249,6 +281,8 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        unsavedChanges = true;
+
     }
 
     /**

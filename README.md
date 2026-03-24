@@ -46,8 +46,18 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **LanguageChange:** If you'd like to switch the language, head to **Settings** it will drop down with the option of **English** or **German**. Click your preferred language and a pop-up will appear letting you know you need to restart ANDIE for the change to take effect. Once you reopen ANDIE, the language will have changed. You can do the same thing to switch back anytime.
 
-## Extra Features
+## Pop ups 
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
+
+**Unsaved Changes Warning**:ANDIE will warn you if you have unsaved changes in two situations:
+- **Exiting the program** – if you attempt to exit with unsaved changes, a dialog will appear asking if you want to save before closing.
+- **Opening a new image** – if you attempt to open a new image with unsaved changes, a dialog will appear asking if you want to save first.
+In both cases you can choose:
+- **Yes** – saves your changes then continues
+- **No** – discards your changes and continues
+- **Cancel** – returns you to ANDIE without doing anything
+
+ 
 
 **Heads up:**
 
@@ -60,21 +70,23 @@ Checked that entering invalid user inputs for Guassian Filter, Mean Filter, Thre
 **Testing Image** 
 The testing image was used to check proper color swapping and that the alpha channel was not thrown away.
 
-##Bugs and refactoring
+## Bugs and refactoring
 no known bugs or problems exist and no signficant refactoring was done to ANDIE
 
---remove once everyone has done their stuff--
-• A brief user guide of how to operate the application including each new feature that
-was added.
-• A description of how the system was tested.
-• A description of any known bugs or other problems that the user may encounter.
-• A description of any significant refactoring (if any) that has been done to the ANDIE
-project beyond the features that were added. 
 
-Requirements
-A brief user guide of how to operate the application including each new feature that
-was added.
-• A description of how the system was tested.
-• A description of any known bugs or other problems that the user may encounter.
-• A description of any significant refactoring (if any) that has been done to the ANDIE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 project beyond the features that were added.
