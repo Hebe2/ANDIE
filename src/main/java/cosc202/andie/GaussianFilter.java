@@ -7,13 +7,25 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ *Applies a Gaussian Blue filter to an image.
+ * 
+ * This filter works by generating a Gaussian kernel based on the specified radius,
+ * then performs a convolution over the image. Each pixel is replaced with a weighted
+ * average of its neighboring pixels.
+ * 
  * @author shika747
  */
 public class GaussianFilter implements ImageOperation, java.io.Serializable {
-
+/**
+ * The radius of the Gaussian kernel. 
+ * Determines the strength and size of the blur effect.
+ */
     private int radius;
 
+    /**
+     * Constructs Gaussian Filter with a specified radius.
+     * @param radius -  the radius of the kernel. Must be positive numbers.
+     */
     GaussianFilter(int radius) {
         this.radius = radius;
     }
@@ -23,6 +35,14 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
         radius = 1;
     }
 
+    /**
+     * Applies Gaussian blur to input image.
+     * 
+     * A Gaussian kernel is generated and normalized. The filter is applied
+     * using convolution, where each pixel is recalculated as a weight sum of its neighbors.
+     * @param input - image to be blurred
+     * @return - BufferedImage containing blurred result
+     */
     @Override
     public BufferedImage apply(BufferedImage input) {
         int width = input.getWidth();
