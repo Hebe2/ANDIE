@@ -307,6 +307,7 @@ class EditableImage {
             return;
         }
         apply(redoOps.pop());
+        //jhkj
     }
 
     /**
