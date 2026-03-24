@@ -291,8 +291,9 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-        redoOps.push(ops.pop());
-        refresh();
+    if (ops.isEmpty()) return;
+    redoOps.push(ops.pop());
+    refresh();
     }
 
     /**
