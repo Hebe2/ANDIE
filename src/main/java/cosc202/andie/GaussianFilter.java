@@ -41,7 +41,7 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
      * A Gaussian kernel is generated and normalized. The filter is applied
      * using convolution, where each pixel is recalculated as a weight sum of its neighbors.
      * @param input - image to be blurred
-     * @return - BufferedImage containing blurred result
+     * @return - image containing blurred result
      */
     @Override
     public BufferedImage apply(BufferedImage input) {
@@ -83,6 +83,8 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
         //gaussian blur application
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
+                
+                double a=0;
                 double r = 0;
                 double g = 0;
                 double b = 0;
@@ -93,12 +95,14 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
                         int ny = Math.max(0, Math.min(y + ky, height - 1));
 
                         int argb = input.getRGB(nx, ny);
-
+                        
+                        int alpha = (argb >> 24) & 0xFF;
                         int red = (argb >> 16) & 0xFF;
                         int green = (argb >> 8) & 0xFF;
                         int blue = argb & 0xFF;
                         double weight = kernel[ky + radius][kx + radius];
-
+                        
+                        a += alpha*weight;
                         r += red * weight;
                         g += green * weight;
                         b += blue * weight;
@@ -107,11 +111,12 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
 
                 }
                 
-                int newRed = Math.min(255, Math.max(0, (int) Math.round(r)));
-                int newGreen = Math.min(255, Math.max(0, (int) Math.round(g)));
-                int newBlue = Math.min(255, Math.max(0, (int) Math.round(b)));
+                int newAlpha = (int) Math.min(255, Math.max(0, Math.round(a)));
+                int newRed = (int) Math.min(255, Math.max(0, Math.round(r)));
+                int newGreen = (int) Math.min(255, Math.max(0, Math.round(g)));
+                int newBlue = (int) Math.min(255, Math.max(0, Math.round(b)));
 
-                int newRGB = (0xFF << 24) | (newRed << 16) | (newGreen << 8) | newBlue;
+                int newRGB = (newAlpha << 24)| (newRed << 16) | (newGreen << 8) | newBlue;
                 output.setRGB(x, y, newRGB);
                 
             }
