@@ -7,20 +7,63 @@ import java.awt.image.*;
 import java.util.*;
 /**
  *
+ * <p>
+ * ImageOperation to apply a Median filter.
+ * </p>
+ *
+ * <p>
+ * A Median filter that takes the median of a neighbourhood 
+ * of values around each pixel as indicated by the radius and 
+ * replaces that pixel. 
+ * </p>
+ * 
  * @author parma754
  */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
+    /**
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2
+     * a 5x5 filter, and so forth.
+     */
     private int radius;
 
+    /**
+     * <p>
+     * Construct a Median filter with the given size.
+     * </p>
+     *
+     * <p>
+     * The size of the filter is the 'radius' of the convolution kernel used. A
+     * size of 1 is a 3x3 filter, 2 is 5x5, and so on. Larger filters give a
+     * stronger blurring effect.
+     * </p>
+     *
+     * @param radius The radius of the newly constructed MedianFilter
+     */
     MedianFilter(int radius) {
         this.radius = radius;
     }
-
+    
+    /**
+     * Constructs median filter with default radius of 1
+     */
     MedianFilter() {
         this(1);
     }
 
+    /**
+     * Applies the median filer to an image. 
+     * 
+     * <p>
+     * For each pixel, a square neighbourhood indicated by the radius is considered. 
+     * Each color channel is collected, sorted and the median value computed. The median values
+     * construct the new pixel. 
+     * </p>
+     * 
+     * 
+     * @param input the input {@link BufferedImage} to be filtered
+     * @return a new {@link BufferedImage} that has the median filter applied
+     */
     public BufferedImage apply(BufferedImage input) {
     int width = input.getWidth();
     int height = input.getHeight();
