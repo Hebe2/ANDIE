@@ -344,7 +344,7 @@ public class EditActions {
                         JOptionPane.PLAIN_MESSAGE
                 );
             } else {
-                JOptionPane.showMessageDialog(target, "Please open an image");
+                JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));
             }
             return false;
         }
