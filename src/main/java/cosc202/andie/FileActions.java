@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 
+import static cosc202.andie.FilterActions.imageCheck;
+import static cosc202.andie.ImageAction.target;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -176,6 +178,9 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!imageCheck()){
+                return;
+            }
             try {
                 target.getImage().save();
             } catch (Exception ex) {
@@ -223,7 +228,9 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+              if(!imageCheck()){
+                return;
+            }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
@@ -276,6 +283,9 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+              if(!imageCheck()){
+                return;
+            }
         if (target.getImage().hasUnsavedChanges()) {
             int result = JOptionPane.showConfirmDialog(
                 target,
@@ -334,6 +344,9 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+              if(!imageCheck()){
+                return;
+            }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
@@ -387,7 +400,13 @@ public class FileActions {
             return false;
         }
     }
-    
+    public static boolean imageCheck(){
+        if (!target.getImage().hasImage()){
+            JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));
+            return false;
+        }
+        return true;
+    }
     
 
 }

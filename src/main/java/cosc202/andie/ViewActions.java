@@ -1,5 +1,7 @@
 package cosc202.andie;
 
+import static cosc202.andie.FilterActions.imageCheck;
+import static cosc202.andie.ImageAction.target;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -103,6 +105,9 @@ public class ViewActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+              if(!imageCheck()){
+                return;
+            }
             target.setZoom(target.getZoom() + 10);
             target.repaint();
             target.getParent().revalidate();
@@ -151,6 +156,9 @@ public class ViewActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+              if(!imageCheck()){
+                return;
+            }
             target.setZoom(target.getZoom() - 10);
             target.repaint();
             target.getParent().revalidate();
@@ -199,11 +207,22 @@ public class ViewActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+              if(!imageCheck()){
+                return;
+            }
             target.setZoom(100);
             target.repaint();
             target.getParent().revalidate();
         }
 
+    }
+    
+        public static boolean imageCheck(){
+        if (!target.getImage().hasImage()){
+            JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE") );
+            return false;
+        }
+        return true;
     }
 
 }
