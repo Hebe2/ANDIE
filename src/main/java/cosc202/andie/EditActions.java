@@ -370,9 +370,12 @@ public class EditActions {
                         "Bro...",
                         JOptionPane.PLAIN_MESSAGE
                 );
+
                 
                 //rotate to next meme
                 memeIndex = (memeIndex + 1) % MEMES.length;
+
+                errorCount=0;
             } else {
                 JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));
             }
