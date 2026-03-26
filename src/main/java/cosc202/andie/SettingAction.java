@@ -43,7 +43,7 @@ public class SettingAction {
     }
 
     /**
-     * Action to switch the application language to English.
+     * AbstractAction to switch the application language to English.
      */
     public class SetEnglishAction extends AbstractAction {
          /**
@@ -60,7 +60,15 @@ public class SettingAction {
         SetEnglishAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon);
         }
-        
+        /**
+         * <p>
+         * Updates application to English using {@code LanguageUtil}. Then displays
+         * a message dialog telling the user to restart the application to see the 
+         * language change.
+         * <p>
+         * 
+         * @param e The event triggering this callback.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             LanguageUtil.setLanguage("NZ", "en");
@@ -68,7 +76,7 @@ public class SettingAction {
         }
     }
 
-     /** Sets language to English and prompts the user to restart. */
+     /** AbstractAction to switch the application language to German. */
     public class SetGermanAction extends AbstractAction {
          /**
          * <p>
@@ -85,6 +93,15 @@ public class SettingAction {
             super(name, icon);
         }
         
+        /**
+         * <p>
+         * Updates application to German using {@code LanguageUtil}. Then displays
+         * a message dialog telling the user to restart the application to see the 
+         * language change.
+         * <p>
+         * 
+         * @param e The event triggering this callback.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             LanguageUtil.setLanguage("DE", "de");
