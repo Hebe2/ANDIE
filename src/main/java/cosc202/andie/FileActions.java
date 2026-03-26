@@ -283,9 +283,7 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-              if(!imageCheck()){
-                return;
-            }
+              
         if (target.getImage().hasUnsavedChanges()) {
             int result = JOptionPane.showConfirmDialog(
                 target,

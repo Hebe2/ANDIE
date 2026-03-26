@@ -356,6 +356,7 @@ public class EditActions {
                         "Bro...",
                         JOptionPane.PLAIN_MESSAGE
                 );
+                errorCount=0;
             } else {
                 JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));
             }
