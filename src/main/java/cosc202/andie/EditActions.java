@@ -27,7 +27,10 @@ import javax.swing.*;
  */
 public class EditActions {
 
-    /** A @ResourceBundle that retrieves strings throughout the class in the proper language */
+    /**
+     * A @ResourceBundle that retrieves strings throughout the class in the
+     * proper language
+     */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
@@ -235,6 +238,7 @@ public class EditActions {
         }
 
     }
+
     /**
      * <p>
      * ImageAction to flips an image horizontally
@@ -244,6 +248,7 @@ public class EditActions {
      */
 
     public class HorizontalFlipAction extends ImageAction {
+
         /**
          * <p>
          * Create a new HorizontalFlip action.
@@ -266,7 +271,8 @@ public class EditActions {
          * </p>
          *
          * <p>
-         * This method is called whenever the HorizontalFlip is triggered. It flips the image horizontally.
+         * This method is called whenever the HorizontalFlip is triggered. It
+         * flips the image horizontally.
          * </p>
          *
          * @param e The event triggering this callback.
@@ -284,13 +290,13 @@ public class EditActions {
 
     /**
      * <p>
-     * ImageAction to flips an image vertically 
+     * ImageAction to flips an image vertically
      * </p>
      *
      * @see VerticalFlip
      */
     public class VerticalFlipAction extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new VerticalFlip action.
@@ -302,17 +308,18 @@ public class EditActions {
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if
          * null).
          */
-
         VerticalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
         /**
          * <p>
          * Callback for when the VerticalFlip action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the VerticalFlip is triggered. It flips an image vertically.
+         * This method is called whenever the VerticalFlip is triggered. It
+         * flips an image vertically.
          * </p>
          *
          * @param e The event triggering this callback.
@@ -327,35 +334,47 @@ public class EditActions {
             target.getParent().revalidate();
         }
     }
-    
-    /** tracks the number of times a user tries to apply a filter without opening an image, set to 0 at the start */
+
+    /**
+     * tracks the number of times a user tries to apply a filter without opening
+     * an image, set to 0 at the start
+     */
     private static int errorCount = 0;
-    
+    private static final String[] MEMES = {"/meme.jpg", "/meme1.jpg", "/meme2.jpg", "/meme3.jpg"};
+
+    private static int memeIndex = 0;
+
     /**
      * <p>
-     * Checks if an image has been uploaded and keeps track of how many times an image has not been uploaded
+     * Checks if an image has been uploaded and keeps track of how many times an
+     * image has not been uploaded
      * </p>
      *
      * <p>
-     * This checks if an image has been uploaded and tells the user to open an 
-     * image if it has not been opened the first three times. If the user does not open an image more than three times
-     * then a meme shows up instead. 
+     * This checks if an image has been uploaded and tells the user to open an
+     * image if it has not been opened the first three times. If the user does
+     * not open an image more than three times then a meme shows up instead.
      * </p>
-     * 
+     *
      * @return true if an image is open, false otherwise
      */
     public static boolean imageCheck() {
         if (!target.getImage().hasImage()) {
             errorCount++;
 
-            if (errorCount > 3) {
-                ImageIcon meme = new ImageIcon("meme.jpg");
+            if (errorCount >= 3) {
+                ImageIcon meme = new ImageIcon(ImageAction.class.getResource(MEMES[memeIndex]));
                 JOptionPane.showMessageDialog(
                         target,
                         meme,
                         "Bro...",
                         JOptionPane.PLAIN_MESSAGE
                 );
+
+                
+                //rotate to next meme
+                memeIndex = (memeIndex + 1) % MEMES.length;
+
                 errorCount=0;
             } else {
                 JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));

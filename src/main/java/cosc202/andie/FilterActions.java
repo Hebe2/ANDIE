@@ -1,6 +1,6 @@
 package cosc202.andie;
 
-import static cosc202.andie.ColourActions.imageCheck;
+import static cosc202.andie.EditActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
 import java.awt.Dimension;
 import java.util.*;
@@ -309,12 +309,7 @@ public class FilterActions {
      * 
      * @return true if an image is open, false otherwise
      */
-    public static boolean imageCheck(){
-        if (!target.getImage().hasImage()){
-            JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));
-            return false;
-        }
-        return true;
-    }
+    
+    
 }
 
