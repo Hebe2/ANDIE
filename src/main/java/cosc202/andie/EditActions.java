@@ -246,7 +246,6 @@ public class EditActions {
      *
      * @see HorizontalFlip
      */
-
     public class HorizontalFlipAction extends ImageAction {
 
         /**
@@ -260,7 +259,6 @@ public class EditActions {
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if
          * null).
          */
-
         HorizontalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
@@ -340,8 +338,16 @@ public class EditActions {
      * an image, set to 0 at the start
      */
     private static int errorCount = 0;
-    private static final String[] MEMES = {"/meme1.jpg", "/meme.jpg",  "/meme2.jpg", "/meme3.jpg"};
 
+    /**
+     * tracks the number of times a user tries to apply a filter without opening
+     * an image, set to 0 at the start
+     */
+    private static final String[] MEMES = {"/meme1.jpg", "/meme.jpg", "/meme2.jpg", "/meme3.jpg"};
+    /**
+     * tracks the number of times a user tries to apply a filter without opening
+     * an image, set to 0 at the start
+     */
     private static int memeIndex = 0;
 
     /**
@@ -373,7 +379,7 @@ public class EditActions {
 
                 //rotate to next meme
                 memeIndex = (memeIndex + 1) % MEMES.length;
-                
+
             } else {
                 JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));
             }
