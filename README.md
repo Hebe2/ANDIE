@@ -59,10 +59,6 @@ In both cases you can choose:
 - **No** – discards your changes and continues
 - **Cancel** – returns you to ANDIE without doing anything
 
- 
-
-**Heads up:**
-
 ## Testing
 **Unit Test** a unit test to ensure the ImageResize operation worked after doubling and halving an image
 
@@ -73,7 +69,10 @@ Checked that entering invalid user inputs for Guassian Filter, Mean Filter, Thre
 The testing image was used to check proper color swapping and that the alpha channel was not thrown away. All filters were also checked again on the testing image to ensure proper functionality. 
 
 ## Bugs and refactoring
-no known bugs or problems exist and no signficant refactoring was done to ANDIE
+No known bugs or problems exist and no signficant refactoring was done to ANDIE
+
+## Special Feature
+After more than three attempts to edit an image without opening an image first, the user will recieve a surprise
 
 
 
