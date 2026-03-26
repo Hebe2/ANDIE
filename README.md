@@ -1,4 +1,5 @@
 Team Name: Immortal Jellyfish
+
 Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## User Guide
