@@ -73,21 +73,3 @@ No known bugs or problems exist and no signficant refactoring was done to ANDIE
 
 ## Special Feature
 After more than three attempts to edit an image without opening an image first, the user will recieve a surprise
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-project beyond the features that were added.
