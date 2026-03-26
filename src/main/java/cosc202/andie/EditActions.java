@@ -340,13 +340,12 @@ public class EditActions {
     private static int errorCount = 0;
 
     /**
-     * tracks the number of times a user tries to apply a filter without opening
-     * an image, set to 0 at the start
+     * List of meme image paths used for error feedback.
+     * Cycles through these when user repeatedly triggers actions without an image.
      */
     private static final String[] MEMES = {"/meme1.jpg", "/meme.jpg", "/meme2.jpg", "/meme3.jpg"};
     /**
-     * tracks the number of times a user tries to apply a filter without opening
-     * an image, set to 0 at the start
+     * Keeps track of which meme to show next
      */
     private static int memeIndex = 0;
 
