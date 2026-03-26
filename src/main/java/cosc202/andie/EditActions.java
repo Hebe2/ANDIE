@@ -340,7 +340,7 @@ public class EditActions {
      * an image, set to 0 at the start
      */
     private static int errorCount = 0;
-    private static final String[] MEMES = {"/meme.jpg", "/meme1.jpg", "/meme2.jpg", "/meme3.jpg"};
+    private static final String[] MEMES = {"/meme1.jpg", "/meme.jpg",  "/meme2.jpg", "/meme3.jpg"};
 
     private static int memeIndex = 0;
 
@@ -371,11 +371,9 @@ public class EditActions {
                         JOptionPane.PLAIN_MESSAGE
                 );
 
-                
                 //rotate to next meme
                 memeIndex = (memeIndex + 1) % MEMES.length;
-
-                errorCount=0;
+                
             } else {
                 JOptionPane.showMessageDialog(target, bundle.getString("PLEASE OPEN AN IMAGE"));
             }
