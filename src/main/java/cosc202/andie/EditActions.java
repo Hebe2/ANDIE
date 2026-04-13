@@ -51,6 +51,7 @@ public class EditActions {
         actions.add(new ResizeAction(bundle.getString("RESIZE"), null, bundle.getString("RESIZE"), KeyEvent.VK_X));
         actions.add(new HorizontalFlipAction(bundle.getString("FLIP - HORIZONTAL"), null, bundle.getString("FLIP IMAGE HORIZONTALLY"), KeyEvent.VK_H));
         actions.add(new VerticalFlipAction(bundle.getString("FLIP - VERTICAL"), null, bundle.getString("FLIP IMAGE VERTICALLY"), KeyEvent.VK_V));
+        actions.add(new CropAction(bundle.getString("CROP"), null, bundle.getString("CROP IMAGE"), KeyEvent.VK_C));
 
     }
 
@@ -71,6 +72,22 @@ public class EditActions {
         return editMenu;
     }
 
+    public class CropAction extends ImageAction {
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           if (!imageCheck()) {
+                return;
+            }
+           System.out.println("Target = " + target);
+            target.getImage().apply(new ImageCrop(target));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+    
     /**
      * <p>
      * ImageAction to resize an image

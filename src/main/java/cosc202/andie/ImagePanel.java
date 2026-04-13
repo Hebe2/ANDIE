@@ -1,6 +1,9 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.*;
 
 /**
@@ -21,12 +24,17 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel implements MouseListener, MouseMotionListener {
 
     /**
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
+    
+    //JAVADOC
+    private Point startPoint = null;
+    private Point endPoint = null;
+    private Rectangle selection = null;
 
     /**
      * <p>
@@ -54,6 +62,9 @@ public class ImagePanel extends JPanel {
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+        
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     /**
@@ -67,7 +78,12 @@ public class ImagePanel extends JPanel {
     public EditableImage getImage() {
         return image;
     }
-
+    
+    //JAVADOC
+    public Rectangle getSelection(){
+        return selection;
+    }
+    
     /**
      * <p>
      * Get the current zoom level as a percentage.
@@ -145,5 +161,61 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
+        
+        if (selection != null){
+            Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.BLACK);
+        g2.setStroke(new BasicStroke(2));
+        g2.draw(selection);
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        mousePressed(e);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        startPoint = e.getPoint();
+        endPoint = startPoint;
+        selection = new Rectangle(startPoint);
+        repaint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        mouseDragged(e);
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        endPoint = e.getPoint();
+        
+        int x = Math.min(startPoint.x, endPoint.x);
+        int y = Math.min(startPoint.y, endPoint.y);
+        int width = Math.abs(startPoint.x - endPoint.x);
+        int height = Math.abs(startPoint.y - endPoint.y);
+        
+        selection = new Rectangle(x, y, width, height);
+  
+        repaint();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+    }
+    
+    public void clearSelection(){
+        selection = null;
+        repaint();
     }
 }
