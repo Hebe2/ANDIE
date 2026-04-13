@@ -4,7 +4,9 @@ import static cosc202.andie.EditActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
+import javax.swing.BoxLayout;
 
 /**
  * <p>
@@ -14,7 +16,8 @@ import javax.swing.*;
  * <p>
  * The Colour menu contains actions that affect the colour of each pixel
  * directly without reference to the rest of the image. This includes conversion
- * to greyscale in the sample code, threshold, invert image and colour channel swap.
+ * to greyscale in the sample code, threshold, invert image and colour channel
+ * swap.
  * </p>
  *
  * <p>
@@ -26,8 +29,11 @@ import javax.swing.*;
  * @version 1.0
  */
 public class ColourActions {
-    
-    /** A @ResourceBundle that retrieves strings throughout the class in the proper language */
+
+    /**
+     * A @ResourceBundle that retrieves strings throughout the class in the
+     * proper language
+     */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
@@ -46,6 +52,7 @@ public class ColourActions {
         actions.add(new ThresholdAction(bundle.getString("THRESHOLD"), null, bundle.getString("APPLY THRESHOLD"), KeyEvent.VK_T));
         actions.add(new InversionAction(bundle.getString("INVERSION"), null, bundle.getString("APPLY INVERSION"), KeyEvent.VK_I));
         actions.add(new ColorChannelSwapAction(bundle.getString("COLOR CHANNEL SWAP"), null, bundle.getString("COLOR CHANNEL SWAP"), KeyEvent.VK_Z));
+        actions.add(new BrightnessContrastAction(bundle.getString("BRIGHTNESS CONTRAST"), null, bundle.getString("ADJUST BRIGHTNESS AND CONTRAST"), KeyEvent.VK_B));
     }
 
     /**
@@ -73,7 +80,7 @@ public class ColourActions {
      * @see ImageInversion
      */
     private static class InversionAction extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new invert image action.
@@ -88,22 +95,22 @@ public class ColourActions {
         public InversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-        
+
         /**
          * <p>
          * Callback for when the invert image action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the InversionAction is triggered.
-         * It inverts the image.
+         * This method is called whenever the InversionAction is triggered. It
+         * inverts the image.
          * </p>
          *
          * @param e The event triggering this callback.
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
             target.getImage().apply(new ImageInversion());
@@ -112,15 +119,16 @@ public class ColourActions {
         }
 
     }
-    
+
     /**
      * <p>
      * ImageAction to apply the threshold conversion to an image
      * </p>
+     *
      * @see ImageThresholding
      */
     public class ThresholdAction extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new threshold image action.
@@ -142,17 +150,19 @@ public class ColourActions {
          * </p>
          *
          * <p>
-         * This method is called whenever the ThresholdAction is triggered. It asks the user for a threshold 
-         * between 0-255 and checks to make sure the input is valid. If the input is outside of this 
-         * range or is not an integer, the program informs the user of the issue and prompts them to enter
-         * an appropriate threshold value. With a valid input, it applies the threshold conversion to the given image. 
+         * This method is called whenever the ThresholdAction is triggered. It
+         * asks the user for a threshold between 0-255 and checks to make sure
+         * the input is valid. If the input is outside of this range or is not
+         * an integer, the program informs the user of the issue and prompts
+         * them to enter an appropriate threshold value. With a valid input, it
+         * applies the threshold conversion to the given image.
          * </p>
          *
          * @param e The event triggering this callback.
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
             while (true) {
@@ -217,7 +227,7 @@ public class ColourActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
             target.getImage().apply(new ConvertToGrey());
@@ -226,7 +236,7 @@ public class ColourActions {
         }
 
     }
-    
+
     /**
      * <p>
      * Action to swap color channels in an image
@@ -235,8 +245,8 @@ public class ColourActions {
      * @see ColorChannelSwap
      */
     private static class ColorChannelSwapAction extends ImageAction {
-        
-         /**
+
+        /**
          * <p>
          * Create a new color channel swap action.
          * </p>
@@ -250,25 +260,25 @@ public class ColourActions {
         public ColorChannelSwapAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-        
+
         /**
          * <p>
          * Callback for when the Color channel swap action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the ColorChannelSwapAction is triggered.
-         * It changes the image color channels.
+         * This method is called whenever the ColorChannelSwapAction is
+         * triggered. It changes the image color channels.
          * </p>
          *
          * @param e The event triggering this callback.
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
-            String[] options = {"RGB","RBG", "GRB", "GBR", "BRG", "BGR"};
+            String[] options = {"RGB", "RBG", "GRB", "GBR", "BRG", "BGR"};
 
             String choice = (String) JOptionPane.showInputDialog(
                     null,
@@ -288,6 +298,75 @@ public class ColourActions {
         }
     }
 
-    
+    public class BrightnessContrastAction extends ImageAction {
 
+        BrightnessContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!imageCheck()) {
+                return;
+            }
+
+            BufferedImage originalImg = target.getImage().getCurrentImage();
+            int previewWidth = Math.max(1, originalImg.getWidth() / 10);
+            int previewHeight = Math.max(1, originalImg.getHeight() / 10);
+
+// create a NEW small blank image and draw the scaled version into it
+            BufferedImage newImg = new BufferedImage(previewWidth, previewHeight, originalImg.getType());
+            java.awt.Graphics2D g2d = newImg.createGraphics();
+            g2d.drawImage(originalImg, 0, 0, previewWidth, previewHeight, null);
+            g2d.dispose();
+
+            JLabel previewLabel = new JLabel(new ImageIcon(newImg));
+
+            //slider for brightness 
+            JSlider brightnessSlider = new JSlider(-100, 100, 0);
+            brightnessSlider.setMajorTickSpacing(50);
+            brightnessSlider.setMinorTickSpacing(10);
+            brightnessSlider.setPaintTicks(true);
+            brightnessSlider.setPaintLabels(true);
+
+            //slider for contrast 
+            JSlider contrastSlider = new JSlider(-100, 100, 0);
+            contrastSlider.setMajorTickSpacing(50);
+            contrastSlider.setMinorTickSpacing(10);
+            contrastSlider.setPaintTicks(true);
+            contrastSlider.setPaintLabels(true);
+
+            javax.swing.event.ChangeListener listener = evt -> {
+                int b = brightnessSlider.getValue();
+                int c = contrastSlider.getValue();
+                BufferedImage preview = new BrightnessContrast(b, c).apply(newImg);
+                previewLabel.setIcon(new ImageIcon(preview));
+            };
+
+            brightnessSlider.addChangeListener(listener);
+            contrastSlider.addChangeListener(listener);
+
+            // panel with preview and sliders
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.add(previewLabel);
+            panel.add(new JLabel("Brightness:"));
+            panel.add(brightnessSlider);
+            panel.add(new JLabel("Contrast:"));
+            panel.add(contrastSlider);
+
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("ADJUST BRIGHTNESS AND CONTRAST"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                int brightness = brightnessSlider.getValue();
+                int contrast = contrastSlider.getValue();
+                target.getImage().apply(new BrightnessContrast(brightness, contrast));
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
+
+    }
 }
