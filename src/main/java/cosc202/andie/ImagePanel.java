@@ -163,10 +163,16 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         }
         
         if (selection != null){
-            Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.BLACK);
-        g2.setStroke(new BasicStroke(2));
-        g2.draw(selection);
+            Graphics2D g2 = (Graphics2D) g.create();
+
+            // semi-transparent fill
+            g2.setColor(new Color(255, 255, 255, 90)); // RGBA (alpha = transparency)
+            g2.fill(selection);
+          
+            //g2.setColor(Color.BLACK);
+            //g2.setStroke(new BasicStroke(2));
+            g2.draw(selection);
+            g2.dispose();
         }
     }
 
