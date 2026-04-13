@@ -296,20 +296,6 @@ public class FilterActions {
             target.getParent().revalidate();
         }
     }
-    
-    /**
-     * <p>
-     * Checks if an image has been uploaded 
-     * </p>
-     *
-     * <p>
-     * This checks if an image has been uploaded and tells the user to open an 
-     * image if it has not been opened. 
-     * </p>
-     * 
-     * @return true if an image is open, false otherwise
-     */
-    
-    
+
 }
 

@@ -1,4 +1,5 @@
 Team Name: Immortal Jellyfish
+
 Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## User Guide
@@ -72,4 +73,4 @@ The testing image was used to check proper color swapping and that the alpha cha
 No known bugs or problems exist and no signficant refactoring was done to ANDIE
 
 ## Special Feature
-After more than three attempts to edit an image without opening an image first, the user will recieve a surprise
+After more than two attempts to edit an image without opening an image first, the user will recieve a surprise
