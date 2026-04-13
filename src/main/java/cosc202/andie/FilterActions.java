@@ -48,7 +48,7 @@ public class FilterActions {
         actions.add(new SharpenAction(bundle.getString("SHARPEN FILTER"), null, bundle.getString("APPLY A SHARPEN FILTER"), KeyEvent.VK_S));
         actions.add(new MedianFilterAction(bundle.getString("MEDIAN FILTER"), null, bundle.getString("APPLY A MEDIAN FILTER"), KeyEvent.VK_D));
         actions.add(new GaussianFilterAction(bundle.getString("GAUSSIAN FILTER"), null, bundle.getString("APPLY A GAUSSIAN BLUR FILTER"), KeyEvent.VK_G));
-
+        actions.add(new RandomScatteringAction(bundle.getString("RANDOM SCATTERING"), null, bundle.getString("APPLY RANDOM SCATTERING"), KeyEvent.VK_R));
         
     }
     /**
@@ -296,6 +296,38 @@ public class FilterActions {
             target.getParent().revalidate();
         }
     }
+    
+    public class RandomScatteringAction extends ImageAction {
+
+    RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (!imageCheck()) {
+            return;
+        }
+
+       
+        SpinnerNumberModel radiusModel = new SpinnerNumberModel(5, 1, 50, 1);
+        JSpinner radiusSpinner = new JSpinner(radiusModel);
+
+        
+        ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
+
+        int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER SCATTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+        if (option == JOptionPane.CANCEL_OPTION) {
+            return;
+        } else if (option == JOptionPane.OK_OPTION) {
+            int radius = radiusModel.getNumber().intValue();
+            target.getImage().apply(new Randomscattering(radius));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+}
 
 }
 
