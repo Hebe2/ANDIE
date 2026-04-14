@@ -47,7 +47,7 @@ public class ImageThresholding implements ImageOperation{
      * @return BufferedImage of input with threshold color changes applied
      */
     @Override
-    public BufferedImage apply(BufferedImage input) {
+    public BufferedImage apply(BufferedImage input) {       
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
                 int argb = input.getRGB(x, y);
