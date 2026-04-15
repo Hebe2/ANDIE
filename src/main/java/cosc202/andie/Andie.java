@@ -177,13 +177,38 @@ public class Andie {
             target.repaint();
         });
         
-
+         //zoom full
+        addButton(toolBar,"🔍", "zoom full", () -> {
+            target.setZoom(100);
+            target.repaint();
+        });
+        
+        toolBar.addSeparator(); 
+        
+        //rotate 90cw
+        addButton(toolBar,"↻", "rotate 90 CW", () -> {
+            target.getImage().apply(new ImageRotation90clockwise());
+            target.repaint();
+        });
+        
+        //rotate 90acw
+        addButton(toolBar,"↺", "rotate 90 ACW", () -> {
+            target.getImage().apply(new ImageRotation90ACW());
+            target.repaint();
+        });
+        
+        //180
+        addButton(toolBar,"↺", "rotate 90 ACW", () -> {
+            target.getImage().apply(new ImageRotation90ACW());
+            target.repaint();
+        });
+        
         return toolBar;
     }
 
-    private static void addButton(JToolBar toolBar, String text, String toolTip, Runnable action) {
+    private static void addButton(JToolBar toolBar, String iconPath, String toolTip, Runnable action) {
         JButton button = new JButton();
-        button.setText(text);
+        button.setIcon(new ImageIcon(iconPath));  
         button.setToolTipText(toolTip);
         button.addActionListener(e -> action.run());
         toolBar.add(button);
