@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import static cosc202.andie.ImageAction.target;
 import java.awt.*;
+import java.net.URL;
 import javax.swing.*;
 import javax.imageio.*;
 
@@ -135,83 +136,108 @@ public class Andie {
         int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 
         //open
-        addButton(toolBar, "📂", "Open Image", () -> {
+        addButton(toolBar, "open.png", "Open Image", () -> {
             fileActions.actions.get(0).actionPerformed(null);
         });
 
         //save
-        addButton(toolBar,"💾", "Save Image", () -> {
+        addButton(toolBar, "save.png", "Save Image", () -> {
             fileActions.actions.get(1).actionPerformed(null);
         });
-        
+
         //save as
-        addButton(toolBar,"📋", "Save As", () -> {
+        addButton(toolBar, "saveAs.png", "Save As", () -> {
             fileActions.actions.get(1).actionPerformed(null);
         });
 
         toolBar.addSeparator();
 
         //undo
-        addButton(toolBar,"↩", "undo last action", () -> {
+        addButton(toolBar, "undo.png", "undo last action", () -> {
             target.getImage().undo();
             target.repaint();
         });
-        
+
         //redo
-        addButton(toolBar,"↪", "redo last action", () -> {
+        addButton(toolBar, "redo.png", "redo last action", () -> {
             target.getImage().redo();
             target.repaint();
         });
-        
+
         toolBar.addSeparator();
-        
-         //zoom In
-        addButton(toolBar,"🔍+", "zoom in", () -> {
+
+        //zoom In
+        addButton(toolBar, "zoomIn.png", "zoom in", () -> {
             target.setZoom(target.getZoom() + 10);
             target.repaint();
         });
-        
-          //zoomOut
-        addButton(toolBar,"🔍-", "zoom in", () -> {
+
+        //zoomOut
+        addButton(toolBar, "zoomOut.png", "zoom in", () -> {
             target.setZoom(target.getZoom() - 10);
             target.repaint();
         });
-        
-         //zoom full
-        addButton(toolBar,"🔍", "zoom full", () -> {
+
+        //zoom full
+        addButton(toolBar, "zoomFull.png", "zoom full", () -> {
             target.setZoom(100);
             target.repaint();
         });
-        
-        toolBar.addSeparator(); 
-        
+
+        toolBar.addSeparator();
+
         //rotate 90cw
-        addButton(toolBar,"↻", "rotate 90 CW", () -> {
+        addButton(toolBar, "90cw.png", "rotate 90 CW", () -> {
             target.getImage().apply(new ImageRotation90clockwise());
             target.repaint();
         });
-        
+
         //rotate 90acw
-        addButton(toolBar,"↺", "rotate 90 ACW", () -> {
+        addButton(toolBar, "90acw.png", "rotate 90 ACW", () -> {
             target.getImage().apply(new ImageRotation90ACW());
+            target.repaint();
+        });
+
+        //180
+        addButton(toolBar, "180.png", "rotate 180", () -> {
+            target.getImage().apply(new ImageRotation180());
+            target.repaint();
+        });
+
+        toolBar.addSeparator();
+        
+        //vertical flip
+        addButton(toolBar, "flipVert.png", "flip vertical", () -> {
+            target.getImage().apply(new VerticalFlip());
             target.repaint();
         });
         
-        //180
-        addButton(toolBar,"↺", "rotate 90 ACW", () -> {
-            target.getImage().apply(new ImageRotation90ACW());
+         //horizontal flip
+        addButton(toolBar, "flipHori.png", "flip horizontal", () -> {
+            target.getImage().apply(new HorizontalFlip());
             target.repaint();
         });
+        
         
         return toolBar;
     }
 
     private static void addButton(JToolBar toolBar, String iconPath, String toolTip, Runnable action) {
         JButton button = new JButton();
-        button.setIcon(new ImageIcon(iconPath));  
+        button.setIcon(loadIcon(iconPath));
         button.setToolTipText(toolTip);
         button.addActionListener(e -> action.run());
         toolBar.add(button);
+    }
+
+    private static ImageIcon loadIcon(String filename) {
+        URL url = Andie.class.getClassLoader().getResource("toolIcons/" + filename);
+        if (url != null) {
+            ImageIcon icon = new ImageIcon(url);
+            Image scaled = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaled);
+        }
+        return null;
     }
 
 }
