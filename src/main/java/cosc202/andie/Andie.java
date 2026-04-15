@@ -1,8 +1,10 @@
 package cosc202.andie;
 
+import static cosc202.andie.ImageAction.target;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
+
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
@@ -86,15 +88,16 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
-        
+
         // Rotate the images 90 degrees clockwise
         RotateActions rotateActions = new RotateActions();
         menuBar.add(rotateActions.createMenu());
-        
+
         // Settings to change language, english and german
         SettingAction settingActions = new SettingAction();
         menuBar.add(settingActions.createMenu());
 
+        frame.add(createToolBar(fileActions, editActions, viewActions), BorderLayout.PAGE_START);
 
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -125,4 +128,65 @@ public class Andie {
             }
         });
     }
+
+    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions) {
+        JToolBar toolBar = new JToolBar("Tools");
+
+        int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
+
+        //open
+        addButton(toolBar, "📂", "Open Image", () -> {
+            fileActions.actions.get(0).actionPerformed(null);
+        });
+
+        //save
+        addButton(toolBar,"💾", "Save Image", () -> {
+            fileActions.actions.get(1).actionPerformed(null);
+        });
+        
+        //save as
+        addButton(toolBar,"📋", "Save As", () -> {
+            fileActions.actions.get(1).actionPerformed(null);
+        });
+
+        toolBar.addSeparator();
+
+        //undo
+        addButton(toolBar,"↩", "undo last action", () -> {
+            target.getImage().undo();
+            target.repaint();
+        });
+        
+        //redo
+        addButton(toolBar,"↪", "redo last action", () -> {
+            target.getImage().redo();
+            target.repaint();
+        });
+        
+        toolBar.addSeparator();
+        
+         //zoom In
+        addButton(toolBar,"🔍+", "zoom in", () -> {
+            target.setZoom(target.getZoom() + 10);
+            target.repaint();
+        });
+        
+          //zoomOut
+        addButton(toolBar,"🔍-", "zoom in", () -> {
+            target.setZoom(target.getZoom() - 10);
+            target.repaint();
+        });
+        
+
+        return toolBar;
+    }
+
+    private static void addButton(JToolBar toolBar, String text, String toolTip, Runnable action) {
+        JButton button = new JButton();
+        button.setText(text);
+        button.setToolTipText(toolTip);
+        button.addActionListener(e -> action.run());
+        toolBar.add(button);
+    }
+
 }
