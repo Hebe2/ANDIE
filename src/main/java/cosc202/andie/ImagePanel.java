@@ -189,19 +189,9 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         repaint();
     }
 
-//    @Override
-//    public void mouseReleased(MouseEvent e) {
-//        mouseDragged(e);
-//    }
-    
     @Override
     public void mouseReleased(MouseEvent e) {
         mouseDragged(e);
-        
-        if (currentTool == Tool.RECTANGLE) {
-        drawRectangle();
-        clearSelection(); 
-        }
     }
 
     @Override
@@ -234,37 +224,4 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         selection = null;
         repaint();
     }
-    
-    public enum Tool {
-    NONE, RECTANGLE, OVAL, LINE
-        }
-
-        private Tool currentTool = Tool.NONE;
-
-        public void setTool(Tool t) {
-            currentTool = t;
-        }
-
-        public Tool getTool() {
-            return currentTool;
-        }
-        
-       private void drawRectangle() {
-            var img = image.getCurrentImage();
-            var g = img.createGraphics();
-
-            int x = Math.min(startPoint.x, endPoint.x);
-            int y = Math.min(startPoint.y, endPoint.y);
-            int w = Math.abs(startPoint.x - endPoint.x);
-            int h = Math.abs(startPoint.y - endPoint.y);
-
-            g.setColor(Color.RED);
-            g.setStroke(new BasicStroke(3));
-            g.drawRect((int)(x / scale), (int)(y / scale),
-                       (int)(w / scale), (int)(h / scale));
-
-            g.dispose();
-            repaint();
-        }
-
 }

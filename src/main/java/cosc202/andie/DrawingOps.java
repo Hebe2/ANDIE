@@ -4,7 +4,6 @@
  */
 package cosc202.andie;
 
-import cosc202.andie.ImagePanel.Tool;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -36,7 +35,9 @@ public class DrawingOps {
     public DrawingOps(){
         actions = new ArrayList<>();
         actions.add(new RectangleAction(bundle.getString("RECTANGLE"), null, bundle.getString("DRAW"), null));
-       
+        actions.add(new OvalAction(bundle.getString("OVAL"), null, bundle.getString("DRAW"), null));
+        actions.add(new LineAction(bundle.getString("LINE"), null, bundle.getString("DRAW"), null));
+
     }
     
     /**
@@ -76,16 +77,73 @@ public class DrawingOps {
         }
         /**
          * <p>
-         * Updates application to English using {@code LanguageUtil}. Then displays
-         * a message dialog telling the user to restart the application to see the 
-         * language change.
+         * 
          * <p>
          * 
          * @param e The event triggering this callback.
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            ImageAction.target.setTool(Tool.RECTANGLE);
+        }
+    }
+    
+    /**
+     * 
+     */
+    public class OvalAction extends AbstractAction {
+         /**
+         * <p>
+         * Create a new RectangleAction.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
+        OvalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon);
+        }
+        /**
+         * <p>
+         * 
+         * <p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
+    
+    /**
+     * 
+     */
+    public class LineAction extends AbstractAction {
+         /**
+         * <p>
+         * Create a new RectangleAction.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
+        LineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon);
+        }
+        /**
+         * <p>
+         * 
+         * <p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
         }
     }
 }
