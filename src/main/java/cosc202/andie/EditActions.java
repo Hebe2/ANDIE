@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import static cosc202.andie.ImageAction.target;
 import java.util.*;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
@@ -32,6 +33,7 @@ public class EditActions {
      * proper language
      */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
+    public int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 
     /**
      * A list of actions for the Edit menu.
@@ -73,12 +75,15 @@ public class EditActions {
     }
 
     public class CropAction extends ImageAction {
+
         CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, shortcut | InputEvent.SHIFT_DOWN_MASK));
         }
+
         @Override
         public void actionPerformed(ActionEvent e) {
-           if (!imageCheck()) {
+            if (!imageCheck()) {
                 return;
             }
             target.getImage().apply(new ImageCrop(target));
@@ -86,7 +91,7 @@ public class EditActions {
             target.getParent().revalidate();
         }
     }
-    
+
     /**
      * <p>
      * ImageAction to resize an image
@@ -109,6 +114,8 @@ public class EditActions {
          */
         ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, shortcut));
+
         }
 
         /**
@@ -182,6 +189,8 @@ public class EditActions {
          */
         UndoAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, shortcut));
+
         }
 
         /**
@@ -229,6 +238,7 @@ public class EditActions {
          */
         RedoAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, shortcut | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -277,6 +287,8 @@ public class EditActions {
          */
         HorizontalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F, shortcut));
+
         }
 
         /**
@@ -324,6 +336,7 @@ public class EditActions {
          */
         VerticalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F, shortcut | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -356,8 +369,8 @@ public class EditActions {
     private static int errorCount = 0;
 
     /**
-     * List of meme image paths used for error feedback.
-     * Cycles through these when user repeatedly triggers actions without an image.
+     * List of meme image paths used for error feedback. Cycles through these
+     * when user repeatedly triggers actions without an image.
      */
     private static final String[] MEMES = {"/meme1.jpg", "/meme.jpg", "/meme2.jpg", "/meme3.jpg"};
     /**

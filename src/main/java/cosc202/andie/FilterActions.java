@@ -3,6 +3,7 @@ package cosc202.andie;
 import static cosc202.andie.EditActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -33,6 +34,7 @@ public class FilterActions {
      * proper language
      */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
+    public int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 
     /**
      * A list of actions for the Filter menu.
@@ -46,7 +48,6 @@ public class FilterActions {
      */
     public FilterActions() {
         actions = new ArrayList<>();
-
         actions.add(new MeanFilterAction(bundle.getString("MEAN FILTER"), null, bundle.getString("APPLY A MEAN FILTER"), KeyEvent.VK_M));
         actions.add(new SharpenAction(bundle.getString("SHARPEN FILTER"), null, bundle.getString("APPLY A SHARPEN FILTER"), KeyEvent.VK_S));
         actions.add(new MedianFilterAction(bundle.getString("MEDIAN FILTER"), null, bundle.getString("APPLY A MEDIAN FILTER"), KeyEvent.VK_D));
@@ -55,71 +56,6 @@ public class FilterActions {
 
     }
 
-    /**
-     * <p>
-     * Action to blur an image with a median filter.
-     * </p>
-     *
-     * @see MedianFilter
-     */
-    public class MedianFilterAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new median filter action.
-         * </p>
-         *
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
-         * null).
-         */
-        MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the median filter action is triggered.
-         * </p>
-         *
-         * <p>
-         * This method is called whenever the MedianFilterAction is triggered.
-         * It applies the median filter to the entire image
-         * {@link MedianFilter}.
-         * </p>
-         *
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            if (!imageCheck()) {
-                return;
-            }
-
-            // Ask user for radius
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-
-            int option = JOptionPane.showOptionDialog(
-                    null,
-                    radiusSpinner,
-                    "Enter filter radius",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, null, null
-            );
-
-            if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION) {
-                return;
-            }
-
-            int radius = radiusModel.getNumber().intValue();
-            target.getImage().apply(new MedianFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
 
     /**
      * <p>
@@ -160,6 +96,8 @@ public class FilterActions {
          */
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, shortcut | InputEvent.SHIFT_DOWN_MASK));
+
         }
 
         /**
@@ -230,6 +168,8 @@ public class FilterActions {
          */
         SharpenAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_H, shortcut | InputEvent.SHIFT_DOWN_MASK));
+
         }
 
         /**
@@ -257,6 +197,55 @@ public class FilterActions {
 
     /**
      * <p>
+     * Action to blur an image with a median filter.
+     * </p>
+     *
+     * @see MedianFilter
+     */
+    public class MedianFilterAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new median filter action.
+         * </p>
+         *
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
+        MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, shortcut | InputEvent.SHIFT_DOWN_MASK));
+        }
+
+        /**
+         * <p>
+         * Callback for when the median filter action is triggered.
+         * </p>
+         *
+         * <p>
+         * This method is called whenever the MedianFilterAction is triggered.
+         * It applies the median filter to the entire image
+         * {@link MedianFilter}.
+         * </p>
+         *
+         * @param e The event triggering this callback.
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!imageCheck()) {
+                return;
+            }
+            target.getImage().apply(new MedianFilter());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
      * ImageAction to blur an image with a gaussian filter.
      * </p>
      *
@@ -277,6 +266,8 @@ public class FilterActions {
          */
         GaussianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, shortcut | InputEvent.SHIFT_DOWN_MASK));
+
         }
 
         /**

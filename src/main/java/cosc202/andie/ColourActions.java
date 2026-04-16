@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import static cosc202.andie.EditActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
+import java.awt.Toolkit;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -35,6 +36,8 @@ public class ColourActions {
      * proper language
      */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
+    public static int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
+
 
     /**
      * A list of actions for the Colour menu.
@@ -94,6 +97,7 @@ public class ColourActions {
          */
         public InversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_I, shortcut | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -142,6 +146,8 @@ public class ColourActions {
          */
         ThresholdAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_T, shortcut | InputEvent.SHIFT_DOWN_MASK));
+
         }
 
         /**
@@ -212,6 +218,7 @@ public class ColourActions {
          */
         ConvertToGreyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_Y, shortcut | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
