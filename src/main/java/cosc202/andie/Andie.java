@@ -97,6 +97,9 @@ public class Andie {
         // Settings to change language, english and german
         SettingAction settingActions = new SettingAction();
         menuBar.add(settingActions.createMenu());
+        
+        DrawingOps drawingActions = new DrawingOps();
+        menuBar.add(drawingActions.createMenu());
 
         frame.add(createToolBar(fileActions, editActions, viewActions), BorderLayout.PAGE_START);
 

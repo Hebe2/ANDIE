@@ -81,7 +81,6 @@ public class EditActions {
            if (!imageCheck()) {
                 return;
             }
-           System.out.println("Target = " + target);
             target.getImage().apply(new ImageCrop(target));
             target.repaint();
             target.getParent().revalidate();
