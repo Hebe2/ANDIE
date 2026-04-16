@@ -28,7 +28,10 @@ import javax.swing.*;
  */
 public class FilterActions {
 
-    /** A @ResourceBundle that retrieves strings throughout the class in the proper language */
+    /**
+     * A @ResourceBundle that retrieves strings throughout the class in the
+     * proper language
+     */
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
@@ -49,8 +52,9 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("MEDIAN FILTER"), null, bundle.getString("APPLY A MEDIAN FILTER"), KeyEvent.VK_D));
         actions.add(new GaussianFilterAction(bundle.getString("GAUSSIAN FILTER"), null, bundle.getString("APPLY A GAUSSIAN BLUR FILTER"), KeyEvent.VK_G));
         actions.add(new RandomScatteringAction(bundle.getString("RANDOM SCATTERING"), null, bundle.getString("APPLY RANDOM SCATTERING"), KeyEvent.VK_R));
-        
+
     }
+
     /**
      * <p>
      * Action to blur an image with a median filter.
@@ -58,8 +62,9 @@ public class FilterActions {
      *
      * @see MedianFilter
      */
-     public class MedianFilterAction extends ImageAction {
-         /**
+    public class MedianFilterAction extends ImageAction {
+
+        /**
          * <p>
          * Create a new median filter action.
          * </p>
@@ -70,30 +75,51 @@ public class FilterActions {
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if
          * null).
          */
-            MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-                super(name, icon, desc, mnemonic);
-            }
-            /**
+        MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
          * <p>
          * Callback for when the median filter action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the MedianFilterAction is triggered. It applies 
-         * the median filter to the entire image {@link MedianFilter}.
+         * This method is called whenever the MedianFilterAction is triggered.
+         * It applies the median filter to the entire image
+         * {@link MedianFilter}.
          * </p>
          *
          * @param e The event triggering this callback.
          */
-            public void actionPerformed(ActionEvent e) {
-                if(!imageCheck()){
+        public void actionPerformed(ActionEvent e) {
+            if (!imageCheck()) {
                 return;
             }
-                target.getImage().apply(new MedianFilter());
-                target.repaint();
-                target.getParent().revalidate();
+
+            // Ask user for radius
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
+
+            int option = JOptionPane.showOptionDialog(
+                    null,
+                    radiusSpinner,
+                    "Enter filter radius",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, null, null
+            );
+
+            if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION) {
+                return;
             }
+
+            int radius = radiusModel.getNumber().intValue();
+            target.getImage().apply(new MedianFilter(radius));
+            target.repaint();
+            target.getParent().revalidate();
         }
+    }
 
     /**
      * <p>
@@ -120,6 +146,7 @@ public class FilterActions {
      * @see MeanFilter
      */
     public class MeanFilterAction extends ImageAction {
+
         /**
          * <p>
          * Create a new mean filter action.
@@ -134,6 +161,7 @@ public class FilterActions {
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
         /**
          * <p>
          * Callback for when the mean filter action is triggered.
@@ -149,7 +177,7 @@ public class FilterActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
             // Determine the radius - ask the user.
@@ -158,12 +186,11 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            
+
             //disable typing
             JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) radiusSpinner.getEditor();
             editor.getTextField().setEditable(false);
-            
-            
+
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER FILTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -180,7 +207,7 @@ public class FilterActions {
         }
 
     }
-    
+
     /**
      * <p>
      * ImageAction to sharpen an image.
@@ -189,6 +216,7 @@ public class FilterActions {
      * @see SharpenFilter
      */
     public class SharpenAction extends ImageAction {
+
         /**
          * <p>
          * Create a new sharpen action.
@@ -200,24 +228,25 @@ public class FilterActions {
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if
          * null).
          */
-        SharpenAction(String name,ImageIcon icon, String desc, Integer mnemonic){
+        SharpenAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
         /**
          * <p>
          * Callback for when the sharpen filter action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the SharpenFilterAction is triggered. It
-         * sharpens the pixels in an image {@link SharpenFilter}.
+         * This method is called whenever the SharpenFilterAction is triggered.
+         * It sharpens the pixels in an image {@link SharpenFilter}.
          * </p>
          *
          * @param e The event triggering this callback.
          */
         @Override
-        public void actionPerformed(ActionEvent e){
-            if(!imageCheck()){
+        public void actionPerformed(ActionEvent e) {
+            if (!imageCheck()) {
                 return;
             }
             target.getImage().apply(new SharpenFilter());
@@ -225,7 +254,7 @@ public class FilterActions {
             target.getParent().revalidate();
         }
     }
-    
+
     /**
      * <p>
      * ImageAction to blur an image with a gaussian filter.
@@ -233,7 +262,8 @@ public class FilterActions {
      *
      * @see GaussianFilter
      */
-    public class GaussianFilterAction extends ImageAction{
+    public class GaussianFilterAction extends ImageAction {
+
         /**
          * <p>
          * Create a new Gaussian Filter action.
@@ -248,22 +278,23 @@ public class FilterActions {
         GaussianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
         /**
          * <p>
          * Callback for when the gaussian filter action is triggered.
          * </p>
          *
          * <p>
-         * This method is called whenever the GaussianFilterAction is triggered. It
-         * prompts the user for a filter radius, then applies an appropriately
-         * sized filter {@link GaussianFilter}.
+         * This method is called whenever the GaussianFilterAction is triggered.
+         * It prompts the user for a filter radius, then applies an
+         * appropriately sized filter {@link GaussianFilter}.
          * </p>
          *
          * @param e The event triggering this callback.
-         */   
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
             // Determine the radius - ask the user.
@@ -282,7 +313,6 @@ public class FilterActions {
             panel.setPreferredSize(new Dimension(170, 50));
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER FILTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
@@ -296,38 +326,35 @@ public class FilterActions {
             target.getParent().revalidate();
         }
     }
-    
+
     public class RandomScatteringAction extends ImageAction {
 
-    RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-        super(name, icon, desc, mnemonic);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (!imageCheck()) {
-            return;
+        RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
         }
 
-       
-        SpinnerNumberModel radiusModel = new SpinnerNumberModel(5, 1, 50, 1);
-        JSpinner radiusSpinner = new JSpinner(radiusModel);
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!imageCheck()) {
+                return;
+            }
 
-        
-        ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(5, 1, 50, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
 
-        int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER SCATTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
 
-        if (option == JOptionPane.CANCEL_OPTION) {
-            return;
-        } else if (option == JOptionPane.OK_OPTION) {
-            int radius = radiusModel.getNumber().intValue();
-            target.getImage().apply(new Randomscattering(radius));
-            target.repaint();
-            target.getParent().revalidate();
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, bundle.getString("ENTER SCATTER RADIUS"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                int radius = radiusModel.getNumber().intValue();
+                target.getImage().apply(new Randomscattering(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            }
         }
     }
-}
 
 }
-

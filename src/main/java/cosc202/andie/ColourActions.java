@@ -165,11 +165,8 @@ public class ColourActions {
             if (!imageCheck()) {
                 return;
             }
+            target.getImage().apply(new ConvertToGrey());
             while (true) {
-                if (!target.getImage().isGrayScale()){
-                    JOptionPane.showMessageDialog(null, "Must Convert Image to Grayscale First");
-                    return;
-                }
                 String input = JOptionPane.showInputDialog("Enter threshold value between 0-255: ");
                 if (input == null) {
                     return;
