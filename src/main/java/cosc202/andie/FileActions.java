@@ -347,22 +347,43 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         @Override
+
         public void actionPerformed(ActionEvent e) {
             if (!imageCheck()) {
                 return;
             }
+
+            // Ask for format first
+            String[] formats = {"PNG", "JPEG"};
+            JComboBox<String> formatDropdown = new JComboBox<>(formats);
+
+            int formatResult = JOptionPane.showConfirmDialog(
+                    target,
+                    formatDropdown,
+                    "Choose Export Format",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (formatResult == JOptionPane.CANCEL_OPTION || formatResult == JOptionPane.CLOSED_OPTION) {
+                return;
+            }
+
+            String selectedFormat = (String) formatDropdown.getSelectedItem();
+            String ext = selectedFormat.equals("PNG") ? "png" : "jpg";
+
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
 
-                    // Auto-append .png if no extension provided
-                    if (!imageFilepath.contains(".")) {
-                        imageFilepath += ".png";
+                    // Strip existing extension and use chosen one
+                    if (imageFilepath.contains(".")) {
+                        imageFilepath = imageFilepath.substring(0, imageFilepath.lastIndexOf("."));
                     }
+                    imageFilepath += "." + ext;
 
-                    String ext = imageFilepath.substring(imageFilepath.lastIndexOf(".") + 1);
                     BufferedImage exportImage = target.getImage().getCurrentImage();
 
                     if (hasTransparentPixels(exportImage)) {
@@ -385,15 +406,6 @@ public class FileActions {
             }
         }
 
-        /**
-         * Checks whether the given image contains any transparent or
-         * semi-transparent pixels.
-         *
-         * @param exportImage the {@link BufferedImage} to check for
-         * transparency
-         * @return {@code true} if any pixel has an alpha value less than 255,
-         * {@code false} otherwise or if the image is {@code null}
-         */
         private boolean hasTransparentPixels(BufferedImage exportImage) {
             if (exportImage == null) {
                 return false;
@@ -409,7 +421,6 @@ public class FileActions {
             }
             return false;
         }
-
     }
-}
 
+}
