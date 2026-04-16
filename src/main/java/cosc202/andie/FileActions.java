@@ -1,6 +1,5 @@
 package cosc202.andie;
 
-
 import static cosc202.andie.EditActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
 import java.util.*;
@@ -109,19 +108,22 @@ public class FileActions {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (target.getImage().hasUnsavedChanges()) {
-        int result = JOptionPane.showConfirmDialog(
-            target,
-            bundle.getString("UNSAVED CHANGES MESSAGE"),
-            bundle.getString("UNSAVED CHANGES TITLE"),
-            JOptionPane.YES_NO_CANCEL_OPTION,
-            JOptionPane.WARNING_MESSAGE
-        );
-        if (result == JOptionPane.YES_OPTION) {
-            try { target.getImage().save(); } catch (Exception ex) {}
-        } else if (result == JOptionPane.CANCEL_OPTION) {
-            return;
-        }
-    }
+                int result = JOptionPane.showConfirmDialog(
+                        target,
+                        bundle.getString("UNSAVED CHANGES MESSAGE"),
+                        bundle.getString("UNSAVED CHANGES TITLE"),
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+                if (result == JOptionPane.YES_OPTION) {
+                    try {
+                        target.getImage().save();
+                    } catch (Exception ex) {
+                    }
+                } else if (result == JOptionPane.CANCEL_OPTION) {
+                    return;
+                }
+            }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
@@ -178,7 +180,7 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
             try {
@@ -228,7 +230,7 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-              if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
             JFileChooser fileChooser = new JFileChooser();
@@ -266,7 +268,7 @@ public class FileActions {
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-           
+
         }
 
         /**
@@ -283,34 +285,39 @@ public class FileActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-              
-        if (target.getImage().hasUnsavedChanges()) {
-            int result = JOptionPane.showConfirmDialog(
-                target,
-                bundle.getString("UNSAVED CHANGES MESSAGE"),
-                bundle.getString("UNSAVED CHANGES TITLE"),
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.WARNING_MESSAGE
-            );
-            if (result == JOptionPane.YES_OPTION) {
-                try { target.getImage().save(); } catch (Exception ex) {}
-                System.exit(0);
-            } else if (result == JOptionPane.NO_OPTION) {
+
+            if (target.getImage().hasUnsavedChanges()) {
+                int result = JOptionPane.showConfirmDialog(
+                        target,
+                        bundle.getString("UNSAVED CHANGES MESSAGE"),
+                        bundle.getString("UNSAVED CHANGES TITLE"),
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+                if (result == JOptionPane.YES_OPTION) {
+                    try {
+                        target.getImage().save();
+                    } catch (Exception ex) {
+                    }
+                    System.exit(0);
+                } else if (result == JOptionPane.NO_OPTION) {
+                    System.exit(0);
+                }
+
+            } else {
                 System.exit(0);
             }
-           
-        } else {
-            System.exit(0);
         }
-    }
 
     }
+
     /**
      * <p>
-     * ImageAction to export an image 
+     * ImageAction to export an image
      * </p>
      */
     public class FileExportAction extends ImageAction {
+
         /**
          * <p>
          * Create a new file-export action.
@@ -322,46 +329,53 @@ public class FileActions {
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if
          * null).
          */
-
         FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the file-export action is triggered.
          * </p>
          *
          * <p>
          * This method is called whenever the FileExportAction is triggered. It
-         * opens a file chooser that prompts users to select a location and name for 
-         * their image to save on their computer. 
+         * opens a file chooser that prompts users to select a location and name
+         * for their image to save on their computer.
          * </p>
          *
          * @param e The event triggering this callback.
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-              if(!imageCheck()){
+            if (!imageCheck()) {
                 return;
             }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
-
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    String ext = imageFilepath.contains(".")
-                            ? imageFilepath.substring(imageFilepath.lastIndexOf(".") + 1) : "png";
+
+                    // Auto-append .png if no extension provided
+                    if (!imageFilepath.contains(".")) {
+                        imageFilepath += ".png";
+                    }
+
+                    String ext = imageFilepath.substring(imageFilepath.lastIndexOf(".") + 1);
                     BufferedImage exportImage = target.getImage().getCurrentImage();
+
                     if (hasTransparentPixels(exportImage)) {
-                        JOptionPane.showMessageDialog(
+                        int choice = JOptionPane.showConfirmDialog(
                                 target,
-                                "We do not support this type: image contains transparent pixels.",
-                                "Unsupported Image Type",
-                                JOptionPane.ERROR_MESSAGE
+                                "This image contains transparent pixels. Continue exporting?",
+                                "Transparency Warning",
+                                JOptionPane.OK_CANCEL_OPTION,
+                                JOptionPane.WARNING_MESSAGE
                         );
-                        return;
+                        if (choice == JOptionPane.CANCEL_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+                            return;
+                        }
                     }
 
                     ImageIO.write(exportImage, ext, new java.io.File(imageFilepath));
@@ -371,15 +385,15 @@ public class FileActions {
             }
         }
 
-        
-       
-    /**
- * Checks whether the given image contains any transparent or semi-transparent pixels.
- *
- * @param exportImage the {@link BufferedImage} to check for transparency
- * @return {@code true} if any pixel has an alpha value less than 255, {@code false} otherwise
- *         or if the image is {@code null}
- */
+        /**
+         * Checks whether the given image contains any transparent or
+         * semi-transparent pixels.
+         *
+         * @param exportImage the {@link BufferedImage} to check for
+         * transparency
+         * @return {@code true} if any pixel has an alpha value less than 255,
+         * {@code false} otherwise or if the image is {@code null}
+         */
         private boolean hasTransparentPixels(BufferedImage exportImage) {
             if (exportImage == null) {
                 return false;
@@ -391,12 +405,11 @@ public class FileActions {
                     if (alpha < 255) {
                         return true;
                     }
-
                 }
             }
-
             return false;
         }
-    }  
 
+    }
 }
+
