@@ -97,7 +97,7 @@ public class Andie {
         // Settings to change language, english and german
         SettingAction settingActions = new SettingAction();
         menuBar.add(settingActions.createMenu());
-        
+
         DrawingOps drawingActions = new DrawingOps();
         menuBar.add(drawingActions.createMenu());
 
@@ -169,6 +169,19 @@ public class Andie {
 
         toolBar.addSeparator();
 
+        //crop
+        addButton(toolBar, "crop.png", "crop image", () -> {
+            target.getImage().apply(new ImageCrop(target));
+            target.repaint();
+        });
+        
+        addButton(toolBar, "resize.png", "resize image", () -> {
+            editActions.actions.get(2).actionPerformed(null);
+            target.repaint();
+        });
+        
+        toolBar.addSeparator();
+
         //zoom In
         addButton(toolBar, "zoomIn.png", "zoom in", () -> {
             target.setZoom(target.getZoom() + 10);
@@ -208,20 +221,21 @@ public class Andie {
         });
 
         toolBar.addSeparator();
-        
+
         //vertical flip
         addButton(toolBar, "flipVert.png", "flip vertical", () -> {
             target.getImage().apply(new VerticalFlip());
             target.repaint();
         });
-        
-         //horizontal flip
+
+        //horizontal flip
         addButton(toolBar, "flipHori.png", "flip horizontal", () -> {
             target.getImage().apply(new HorizontalFlip());
             target.repaint();
         });
-        
-        
+
+        toolBar.addSeparator();
+
         return toolBar;
     }
 
