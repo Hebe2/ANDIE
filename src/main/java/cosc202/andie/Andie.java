@@ -147,7 +147,7 @@ public class Andie {
 
         //save as
         addButton(toolBar, "saveAs.png", "Save As", () -> {
-            fileActions.actions.get(1).actionPerformed(null);
+            fileActions.actions.get(2).actionPerformed(null);
         });
 
         toolBar.addSeparator();
