@@ -89,23 +89,6 @@ class EditableImage {
         imageFilename = null;
         opsFilename = null;
     }
-
-    public boolean isGrayScale(){
-        for (int y = 0; y < current.getHeight(); y++) {
-            for (int x = 0; x < current.getWidth(); x++) {
-                int rgb = current.getRGB(x, y);
-
-                int r = (rgb >> 16) & 0xFF;
-                int g = (rgb >> 8) & 0xFF;
-                int b = rgb & 0xFF;
-
-                if (r != g || g != b) {
-                    return false;
-                }
-            }
-        }
-        return true; 
-    }
         
     /**
      * <p>
