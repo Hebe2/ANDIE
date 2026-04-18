@@ -401,19 +401,34 @@ public class ColourActions {
             strengthSlider.setPaintLabels(true);
 
             JPanel panel = new JPanel();
+            
+            JRadioButton softLight = new JRadioButton("Soft Light", true);
+            JRadioButton overlay = new JRadioButton("Overlay");
+            ButtonGroup blendGroup = new ButtonGroup();
+            blendGroup.add(softLight);
+            blendGroup.add(overlay);
+            JPanel blendPanel = new JPanel();
+            blendPanel.add(softLight);
+            blendPanel.add(overlay);
+            panel.add(new JLabel("Blend Mode:"));
+            panel.add(blendPanel);
+            
+            
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
             panel.add(new JLabel("Blur Radius:"));
             panel.add(radiusSlider);
             panel.add(new JLabel("Strength (%):"));
             panel.add(strengthSlider);
 
+            
+
             int option = JOptionPane.showOptionDialog(null, panel, "Contrast Mask",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
             if (option == JOptionPane.OK_OPTION) {
                 int radius = radiusSlider.getValue();
                 double strength = strengthSlider.getValue() / 100.0;
-                target.getImage().apply(new Contrast_Mask(radius, strength));
+                boolean useOverlay = overlay.isSelected(); 
+                target.getImage().apply(new Contrast_Mask(radius, strength, useOverlay));
                 target.repaint();
                 target.getParent().revalidate();
             }
