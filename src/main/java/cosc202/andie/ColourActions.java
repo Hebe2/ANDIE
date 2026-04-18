@@ -38,7 +38,6 @@ public class ColourActions {
     private static ResourceBundle bundle = LanguageUtil.getBundle();
     public static int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 
-
     /**
      * A list of actions for the Colour menu.
      */
@@ -56,6 +55,7 @@ public class ColourActions {
         actions.add(new InversionAction(bundle.getString("INVERSION"), null, bundle.getString("APPLY INVERSION"), KeyEvent.VK_I));
         actions.add(new ColorChannelSwapAction(bundle.getString("COLOR CHANNEL SWAP"), null, bundle.getString("COLOR CHANNEL SWAP"), KeyEvent.VK_Z));
         actions.add(new BrightnessContrastAction(bundle.getString("BRIGHTNESS CONTRAST"), null, bundle.getString("ADJUST BRIGHTNESS AND CONTRAST"), KeyEvent.VK_B));
+        actions.add(new ContrastMaskAction(bundle.getString("CONTRAST MASK"), null, bundle.getString("APPLY CONTRAST MASK"), KeyEvent.VK_M));
     }
 
     /**
@@ -97,7 +97,7 @@ public class ColourActions {
          */
         public InversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_I, shortcut | InputEvent.SHIFT_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_I, shortcut | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -146,7 +146,7 @@ public class ColourActions {
          */
         ThresholdAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_T, shortcut | InputEvent.SHIFT_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_T, shortcut | InputEvent.SHIFT_DOWN_MASK));
 
         }
 
@@ -182,7 +182,7 @@ public class ColourActions {
                     if (threshold < 0 || threshold > 255) {
                         JOptionPane.showMessageDialog(null, "Integer must be between 0 and 255");
                         continue;
-                    }               
+                    }
                     target.getImage().apply(new ImageThresholding(threshold));
                     target.repaint();
                     target.getParent().revalidate();
@@ -218,7 +218,7 @@ public class ColourActions {
          */
         ConvertToGreyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_Y, shortcut | InputEvent.SHIFT_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Y, shortcut | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -305,7 +305,6 @@ public class ColourActions {
             }
         }
     }
-    
 
     public class BrightnessContrastAction extends ImageAction {
 
@@ -377,5 +376,52 @@ public class ColourActions {
             }
         }
 
+    }
+
+    public class ContrastMaskAction extends ImageAction {
+
+        ContrastMaskAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!imageCheck()) {
+                return;
+            }
+
+            JSlider radiusSlider = new JSlider(1, 20, 10);
+            radiusSlider.setMajorTickSpacing(5);
+            radiusSlider.setPaintTicks(true);
+            radiusSlider.setPaintLabels(true);
+
+            JSlider strengthSlider = new JSlider(0, 100, 90);
+            strengthSlider.setMajorTickSpacing(25);
+            strengthSlider.setPaintTicks(true);
+            strengthSlider.setPaintLabels(true);
+
+            JPanel panel = new JPanel();
+            
+          
+            
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.add(new JLabel("Blur Radius:"));
+            panel.add(radiusSlider);
+            panel.add(new JLabel("Strength (%):"));
+            panel.add(strengthSlider);
+
+            
+
+            int option = JOptionPane.showOptionDialog(null, panel, "Contrast Mask",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            if (option == JOptionPane.OK_OPTION) {
+                int radius = radiusSlider.getValue();
+                double strength = strengthSlider.getValue() / 100.0;
+             
+                target.getImage().apply(new Contrast_Mask(radius, strength));
+                target.repaint();
+                target.getParent().revalidate();
+            }
+        }
     }
 }
