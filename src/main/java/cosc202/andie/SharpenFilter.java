@@ -46,16 +46,6 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (sharpen) image.
      */
     public BufferedImage apply(BufferedImage input) {
-
-//
-//        Kernel kernel = new Kernel(3, 3, array);
-//
-//        ConvolveOp convOp = new ConvolveOp(kernel);
-//        BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
-//        convOp.filter(input, output);
-//
-//        return output;
-
         int width = input.getWidth();
         int height = input.getHeight();
 
