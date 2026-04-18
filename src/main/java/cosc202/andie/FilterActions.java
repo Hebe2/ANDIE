@@ -56,7 +56,6 @@ public class FilterActions {
 
     }
 
-
     /**
      * <p>
      * Create a menu containing the list of Filter actions.
@@ -238,7 +237,25 @@ public class FilterActions {
             if (!imageCheck()) {
                 return;
             }
-            target.getImage().apply(new MedianFilter());
+
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
+
+            int option = JOptionPane.showOptionDialog(
+                    null,
+                    radiusSpinner,
+                    bundle.getString("ENTER FILTER RADIUS"),
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, null, null
+            );
+
+            if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION) {
+                return;
+            }
+
+            int radius = radiusModel.getNumber().intValue();
+            target.getImage().apply(new MedianFilter(radius));
             target.repaint();
             target.getParent().revalidate();
         }
