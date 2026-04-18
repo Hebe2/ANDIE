@@ -402,17 +402,7 @@ public class ColourActions {
 
             JPanel panel = new JPanel();
             
-            JRadioButton softLight = new JRadioButton("Soft Light", true);
-            JRadioButton overlay = new JRadioButton("Overlay");
-            ButtonGroup blendGroup = new ButtonGroup();
-            blendGroup.add(softLight);
-            blendGroup.add(overlay);
-            JPanel blendPanel = new JPanel();
-            blendPanel.add(softLight);
-            blendPanel.add(overlay);
-            panel.add(new JLabel("Blend Mode:"));
-            panel.add(blendPanel);
-            
+          
             
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
             panel.add(new JLabel("Blur Radius:"));
@@ -427,8 +417,8 @@ public class ColourActions {
             if (option == JOptionPane.OK_OPTION) {
                 int radius = radiusSlider.getValue();
                 double strength = strengthSlider.getValue() / 100.0;
-                boolean useOverlay = overlay.isSelected(); 
-                target.getImage().apply(new Contrast_Mask(radius, strength, useOverlay));
+             
+                target.getImage().apply(new Contrast_Mask(radius, strength));
                 target.repaint();
                 target.getParent().revalidate();
             }

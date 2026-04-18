@@ -15,12 +15,12 @@ public class Contrast_Mask implements ImageOperation, Serializable {
 
     private int radius;
     private double strength;
-    private boolean useOverlay;
+   
 
-    Contrast_Mask(int radius, double strength, boolean useOverlay) {
+    Contrast_Mask(int radius, double strength) {
         this.radius = radius;
         this.strength = strength;
-        this.useOverlay = useOverlay;
+        
     }
 
     Contrast_Mask() {
@@ -71,9 +71,9 @@ public class Contrast_Mask implements ImageOperation, Serializable {
                 double maskB = (maskArgb & 0xFF) / 255.0;
                 double weight = ((maskArgb >> 24) & 0xFF) / 255.0;
 
-                int newR = useOverlay ? overlayBlend(origR, maskR, weight) : blendAndWeight(origR, maskR, weight);
-                int newG = useOverlay ? overlayBlend(origG, maskG, weight) : blendAndWeight(origG, maskG, weight);
-                int newB = useOverlay ? overlayBlend(origB, maskB, weight) : blendAndWeight(origB, maskB, weight);
+                int newR =  blendAndWeight(origR, maskR, weight);
+                int newG = blendAndWeight(origG, maskG, weight);
+                int newB = blendAndWeight(origB, maskB, weight);
 
                 input.setRGB(x, y, (origA << 24) | (newR << 16) | (newG << 8) | newB);
             }
@@ -94,17 +94,6 @@ public class Contrast_Mask implements ImageOperation, Serializable {
         double weighted = blended * weight + orig * (1 - weight);
         return (int) Math.round(weighted * 255);
     }
-//the overlay helper method cause i generally cant tell the difference between the photos sooo we doing both 
 
-    private int overlayBlend(double orig, double mask, double weight) {
-        double blended;
-        if (orig <= 0.5) {
-            blended = 2 * orig * mask;
-        } else {
-            blended = 1 - 2 * (1 - orig) * (1 - mask);
-        }
-        double weighted = blended * weight + orig * (1 - weight);
-        return (int) Math.round(weighted * 255);
-    }
 
 }
