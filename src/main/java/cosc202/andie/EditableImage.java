@@ -65,12 +65,15 @@ class EditableImage {
      * The file where the operation sequence is stored.
      */
     private String opsFilename;
-    
-    
+
     /**
      * The file where the operation checks if the image is saved or not
      */
     private boolean unsavedChanges = false;
+
+    private boolean recording = false;
+    private Stack<ImageOperation> macros = new Stack();
+
     /**
      * <p>
      * Create a new EditableImage.
@@ -88,8 +91,9 @@ class EditableImage {
         redoOps = new Stack<>();
         imageFilename = null;
         opsFilename = null;
+        macros = null;
     }
-        
+
     /**
      * <p>
      * Check if there is an image loaded.
@@ -100,7 +104,7 @@ class EditableImage {
     public boolean hasImage() {
         return current != null;
     }
-    
+
     /**
      * <p>
      * Check if there is the image has unsaved changes .
@@ -108,23 +112,22 @@ class EditableImage {
      *
      * @return True if there is, false otherwise.
      */
-    
-    public boolean hasUnsavedChanges() { 
-        return unsavedChanges; 
+    public boolean hasUnsavedChanges() {
+        return unsavedChanges;
     }
-    
-    /**
- * <p>
- * Set the unsaved changes flag.
- * </p>
- *
- * @param val True to mark the image as having unsaved changes, false otherwise.
- */
 
+    /**
+     * <p>
+     * Set the unsaved changes flag.
+     * </p>
+     *
+     * @param val True to mark the image as having unsaved changes, false
+     * otherwise.
+     */
     public void setUnsavedChanges(boolean val) {
         unsavedChanges = val;
     }
-    
+
     /**
      * <p>
      * Make a 'deep' copy of a BufferedImage.
@@ -245,7 +248,7 @@ class EditableImage {
         try ( // Write operations file
                 FileOutputStream fileOut = new FileOutputStream(this.opsFilename); ObjectOutputStream objOut = new ObjectOutputStream(fileOut);) {
             objOut.writeObject(this.ops);
-            
+
         }
         unsavedChanges = false;
     }
@@ -282,7 +285,9 @@ class EditableImage {
         current = op.apply(current);
         ops.add(op);
         unsavedChanges = true;
-
+        if (recording) {
+            macros.push(op);
+        }
     }
 
     /**
@@ -291,9 +296,11 @@ class EditableImage {
      * </p>
      */
     public void undo() {
-    if (ops.isEmpty()) return;
-    redoOps.push(ops.pop());
-    refresh();
+        if (ops.isEmpty()) {
+            return;
+        }
+        redoOps.push(ops.pop());
+        refresh();
     }
 
     /**
@@ -340,5 +347,26 @@ class EditableImage {
             current = op.apply(current);
         }
     }
-
+    
+    public void record(){
+       recording = true;
+       macros.clear();
+    }
+    
+    public void stop(){
+        recording = false;
+    }
+    
+    public stack getMacros(){
+        return macros;
+    }
+    
+    public void playMacros(){
+        boolean wasRecording = recording;
+        recording = false; //stop recording if macros is recprding when applying macros, but later can ask user question if they want it to be recroded in the ops file
+        for (ImageOperation op : macros) {
+            apply(op);
+        }
+        recording = wasRecording;
+    }
 }
