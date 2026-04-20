@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import static cosc202.andie.EditActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.*;
 import java.awt.event.*;
@@ -55,6 +56,7 @@ public class ColourActions {
         actions.add(new InversionAction(bundle.getString("INVERSION"), null, bundle.getString("APPLY INVERSION"), KeyEvent.VK_I));
         actions.add(new ColorChannelSwapAction(bundle.getString("COLOR CHANNEL SWAP"), null, bundle.getString("COLOR CHANNEL SWAP"), KeyEvent.VK_Z));
         actions.add(new BrightnessContrastAction(bundle.getString("BRIGHTNESS CONTRAST"), null, bundle.getString("ADJUST BRIGHTNESS AND CONTRAST"), KeyEvent.VK_B));
+        actions.add(new ColourTinterAction(bundle.getString("COLOUR TINTER"), null, bundle.getString("APPLY COLOUR TINTER"), KeyEvent.VK_N));
         actions.add(new ContrastMaskAction(bundle.getString("CONTRAST MASK"), null, bundle.getString("APPLY CONTRAST MASK"), KeyEvent.VK_M));
     }
 
@@ -401,27 +403,64 @@ public class ColourActions {
             strengthSlider.setPaintLabels(true);
 
             JPanel panel = new JPanel();
-            
-          
-            
+
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
             panel.add(new JLabel("Blur Radius:"));
             panel.add(radiusSlider);
             panel.add(new JLabel("Strength (%):"));
             panel.add(strengthSlider);
 
-            
-
             int option = JOptionPane.showOptionDialog(null, panel, "Contrast Mask",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             if (option == JOptionPane.OK_OPTION) {
                 int radius = radiusSlider.getValue();
                 double strength = strengthSlider.getValue() / 100.0;
-             
+
                 target.getImage().apply(new Contrast_Mask(radius, strength));
                 target.repaint();
                 target.getParent().revalidate();
             }
         }
+    }
+
+    public class ColourTinterAction extends ImageAction {
+
+        ColourTinterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!imageCheck()) {
+                return;
+            }
+
+            JColorChooser colourChooser = new JColorChooser(Color.RED);
+
+            JSlider strengthSlider = new JSlider(0, 100, 50);
+            strengthSlider.setMajorTickSpacing(25);
+            strengthSlider.setMinorTickSpacing(5);
+            strengthSlider.setPaintTicks(true);
+            strengthSlider.setPaintLabels(true);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.add(colourChooser);
+            panel.add(new JLabel("Strength:"));
+            panel.add(strengthSlider);
+
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("COLOUR TINTER"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.OK_OPTION) {
+                Color chosen = colourChooser.getColor();
+                float strength = strengthSlider.getValue() / 100.0f;
+                target.getImage().apply(new ColourTinter(chosen, strength));
+                target.repaint();
+                target.getParent().revalidate();
+            }
+
+        }
+
     }
 }
