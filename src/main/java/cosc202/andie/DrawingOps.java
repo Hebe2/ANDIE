@@ -7,14 +7,10 @@ package cosc202.andie;
 import static cosc202.andie.EditActions.imageCheck;
 import static cosc202.andie.ImageAction.target;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -78,13 +74,6 @@ public class DrawingOps {
             return;
         }
         
-//        List<Rectangle> selections = imagePanel.getSelections();
-//
-//        if (selections == null || selections.isEmpty()) {
-//            JOptionPane.showMessageDialog(target, bundle.getString("PLEASE MAKE A SELECTION"));
-//            return;
-//        }
-        
         Rectangle selection = imagePanel.getSelection();
         
         if (selection == null || selection.width == 0 || selection.height == 0) {
@@ -92,18 +81,29 @@ public class DrawingOps {
             return;
         }
         
-        String[] fillOptions = {"No Fill", "Fill"};
+        String[] fillOptions = {bundle.getString("FILL"),bundle.getString("NO FILL")};
         JComboBox<String> fillBox = new JComboBox<>(fillOptions);
         
-        String[] colorNames = {"Black", "Red", "Green", "Blue", "White", "Yellow"};
-        Color[]  colorValues = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE, Color.WHITE, Color.YELLOW};
-        JComboBox<String> colorBox = new JComboBox<>(colorNames);
+        String[] fillColorNames = {bundle.getString("BLACK"), bundle.getString("RED"), bundle.getString("GREEN"), bundle.getString("BLUE"), bundle.getString("WHITE"), bundle.getString("YELLOW")};
+        Color[]  fillColorValues = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE, Color.WHITE, Color.YELLOW};
+        JComboBox<String> fillColorBox = new JComboBox<>(fillColorNames);
         
-        JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
-        panel.add(new JLabel("Fill:"));
+        String[] outlineColorNames = {bundle.getString("BLACK"), bundle.getString("RED"), bundle.getString("GREEN"), bundle.getString("BLUE"), bundle.getString("WHITE"), bundle.getString("YELLOW")};
+        Color[] outlineColorValues = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE, Color.WHITE, Color.YELLOW};
+        JComboBox<String> outlineColorBox = new JComboBox<>(outlineColorNames);
+        
+        String[] dashOptions = {bundle.getString("SOLID"), bundle.getString("DASHED")};
+        JComboBox<String> dashBox = new JComboBox<>(dashOptions);
+        
+        JPanel panel = new JPanel(new GridLayout(4, 2, 5, 5));
+        panel.add(new JLabel(bundle.getString("FILL")));
         panel.add(fillBox);
-        panel.add(new JLabel("Color:"));
-        panel.add(colorBox);
+        panel.add(new JLabel(bundle.getString("FILL COLOR")));
+        panel.add(fillColorBox);
+        panel.add(new JLabel(bundle.getString("OUTLINE COLOR")));
+        panel.add(outlineColorBox);
+        panel.add(new JLabel(bundle.getString("DASH")));
+        panel.add(dashBox);
         
         int result = JOptionPane.showConfirmDialog(
             null, panel,
@@ -114,49 +114,22 @@ public class DrawingOps {
 
         if (result != JOptionPane.OK_OPTION) return;
         
-            boolean filled = fillBox.getSelectedIndex() == 1;
-            Color color = colorValues[colorBox.getSelectedIndex()];
-            applyShape(imagePanel, selection, shapeType, filled, color);
+            boolean filled = fillBox.getSelectedIndex() == 0;
+//          Color color = colorValues[colorBox.getSelectedIndex()];
+            Color fillColor = fillColorValues[fillColorBox.getSelectedIndex()];
+            Color outlineColor = outlineColorValues[outlineColorBox.getSelectedIndex()];
+            boolean dashed = dashBox.getSelectedIndex() == 1;
+            applyShape(imagePanel, selection, shapeType, filled, fillColor, outlineColor, dashed);
         
     }
 
     private void applyShape(ImagePanel imagePanel,Rectangle selection,
-                            String shapeType, boolean filled, Color color){
+                            String shapeType, boolean filled, Color fillColor, Color outlineColor, boolean dashed){
         
           double scale = imagePanel.getZoom()/100.0;
           
-          imagePanel.getImage().apply(new DrawShape(shapeType, filled, color, selection, scale));
+          imagePanel.getImage().apply(new DrawShape(shapeType, filled, fillColor, outlineColor, selection, scale, dashed));
         
-//        BufferedImage img = imagePanel.getImage().getCurrentImage();
-//        Graphics2D g2 = img.createGraphics();
-//        
-//        //correct zoom
-//        double scale = imagePanel.getZoom() / 100.0;
-//        int x = (int)(selection.x / scale);
-//        int y = (int)(selection.y / scale);
-//        int w = (int)(selection.width / scale);
-//        int h = (int)(selection.height / scale);
-//        
-//        g2.setColor(color);
-//        //g2.setStroke(new BasicStroke(2));
-//        //g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//
-//        switch (shapeType) {
-//            case "Rectangle" -> {
-//                if (filled) g2.fillRect(x, y, w, h);
-//                else        g2.drawRect(x, y, w, h);
-//            }
-//            case "Oval" -> {
-//                if (filled) g2.fillOval(x, y, w, h);
-//                else        g2.drawOval(x, y, w, h);
-//            }
-//            case "Line" -> {
-//                g2.drawLine(x, y, x + w, y + h);
-//            }
-//        }
-//        
-//        g2.dispose();
-//
         imagePanel.clearSelection();
         imagePanel.repaint();
     }
@@ -188,7 +161,7 @@ public class DrawingOps {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            drawingOptions("Rectangle");
+            drawingOptions(bundle.getString("RECTANGLE"));
         }
     }
     
@@ -219,7 +192,7 @@ public class DrawingOps {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            drawingOptions("Oval");
+            drawingOptions(bundle.getString("OVAL"));
         }
     }
     
@@ -250,7 +223,7 @@ public class DrawingOps {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            drawingOptions("Line");
+            drawingOptions(bundle.getString("LINE"));
         }
     }
 }

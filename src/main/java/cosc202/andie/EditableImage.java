@@ -357,7 +357,7 @@ class EditableImage {
         recording = false;
     }
     
-    public stack getMacros(){
+    public Stack getMacros(){
         return macros;
     }
     
