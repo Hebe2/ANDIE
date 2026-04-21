@@ -27,6 +27,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * a 5x5 filter, and so forth.
      */
     private int radius;
+    private int numThreads; 
 
     /**
      * <p>
@@ -41,15 +42,17 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      *
      * @param radius The radius of the newly constructed MedianFilter
      */
-    MedianFilter(int radius) {
+    MedianFilter(int radius, int numThreads) {
         this.radius = radius;
+        this.numThreads = numThreads; 
     }
 
     /**
      * Constructs median filter with default radius of 1
      */
     MedianFilter() {
-        this(1);
+        this(1, Runtime.getRuntime().availableProcessors());
+        
     }
 
     /**
@@ -71,7 +74,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
         // multithreading to fix lagging issue
-        int numThreads = Runtime.getRuntime().availableProcessors();
+       // int numThreads = Runtime.getRuntime().availableProcessors();
         Thread[] threads = new Thread[numThreads];
         int rowsPerThread = height / numThreads;
 
@@ -82,6 +85,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
             threads[t] = new Thread(() -> {
                 for (int y = startRow; y < endRow; y++) {
                     for (int x = 0; x < width; x++) {
+                   
                         List<Integer> rValues = new ArrayList<>();
                         List<Integer> gValues = new ArrayList<>();
                         List<Integer> bValues = new ArrayList<>();
