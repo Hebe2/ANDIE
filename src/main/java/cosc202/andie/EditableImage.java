@@ -393,18 +393,4 @@ class EditableImage {
             }
         }
     }
-
-    /*
-    public Stack getMacros() {
-        return macros;
-    }
-
-    public void playMacros() {
-        boolean wasRecording = recording;
-        recording = false; //stop recording if macros is recprding when applying macros, but later can ask user question if they want it to be recroded in the ops file
-        for (ImageOperation op : macros) {
-            apply(op);
-        }
-        recording = wasRecording;
-    }*/
 }

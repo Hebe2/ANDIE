@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -96,7 +97,6 @@ public class MacrosAction {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String macroFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    // make sure it ends with .ops
                     if (!macroFilepath.endsWith(".ops")) {
                         macroFilepath += ".ops";
                     }
@@ -116,22 +116,43 @@ public class MacrosAction {
         }
 
         public void actionPerformed(ActionEvent e) {
-//            target.getImage().applyMacros();
-//            target.repaint();
             if (!EditActions.imageCheck()) {
                 return;
             }
             String macrosFolder = System.getProperty("user.home") + File.separator + "macros";
-            JFileChooser fileChooser = new JFileChooser(macrosFolder); // ✅ opens in macros folder
+            File folder = new File(macrosFolder);
+            File[] macroFiles = folder.listFiles((dir, name) -> name.endsWith(".ops"));
 
-            int result = fileChooser.showOpenDialog(null);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                String macroFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-                try {
-                    target.getImage().applyMacros(macroFilePath);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+            if (macroFiles == null || macroFiles.length == 0) {
+                JOptionPane.showMessageDialog(target, "No macros found!");
+                return;
+            }
+
+            String[] fileNames = new String[macroFiles.length];
+            for (int i = 0; i < macroFiles.length; i++) {
+                fileNames[i] = macroFiles[i].getName();
+            }
+
+            String chosen = (String) JOptionPane.showInputDialog(
+                    target,
+                    "Choose a macro to apply:",
+                    "Apply Macro",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    fileNames,
+                    fileNames[0]
+            );
+            if (chosen == null) {
+                return;
+            }
+
+            try {
+                String fullPath = macrosFolder + File.separator + chosen;
+                target.getImage().applyMacros(fullPath);
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
             target.repaint();
             target.getParent().revalidate();
