@@ -5,19 +5,25 @@
 package cosc202.andie;
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /**
  *
  * @author hebebebebe
  */
-public class macrosAction {
+public class MacrosAction {
+
     private static ResourceBundle bundle = LanguageUtil.getBundle();
     public int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
-    
+
     /**
      * A list of actions for the File menu.
      */
@@ -28,11 +34,99 @@ public class macrosAction {
      * Create a set of File menu actions.
      * </p>
      */
-    public macrosAction() {
+    public MacrosAction() {
         actions = new ArrayList<>();
-        actions.add(new macrosActions.recordAction(bundle.getString("record"), null, bundle.getString("OPEN A FILE"), KeyEvent.VK_O));
-        actions.add(new macrosActions.stopAction(bundle.getString("stop"), null, bundle.getString("SAVE THE FILE"), KeyEvent.VK_S));
-        actions.add(new macrosActions.replayAction(bundle.getString("replay"), null, bundle.getString("SAVE THE FILE"), KeyEvent.VK_S));
 
+        actions.add(new recordAction(bundle.getString("RECORD"), null, bundle.getString("RECORD MACROS"), KeyEvent.VK_R));
+        actions.add(new stopAction(bundle.getString("STOP"), null, bundle.getString("STOP MACROS RECORDING"), KeyEvent.VK_T));
+        actions.add(new applyAction(bundle.getString("APPLY"), null, bundle.getString("APPLY MACROS"), KeyEvent.VK_P));
+    }
+
+    /**
+     * <p>
+     * Create a menu containing the list of Edit actions.
+     * </p>
+     *
+     * @return The edit menu UI element.
+     */
+    public JMenu createMenu() {
+        JMenu macrosMenu = new JMenu(bundle.getString("MACROS"));
+
+        for (Action action : actions) {
+            macrosMenu.add(new JMenuItem(action));
+        }
+
+        return macrosMenu;
+    }
+
+    public class recordAction extends ImageAction {
+
+        public recordAction(String name, ImageIcon icon, String desc, int mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (!EditActions.imageCheck()) {
+                return;
+            }
+            target.getImage().record();
+        }
+    }
+
+    public class stopAction extends ImageAction {
+
+        public stopAction(String name, ImageIcon icon, String desc, int mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (!EditActions.imageCheck()) {
+                return;
+            }
+                   JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save Macro As");
+        int result = fileChooser.showSaveDialog(target);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+                String macroFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                // make sure it ends with .ops
+                if (!macroFilepath.endsWith(".ops")) {
+                    macroFilepath += ".ops";
+                }
+                target.getImage().stopRecording(macroFilepath); 
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        
+    }
+    }
+
+    public class applyAction extends ImageAction {
+
+        public applyAction(String name, ImageIcon icon, String desc, int mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+//            target.getImage().applyMacros();
+//            target.repaint();
+            if (!EditActions.imageCheck()) {
+                return;
+            }
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showOpenDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                String macroFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+                try {
+                    target.getImage().applyMacros(macroFilePath);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 }
+

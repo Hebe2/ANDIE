@@ -7,6 +7,7 @@ package cosc202.andie;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -21,7 +22,7 @@ import java.awt.image.BufferedImage;
  * 
  * @author leuhe253
  */
-public class ImageRotation90ACW implements ImageOperation{
+public class ImageRotation90ACW implements ImageOperation, Serializable{
     
     /**
      * <p>
