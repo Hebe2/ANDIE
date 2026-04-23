@@ -5,6 +5,7 @@
 package cosc202.andie;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
@@ -18,7 +19,7 @@ import java.util.Scanner;
  * 
  * @author timnanevo
  */
-public class ImageThresholding implements ImageOperation{
+public class ImageThresholding implements ImageOperation, Serializable{
     
     /** The threshold pixels will be compared to, an integer between 0-255 */
     private int threshold;

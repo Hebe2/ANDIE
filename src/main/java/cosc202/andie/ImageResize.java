@@ -7,6 +7,7 @@ package cosc202.andie;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  *<p>
@@ -19,7 +20,7 @@ import java.awt.image.BufferedImage;
  * 
  * @author timnanevo
  */
-public class ImageResize implements ImageOperation{
+public class ImageResize implements ImageOperation, Serializable{
     
     /**the factor by which the image will be resized, given as a percent.*/
     private int scaleFactor;

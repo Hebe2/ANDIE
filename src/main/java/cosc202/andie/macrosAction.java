@@ -7,6 +7,7 @@ package cosc202.andie;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.Action;
@@ -83,23 +84,29 @@ public class MacrosAction {
             if (!EditActions.imageCheck()) {
                 return;
             }
-                   JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Save Macro As");
-        int result = fileChooser.showSaveDialog(target);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            try {
-                String macroFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                // make sure it ends with .ops
-                if (!macroFilepath.endsWith(".ops")) {
-                    macroFilepath += ".ops";
+
+            String macrosFolder = System.getProperty("user.home") + File.separator + "macros";
+            new File(macrosFolder).mkdirs();
+
+            JFileChooser fileChooser = new JFileChooser(macrosFolder);
+            fileChooser.setCurrentDirectory(new File(macrosFolder));
+            fileChooser.setDialogTitle("Save Macro As");
+            int result = fileChooser.showSaveDialog(target);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                try {
+                    String macroFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    // make sure it ends with .ops
+                    if (!macroFilepath.endsWith(".ops")) {
+                        macroFilepath += ".ops";
+                    }
+                    target.getImage().stopRecording(macroFilepath);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
-                target.getImage().stopRecording(macroFilepath); 
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
+
         }
-        
-    }
     }
 
     public class applyAction extends ImageAction {
@@ -114,7 +121,9 @@ public class MacrosAction {
             if (!EditActions.imageCheck()) {
                 return;
             }
-            JFileChooser fileChooser = new JFileChooser();
+            String macrosFolder = System.getProperty("user.home") + File.separator + "macros";
+            JFileChooser fileChooser = new JFileChooser(macrosFolder); // ✅ opens in macros folder
+
             int result = fileChooser.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
                 String macroFilePath = fileChooser.getSelectedFile().getAbsolutePath();
@@ -129,4 +138,3 @@ public class MacrosAction {
         }
     }
 }
-

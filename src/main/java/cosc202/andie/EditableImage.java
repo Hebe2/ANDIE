@@ -351,7 +351,6 @@ class EditableImage {
     public void record() {
         recordingStartSize = ops.size();
         recording = true;
-        macros.clear();
     }
 
     public boolean isRecording() {
@@ -361,8 +360,10 @@ class EditableImage {
     public void stopRecording(String macroFilename) throws Exception {
         recording = false;
 
-//        String macrosDir = System.getProperty("user.home") + File.separator + "macros";
-//        new File(macrosDir).mkdirs(); // create folder if not there
+        String macrosFolder = System.getProperty("user.home") + File.separator + "macros";
+        new File(macrosFolder).mkdirs(); 
+      
+        
 
         List<ImageOperation> allOps = new ArrayList<>(ops);
         Stack<ImageOperation> recordedOps = new Stack<>();
