@@ -27,6 +27,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * a 5x5 filter, and so forth.
      */
     private int radius;
+    private int numThreads; 
 
     /**
      * <p>
@@ -41,15 +42,17 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      *
      * @param radius The radius of the newly constructed MedianFilter
      */
-    MedianFilter(int radius) {
+    MedianFilter(int radius, int numThreads) {
         this.radius = radius;
+        this.numThreads = numThreads; 
     }
 
     /**
      * Constructs median filter with default radius of 1
      */
     MedianFilter() {
-        this(1);
+        this(1, Runtime.getRuntime().availableProcessors());
+        
     }
 
     /**
@@ -70,38 +73,59 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         int height = input.getHeight();
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
 
-                List<Integer> rValues = new ArrayList<>();
-                List<Integer> gValues = new ArrayList<>();
-                List<Integer> bValues = new ArrayList<>();
-                List<Integer> aValues = new ArrayList<>();
 
-                for (int ky = -radius; ky <= radius; ky++) {
-                    for (int kx = -radius; kx <= radius; kx++) {
-                        int nx = Math.max(0, Math.min(x + kx, width - 1));
-                        int ny = Math.max(0, Math.min(y + ky, height - 1));
-                        int argb = input.getRGB(nx, ny);
-                        int a = (argb >> 24) & 0xFF;
-                        rValues.add((argb >> 16) & 0xFF);
-                        gValues.add((argb >> 8) & 0xFF);
-                        bValues.add(argb & 0xFF);
-                        aValues.add((argb >> 24) & 0xFF);
+        // multithreading to fix lagging issue
+       // int numThreads = Runtime.getRuntime().availableProcessors();
+        Thread[] threads = new Thread[numThreads];
+        int rowsPerThread = height / numThreads;
+
+        for (int t = 0; t < numThreads; t++) {
+            final int startRow = t * rowsPerThread;
+            final int endRow = (t == numThreads - 1) ? height : startRow + rowsPerThread;
+
+            threads[t] = new Thread(() -> {
+                for (int y = startRow; y < endRow; y++) {
+                    for (int x = 0; x < width; x++) {
+                   
+                        List<Integer> rValues = new ArrayList<>();
+                        List<Integer> gValues = new ArrayList<>();
+                        List<Integer> bValues = new ArrayList<>();
+                        List<Integer> aValues = new ArrayList<>();
+                        for (int ky = -radius; ky <= radius; ky++) {
+                            for (int kx = -radius; kx <= radius; kx++) {
+                                int nx = Math.max(0, Math.min(x + kx, width - 1));
+                                int ny = Math.max(0, Math.min(y + ky, height - 1));
+                                int argb = input.getRGB(nx, ny);
+                                rValues.add((argb >> 16) & 0xFF);
+                                gValues.add((argb >> 8) & 0xFF);
+                                bValues.add(argb & 0xFF);
+                                aValues.add((argb >> 24) & 0xFF);
+                            }
+                        }
+                        Collections.sort(rValues);
+                        Collections.sort(gValues);
+                        Collections.sort(bValues);
+                        Collections.sort(aValues);
+                        int mid = rValues.size() / 2;
+                        int argb = (aValues.get(mid) << 24) | (rValues.get(mid) << 16) | (gValues.get(mid) << 8) | bValues.get(mid);
+                        output.setRGB(x, y, argb);
                     }
                 }
+            });
+            threads[t].start();
+        }
 
-                Collections.sort(rValues);
-                Collections.sort(gValues);
-                Collections.sort(bValues);
-                Collections.sort(aValues);
-
-                int mid = rValues.size() / 2;
-                int argb = (aValues.get(mid) << 24) | (rValues.get(mid) << 16) | (gValues.get(mid) << 8) | bValues.get(mid);
-                output.setRGB(x, y, argb);
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+
         return output;
     }
-
 }
+
+
