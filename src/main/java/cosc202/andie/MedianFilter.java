@@ -73,6 +73,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         int height = input.getHeight();
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
+
+
         // multithreading to fix lagging issue
        // int numThreads = Runtime.getRuntime().availableProcessors();
         Thread[] threads = new Thread[numThreads];
@@ -125,3 +127,5 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         return output;
     }
 }
+
+
