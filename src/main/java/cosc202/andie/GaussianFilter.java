@@ -84,10 +84,7 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 
-                double a=0;
-                double r = 0;
-                double g = 0;
-                double b = 0;
+                double a=0, r=0, g=0, b=0; 
 
                 for (int ky = -radius; ky <= radius; ky++) {
                     for (int kx = -radius; kx <= radius; kx++) {
@@ -124,7 +121,8 @@ public class GaussianFilter implements ImageOperation, java.io.Serializable {
         }
         return output;
     }
-
+    
+    
 }
 
 
