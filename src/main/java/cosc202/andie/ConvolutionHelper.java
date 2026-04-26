@@ -25,7 +25,7 @@ public class ConvolutionHelper {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
 
-                double a = 0, r = 0, g = 0, b = 0;
+                float a = 0, r = 0, g = 0, b = 0;
 
                 for (int ky = -radius; ky <= radius; ky++) {
                     for (int kx = -radius; kx <= radius; kx++) {
@@ -38,7 +38,7 @@ public class ConvolutionHelper {
                         int red = (argb >> 16) & 0xFF;
                         int green = (argb >> 8) & 0xFF;
                         int blue = argb & 0xFF;
-                        double weight = kernel[ky + radius][kx + radius];
+                        float weight = kernel[ky + radius][kx + radius];
 
                         a += alpha * weight;
                         r += red * weight;
