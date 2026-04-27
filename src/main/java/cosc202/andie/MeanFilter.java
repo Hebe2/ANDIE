@@ -80,53 +80,21 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      */
     @Override
     public BufferedImage apply(BufferedImage input) {
-        int width = input.getWidth();
-        int height = input.getHeight();
-
-        BufferedImage output = new BufferedImage(
-                input.getColorModel(),
-                input.copyData(null),
-                input.isAlphaPremultiplied(), null);
-
         int size = (2 * radius + 1);
+        float[][] kernel = new float[size][size];
         float weight = 1.0f / (size * size);
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                float a=0, r=0, g=0, b=0;
-                
-                for (int ky = -radius; ky <= radius; ky++) {
-                    for (int kx = -radius; kx <= radius; kx++) {
-                        int nx = Math.max(0, Math.min(x + kx, width - 1));
-                        int ny = Math.max(0, Math.min(y + ky, height - 1));
-
-                        int argb = input.getRGB(nx, ny);
-                        
-                        int alpha = (argb >> 24) & 0xFF;
-                        int red = (argb >> 16) & 0xFF;
-                        int green = (argb >> 8) & 0xFF;
-                        int blue = argb & 0xFF;
-                        
-                        a += alpha*weight;
-                        r += red * weight;
-                        g += green * weight;
-                        b += blue * weight;
-
-                    }
-
-                }
-                
-                int newAlpha = (int) Math.min(255, Math.max(0, Math.round(a)));
-                int newRed = (int) Math.min(255, Math.max(0, Math.round(r)));
-                int newGreen = (int) Math.min(255, Math.max(0, Math.round(g)));
-                int newBlue = (int) Math.min(255, Math.max(0, Math.round(b)));
-
-                int newRGB = (newAlpha << 24)| (newRed << 16) | (newGreen << 8) | newBlue;
-                output.setRGB(x, y, newRGB);
+        //fill kernel with equal weight
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                kernel[y][x]= weight;
             }
         }
-            return output;
+        
+        //Apply mean blur via convolution helper (no offset needed)
+        ConvolutionHelper helper = new ConvolutionHelper();
+        return helper.apply(input, kernel, 0);
+
     }
-    
 
 }

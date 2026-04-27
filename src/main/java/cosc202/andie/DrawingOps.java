@@ -4,16 +4,23 @@
  */
 package cosc202.andie;
 
+import static cosc202.andie.EditActions.imageCheck;
+import static cosc202.andie.ImageAction.target;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -28,11 +35,15 @@ public class DrawingOps {
     private static ResourceBundle bundle = LanguageUtil.getBundle();
 
     /**
-     * A list of actions for the Edit menu.
+     * A list of actions for the Drawing menu.
      */
     protected ArrayList<Action> actions;
     
-    public DrawingOps(){
+    //JAVADOC
+    private ImagePanel imagePanel;
+    
+    public DrawingOps(ImagePanel imagePanel){
+        this.imagePanel = imagePanel;
         actions = new ArrayList<>();
         actions.add(new RectangleAction(bundle.getString("RECTANGLE"), null, bundle.getString("DRAW"), null));
         actions.add(new OvalAction(bundle.getString("OVAL"), null, bundle.getString("DRAW"), null));
@@ -55,6 +66,72 @@ public class DrawingOps {
         }
 
         return drawingMenu;
+    }
+    
+    private void drawingOptions(String shapeType){
+    
+        if (!imageCheck()){
+            return;
+        }
+        
+        Rectangle selection = imagePanel.getSelection();
+        
+        if (selection == null || selection.width == 0 || selection.height == 0) {
+            JOptionPane.showMessageDialog(target, bundle.getString("PLEASE MAKE A SELECTION"));
+            return;
+        }
+        
+        String[] fillOptions = {bundle.getString("FILL"),bundle.getString("NO FILL")};
+        JComboBox<String> fillBox = new JComboBox<>(fillOptions);
+        
+        String[] fillColorNames = {bundle.getString("BLACK"), bundle.getString("RED"), bundle.getString("GREEN"), bundle.getString("BLUE"), bundle.getString("WHITE"), bundle.getString("YELLOW")};
+        Color[]  fillColorValues = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE, Color.WHITE, Color.YELLOW};
+        JComboBox<String> fillColorBox = new JComboBox<>(fillColorNames);
+        
+        String[] outlineColorNames = {bundle.getString("BLACK"), bundle.getString("RED"), bundle.getString("GREEN"), bundle.getString("BLUE"), bundle.getString("WHITE"), bundle.getString("YELLOW")};
+        Color[] outlineColorValues = {Color.BLACK, Color.RED, Color.GREEN, Color.BLUE, Color.WHITE, Color.YELLOW};
+        JComboBox<String> outlineColorBox = new JComboBox<>(outlineColorNames);
+        
+        String[] dashOptions = {bundle.getString("SOLID"), bundle.getString("DASHED")};
+        JComboBox<String> dashBox = new JComboBox<>(dashOptions);
+        
+        JPanel panel = new JPanel(new GridLayout(4, 2, 5, 5));
+        panel.add(new JLabel(bundle.getString("FILL")));
+        panel.add(fillBox);
+        panel.add(new JLabel(bundle.getString("FILL COLOR")));
+        panel.add(fillColorBox);
+        panel.add(new JLabel(bundle.getString("OUTLINE COLOR")));
+        panel.add(outlineColorBox);
+        panel.add(new JLabel(bundle.getString("DASH")));
+        panel.add(dashBox);
+        
+        int result = JOptionPane.showConfirmDialog(
+            null, panel,
+            bundle.getString("DRAW") + " " + shapeType,
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (result != JOptionPane.OK_OPTION) return;
+        
+            boolean filled = fillBox.getSelectedIndex() == 0;
+//          Color color = colorValues[colorBox.getSelectedIndex()];
+            Color fillColor = fillColorValues[fillColorBox.getSelectedIndex()];
+            Color outlineColor = outlineColorValues[outlineColorBox.getSelectedIndex()];
+            boolean dashed = dashBox.getSelectedIndex() == 1;
+            applyShape(imagePanel, selection, shapeType, filled, fillColor, outlineColor, dashed);
+        
+    }
+
+    private void applyShape(ImagePanel imagePanel,Rectangle selection,
+                            String shapeType, boolean filled, Color fillColor, Color outlineColor, boolean dashed){
+        
+          double scale = imagePanel.getZoom()/100.0;
+          
+          imagePanel.getImage().apply(new DrawShape(shapeType, filled, fillColor, outlineColor, selection, scale, dashed));
+        
+        imagePanel.clearSelection();
+        imagePanel.repaint();
     }
     
     /**
@@ -84,6 +161,7 @@ public class DrawingOps {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            drawingOptions(bundle.getString("RECTANGLE"));
         }
     }
     
@@ -114,6 +192,7 @@ public class DrawingOps {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            drawingOptions(bundle.getString("OVAL"));
         }
     }
     
@@ -144,6 +223,10 @@ public class DrawingOps {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            drawingOptions(bundle.getString("LINE"));
         }
     }
 }
+        
+    
+
