@@ -100,6 +100,9 @@ public class Andie {
             
         DrawingOps drawingActions = new DrawingOps(imagePanel);
         menuBar.add(drawingActions.createMenu());
+        
+        MacrosAction macrosActions = new MacrosAction();
+        menuBar.add(macrosActions.createMenu());
 
         frame.add(createToolBar(fileActions, editActions, viewActions), BorderLayout.PAGE_START);
 

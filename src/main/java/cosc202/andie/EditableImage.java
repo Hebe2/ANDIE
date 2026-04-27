@@ -72,6 +72,7 @@ class EditableImage {
     private boolean unsavedChanges = false;
 
     private boolean recording = false;
+    private int recordingStartSize = 0;
     private Stack<ImageOperation> macros = new Stack();
 
     /**
@@ -91,7 +92,6 @@ class EditableImage {
         redoOps = new Stack<>();
         imageFilename = null;
         opsFilename = null;
-        macros = null;
     }
 
     /**
@@ -347,26 +347,50 @@ class EditableImage {
             current = op.apply(current);
         }
     }
-    
-    public void record(){
-       recording = true;
-       macros.clear();
+
+    public void record() {
+        recordingStartSize = ops.size();
+        recording = true;
     }
-    
-    public void stop(){
+
+    public boolean isRecording() {
+        return recording;
+    }
+
+    public void stopRecording(String macroFilename) throws Exception {
         recording = false;
-    }
-    
-    public Stack getMacros(){
-        return macros;
-    }
-    
-    public void playMacros(){
-        boolean wasRecording = recording;
-        recording = false; //stop recording if macros is recprding when applying macros, but later can ask user question if they want it to be recroded in the ops file
-        for (ImageOperation op : macros) {
-            apply(op);
+
+        String macrosFolder = System.getProperty("user.home") + File.separator + "macros";
+        new File(macrosFolder).mkdirs(); 
+      
+        
+
+        List<ImageOperation> allOps = new ArrayList<>(ops);
+        Stack<ImageOperation> recordedOps = new Stack<>();
+        for (int i = recordingStartSize; i < allOps.size(); i++) {
+            recordedOps.add(allOps.get(i));
+
         }
-        recording = wasRecording;
+
+        try (FileOutputStream fileOut = new FileOutputStream(macroFilename);
+                ObjectOutputStream objOut = new ObjectOutputStream(fileOut)) {
+            objOut.writeObject(recordedOps);
+        }
+    }
+
+    public void applyMacros(String macroFilePath) throws Exception {
+            System.out.println("Loading macro from: " + macroFilePath); // check path
+
+        try (FileInputStream fileIn = new FileInputStream(macroFilePath); ObjectInputStream objIn = new ObjectInputStream(fileIn)) {
+
+            @SuppressWarnings("unchecked")
+            Stack<ImageOperation> macroOps = (Stack<ImageOperation>) objIn.readObject();
+                   
+            System.out.println("Number of ops in macro: " + macroOps.size()); // check ops loaded
+
+            for (ImageOperation op : macroOps) {
+                apply(op);
+            }
+        }
     }
 }

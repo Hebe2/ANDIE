@@ -5,6 +5,7 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -19,7 +20,7 @@ import java.awt.image.BufferedImage;
  *
  * @author leuhe253
  */
-public class ImageInversion implements ImageOperation{
+public class ImageInversion implements ImageOperation, Serializable{
 
     /**
      * <p>

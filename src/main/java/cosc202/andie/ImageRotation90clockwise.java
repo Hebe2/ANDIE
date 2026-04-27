@@ -20,8 +20,9 @@ package cosc202.andie;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 
-public class ImageRotation90clockwise implements ImageOperation {
+public class ImageRotation90clockwise implements ImageOperation, Serializable {
 
     /**
      * <p>
