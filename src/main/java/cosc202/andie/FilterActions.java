@@ -53,6 +53,7 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("MEDIAN FILTER"), null, bundle.getString("APPLY A MEDIAN FILTER"), KeyEvent.VK_D));
         actions.add(new GaussianFilterAction(bundle.getString("GAUSSIAN FILTER"), null, bundle.getString("APPLY A GAUSSIAN BLUR FILTER"), KeyEvent.VK_G));
         actions.add(new RandomScatteringAction(bundle.getString("RANDOM SCATTERING"), null, bundle.getString("APPLY RANDOM SCATTERING"), KeyEvent.VK_R));
+        actions.add(new EmbossFilterAction(bundle.getString("EMBOSS FILTER"), null, bundle.getString("APPLY EMBOSS FILTER"), KeyEvent.VK_E));
 
     }
 
@@ -379,4 +380,60 @@ public class FilterActions {
         }
     }
 
+    public class EmbossFilterAction extends ImageAction {
+
+        /**
+         * Action to apply an emboss filter to image.
+         *
+         * Prompts the user to choose one of eight emboss directions, then
+         * applies the corresponding emboss filter to the image.
+         *
+         * @param name - The name of the action (ignored if null).
+         * @param icon - An icon to use to represent the action (ignored if null).
+         * @param desc - A brief description of the action (ignored if null).
+         * @param mnemonic - A mnemonic key to use as a shortcut (ignored if
+         * null).
+         */
+        EmbossFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * Handles the emboss filter action when triggered.
+         *
+         * Displays a dialog for the user to select an emboss direction, then
+         * applies the selected emboss filter to the current image.
+         *
+         * @param e - the event triggering this action.
+         */
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!imageCheck()) {
+                return;
+            }
+
+            String[] options = {"Emboss 1", "Emboss 2", "Emboss 3", "Emboss 4", "Emboss 5", "Emboss 6", "Emboss 7", "Emboss 8"};
+
+            int choice = JOptionPane.showOptionDialog(
+                    null,
+                    "Choose Emboss Direction: ",
+                    "Emboss Filter",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+
+            //this is to prevent -1 in kernelDirection if user chooses to close the window instead (array index out of bounds error :D)
+            if (choice == JOptionPane.CLOSED_OPTION) {
+                return;
+            }
+
+            target.getImage().apply(new EmbossFilter(choice));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
 }

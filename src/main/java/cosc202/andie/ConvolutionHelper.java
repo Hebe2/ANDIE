@@ -7,11 +7,24 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ *This class performs convolution on an image using a specified kernel. 
+ * It supports offsetting of results to handle filters that produce negative values(e.e emboss and edge detection).
+ * 
+ * Each pixel is recalculated as a weighted sum of its neighboring pixels, based on the kernel.
+ * Edge pixels are handled using clamping, ensuring convolution within the image bounds.
  * @author shika747
  */
 public class ConvolutionHelper {
 
+    /**
+     * Applies a convolution filter to the input image using the given kernel.
+     * 
+     * @param input - Image to be processed
+     * @param kernel - convolution kernel
+     * @param offset - value added to each color channel after convolution
+     * @return a new image containing the filtered result
+     */
+     
     public BufferedImage apply(BufferedImage input, float[][] kernel, int offset) {
         int width = input.getWidth();
         int height = input.getHeight();
