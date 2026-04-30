@@ -104,7 +104,7 @@ public class Andie {
         MacrosAction macrosActions = new MacrosAction();
         menuBar.add(macrosActions.createMenu());
 
-        frame.add(createToolBar(fileActions, editActions, viewActions), BorderLayout.PAGE_START);
+        frame.add(createToolBar(fileActions, editActions, viewActions, rotateActions), BorderLayout.PAGE_START);
 
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -136,7 +136,7 @@ public class Andie {
         });
     }
 
-    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions) {
+    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions, RotateActions rotateActions) {
         JToolBar toolBar = new JToolBar("Tools");
 
         int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
@@ -160,13 +160,13 @@ public class Andie {
 
         //undo
         addButton(toolBar, "undo.png", "undo last action", () -> {
-            target.getImage().undo();
+            editActions.actions.get(0).actionPerformed(null);
             target.repaint();
         });
 
         //redo
         addButton(toolBar, "redo.png", "redo last action", () -> {
-            target.getImage().redo();
+            editActions.actions.get(1).actionPerformed(null);
             target.repaint();
         });
 
@@ -187,19 +187,19 @@ public class Andie {
 
         //zoom In
         addButton(toolBar, "zoomIn.png", "zoom in", () -> {
-            target.setZoom(target.getZoom() + 10);
+            viewActions.actions.get(0).actionPerformed(null);
             target.repaint();
         });
 
         //zoomOut
         addButton(toolBar, "zoomOut.png", "zoom in", () -> {
-            target.setZoom(target.getZoom() - 10);
+           viewActions.actions.get(1).actionPerformed(null);
             target.repaint();
         });
 
         //zoom full
         addButton(toolBar, "zoomFull.png", "zoom full", () -> {
-            target.setZoom(100);
+            viewActions.actions.get(2).actionPerformed(null);
             target.repaint();
         });
 
@@ -207,19 +207,19 @@ public class Andie {
 
         //rotate 90cw
         addButton(toolBar, "90cw.png", "rotate 90 CW", () -> {
-            target.getImage().apply(new ImageRotation90clockwise());
+            rotateActions.actions.get(0).actionPerformed(null);
             target.repaint();
         });
 
         //rotate 90acw
         addButton(toolBar, "90acw.png", "rotate 90 ACW", () -> {
-            target.getImage().apply(new ImageRotation90ACW());
+            rotateActions.actions.get(1).actionPerformed(null);
             target.repaint();
         });
 
         //180
         addButton(toolBar, "180.png", "rotate 180", () -> {
-            target.getImage().apply(new ImageRotation180());
+            rotateActions.actions.get(2).actionPerformed(null);
             target.repaint();
         });
 
@@ -227,13 +227,13 @@ public class Andie {
 
         //vertical flip
         addButton(toolBar, "flipVert.png", "flip vertical", () -> {
-            target.getImage().apply(new VerticalFlip());
+            editActions.actions.get(4).actionPerformed(null);
             target.repaint();
         });
 
         //horizontal flip
         addButton(toolBar, "flipHori.png", "flip horizontal", () -> {
-            target.getImage().apply(new HorizontalFlip());
+            editActions.actions.get(3).actionPerformed(null);
             target.repaint();
         });
 
