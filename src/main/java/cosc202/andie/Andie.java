@@ -129,7 +129,8 @@ public class Andie {
         // Settings to change language, english and german
         SettingAction settingActions = new SettingAction();
         menuBar.add(settingActions.createMenu());
-            
+        
+        // Draws shapes inside a selection
         DrawingOps drawingActions = new DrawingOps(imagePanel);
         menuBar.add(drawingActions.createMenu());
         

@@ -84,6 +84,7 @@ public class MacrosAction {
             super(name, icon, desc, mnemonic);
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             if (!EditActions.imageCheck()) {
                 return;
@@ -118,6 +119,7 @@ public class MacrosAction {
             super(name, icon, desc, mnemonic);
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             if (!EditActions.imageCheck()) {
                 return;
