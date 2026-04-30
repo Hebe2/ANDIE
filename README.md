@@ -28,7 +28,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 ## Filter Operations
 
-**MedianFilter** Once your image is uploaded, click Filter on the menu bar and select Median Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
+**(Multi Threading)Median Filter:** Once your image is uploaded, click **Filter** on the menu bar and select **Median Filter**. A dialog box will appear where you can adjust the filter radius and choose how many threads to use for computation (it will suggest a thread count based on your computer's available cores). Each time you apply the filter it will be applied on top of the previous result — keep applying until you're happy with the outcome.
 
 **SharpenFilter** Once your image is uploaded, click Filter on the menu bar and select Sharpen Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
 
