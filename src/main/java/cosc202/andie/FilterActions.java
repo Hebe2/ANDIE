@@ -241,9 +241,21 @@ public class FilterActions {
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
 
+            int maxThreads = Runtime.getRuntime().availableProcessors();
+            SpinnerNumberModel threadModel = new SpinnerNumberModel(maxThreads, 1, maxThreads, 1);
+            JSpinner threadSpinner = new JSpinner(threadModel);
+
+            JPanel panel = new JPanel();
+            panel.add(new JLabel("Radius:"));
+            panel.add(radiusSpinner);
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.add(new JLabel(bundle.getString("THREAD LABEL")));
+            panel.add(new JLabel("(" + bundle.getString("THREAD HINT BEFORE") + " " + maxThreads + " " + bundle.getString("THREAD HINT AFTER") + ")"));
+            panel.add(threadSpinner);
+
             int option = JOptionPane.showOptionDialog(
                     null,
-                    radiusSpinner,
+                    panel,
                     bundle.getString("ENTER FILTER RADIUS"),
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -255,7 +267,9 @@ public class FilterActions {
             }
 
             int radius = radiusModel.getNumber().intValue();
-            target.getImage().apply(new MedianFilter(radius));
+            int numThreads = threadModel.getNumber().intValue();
+            //target.getImage().apply(new MedianFilter(radius));
+            target.getImage().apply(new MedianFilter(radius, numThreads));
             target.repaint();
             target.getParent().revalidate();
         }
