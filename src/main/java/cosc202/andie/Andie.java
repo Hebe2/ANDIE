@@ -226,6 +226,7 @@ public class Andie {
         toolBar.addSeparator();
 
         //vertical flip
+        
         addButton(toolBar, "flipVert.png", "flip vertical", () -> {
             editActions.actions.get(4).actionPerformed(null);
             target.repaint();
