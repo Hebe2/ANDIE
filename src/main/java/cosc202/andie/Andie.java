@@ -174,7 +174,7 @@ public class Andie {
 
         //crop
         addButton(toolBar, "crop.png", "crop image", () -> {
-            target.getImage().apply(new ImageCrop(target));
+            editActions.actions.get(5).actionPerformed(null);
             target.repaint();
         });
         
