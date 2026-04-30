@@ -3,6 +3,7 @@ package cosc202.andie;
 import static cosc202.andie.ImageAction.target;
 import java.awt.*;
 import java.net.URL;
+import java.util.ResourceBundle;
 import javax.swing.*;
 import javax.imageio.*;
 
@@ -53,13 +54,18 @@ public class Andie {
      *
      * @throws Exception if something goes wrong.
      */
+ 
     private static void createAndShowGUI() throws Exception {
+        ResourceBundle bundle = LanguageUtil.getBundle();
+        
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
@@ -73,6 +79,32 @@ public class Andie {
         // File menus are pretty standard, so things that usually go in File menus go here.
         FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
+        
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent e) {
+        if (target.getImage().hasUnsavedChanges()) {
+            int result = JOptionPane.showConfirmDialog(
+                target,
+                bundle.getString("UNSAVED CHANGES MESSAGE"),
+                bundle.getString("UNSAVED CHANGES TITLE"),
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+            if (result == JOptionPane.YES_OPTION) {
+                try {
+                    target.getImage().save();
+                } catch (Exception ex) {}
+                System.exit(0);
+            } else if (result == JOptionPane.NO_OPTION) {
+                System.exit(0);
+            }
+        } else {
+            System.exit(0);
+        }
+    }
+});
+        
 
         // Likewise Edit menus are very common, so should be clear what might go here.
         EditActions editActions = new EditActions();
@@ -226,6 +258,7 @@ public class Andie {
         toolBar.addSeparator();
 
         //vertical flip
+        
         addButton(toolBar, "flipVert.png", "flip vertical", () -> {
             editActions.actions.get(4).actionPerformed(null);
             target.repaint();

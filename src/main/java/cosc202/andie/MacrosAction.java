@@ -20,8 +20,8 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author hebebebebe
- * 
- * 
+ *
+ *
  */
 public class MacrosAction {
 
@@ -73,6 +73,7 @@ public class MacrosAction {
             if (!EditActions.imageCheck()) {
                 return;
             }
+            JOptionPane.showMessageDialog(target, bundle.getString("MACROS RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE );
             target.getImage().record();
         }
     }
