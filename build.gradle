@@ -31,6 +31,16 @@ test {
 
 /* convenience tasks for working with a project */
 
+tasks.named("jar") {
+    archiveBaseName.set("andie");
+    archiveVersion.set("1.0.0");
+    manifest {
+        attributes(
+            "Main-Class": defaultMainClassName
+        );
+    }
+}
+
 def layout = project.layout;
 
 tasks.register("createMissingSourceDirs") {
