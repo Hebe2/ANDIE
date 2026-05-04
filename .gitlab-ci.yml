@@ -45,6 +45,6 @@ create-jar:
     - echo 'Attempting to create JAR file...'
     - gradle -Dorg.gradle.welcome=never jar
     - echo 'Done.'
-artifacts:
-paths:  
-    - build/libs/andie-1.0.0.jar
+  artifacts:
+    paths:  
+      - build/libs/andie-1.0.0.jar
