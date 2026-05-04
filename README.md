@@ -12,6 +12,8 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Flip-Vertical** Once an image is uploaded, click on the Edit menu at the top menu bar. Click on "Flip - Vertical" to flip your image vertically.
 
+**Crop**
+
 ## Color Operations
 
 **ImageThresholding:** Once an image is uploaded, click on colour on the top bar, then threshold. Enter any integer between 0 and 255 and click ok. If the input is outside of the range or not an integer, the computer will explain the issue. Then click ok and you will be prompted to enter an integer again.
@@ -22,17 +24,25 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Color Channel Swapping** Once your image is uploaded, click on Colour on the top menu. Click on "Color Channel Swap." A window will popup asking you to pick a channel order. Click on the arrow and a drop down menu will appear. Select your desired color swaps. 
 
+**Brightness & Contrast**
+**Colour Mask**
+**Colour Tinter (Extra Feature)**
+
 ## File Operations
 
 **Export:** Once you're finished editing your image, go to File and click Export. You'll be given the option to save it anywhere on your computer. Once you've chosen a destination, name your file in the format `ImageName.extension` (e.g. `image.jpg`, `image.png`) and click Save.
 
 ## Filter Operations
 
-**MedianFilter** Once your image is uploaded, click Filter on the menu bar and select Median Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
+**(Multi Threading)Median Filter:** Once your image is uploaded, click **Filter** on the menu bar and select **Median Filter**. A dialog box will appear where you can adjust the filter radius and choose how many threads to use for computation (it will suggest a thread count based on your computer's available cores). Each time you apply the filter it will be applied on top of the previous result. Keep applying until you're happy with the outcome.
 
-**SharpenFilter** Once your image is uploaded, click Filter on the menu bar and select Sharpen Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
+**Sharpen Filter** Once your image is uploaded, click Filter on the menu bar and select Sharpen Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
 
-**GaussianFilter** Once your image is uploaded, click Filter on the top menu bar and selecct Gassian Filter. A window will appear prompting you to choose a radius value. Use the up and down arrows to adjust the radius. The radius ranges from 1 (lowest blur) to 10 (strongest blur).
+**Gaussian Filter** Once your image is uploaded, click Filter on the top menu bar and selecct Gassian Filter. A window will appear prompting you to choose a radius value. Use the up and down arrows to adjust the radius. The radius ranges from 1 (lowest blur) to 10 (strongest blur).
+
+**Random Scattering**
+
+**Emboss Filter**
 
 ## Rotate Operations
 
@@ -42,6 +52,8 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **180 rotate:**  Once your image is uploaded, click Rotate on the menu bar and select 180° rotate. Each time you click it, the image will rotate again.
 
+##Macros 
+##Draw 
 
 ## Settings
 
