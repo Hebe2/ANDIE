@@ -70,7 +70,7 @@ pages:
     - find public | head
     - echo 'Diagnostic output - first ten public/ files listed'
   artifacts:
-  paths:
-    - public
+    paths:
+      - public
   only:
     - main
