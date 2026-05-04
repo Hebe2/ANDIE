@@ -39,7 +39,6 @@ public class DrawingOps {
      */
     protected ArrayList<Action> actions;
     
-    //JAVADOC
     private ImagePanel imagePanel;
     
     public DrawingOps(ImagePanel imagePanel){
