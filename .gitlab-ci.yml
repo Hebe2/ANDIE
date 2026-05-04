@@ -70,6 +70,9 @@ pages:
     - cp index.html public/
     - find public | head
     - echo 'Diagnostic output - first ten public/ files listed'
+    - cd public
+    - zip -r9 ANDIE.zip andie-1.0.0.jar docs/
+    - cd -
   artifacts:
     paths:
       - public
