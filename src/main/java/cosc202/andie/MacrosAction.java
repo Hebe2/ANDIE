@@ -62,6 +62,9 @@ public class MacrosAction {
 
         return macrosMenu;
     }
+    
+    private int recordedImageWidth = 0;
+private int recordedImageHeight = 0; 
 
     public class recordAction extends ImageAction {
 
@@ -73,7 +76,7 @@ public class MacrosAction {
             if (!EditActions.imageCheck()) {
                 return;
             }
-            JOptionPane.showMessageDialog(target, bundle.getString("MACROS RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog(target, bundle.getString("MACROS RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE);
             target.getImage().record();
         }
     }
@@ -148,6 +151,18 @@ public class MacrosAction {
             if (chosen == null) {
                 return;
             }
+
+//            int warning = JOptionPane.showConfirmDialog(
+//                    target,
+//                    "drawing proportions may not match if the image size is different from when the macro was recorded. Do you want to continue?",
+//                    "Proportions Warning",
+//                    JOptionPane.YES_NO_OPTION,
+//                    JOptionPane.WARNING_MESSAGE
+//            );
+//
+//            if (warning == JOptionPane.NO_OPTION) {
+//                return;
+//            }
 
             try {
                 String fullPath = macrosFolder + File.separator + chosen;
