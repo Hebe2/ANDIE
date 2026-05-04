@@ -67,6 +67,7 @@ pages:
     - echo "testing 123" > public/test.txt
     - cp -r build/docs/javadoc/ public/docs/
     - cp build/libs/andie-1.0.0.jar public/
+    - cp index.html public/
     - find public | head
     - echo 'Diagnostic output - first ten public/ files listed'
   artifacts:
