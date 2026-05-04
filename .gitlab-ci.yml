@@ -32,6 +32,16 @@ compile-code:
     paths:
       - build
 
+javadoc:
+  stage: build
+  script:
+    - echo 'Attempting to generate JavaDoc documentation...'
+    - gradle -Dorg.gradle.welcome=never javadoc
+    - echo 'Done.'
+  artifacts:
+    paths:
+      - build/docs
+
 test:
   stage: test
   script:
@@ -48,3 +58,19 @@ create-jar:
   artifacts:
     paths:  
       - build/libs/andie-1.0.0.jar
+
+pages:
+  stage: deploy
+  script: 
+    - set +o pipefail
+    - mkdir public
+    - echo "testing 123" > public/test.txt
+    - cp -r build/docs/javadoc/ public/docs/
+    - cp build/libs/andie-1.0.0.jar public/
+    - find public | head
+    - echo 'Diagnostic output - first ten public/ files listed'
+  artifacts:
+  paths:
+    - public
+  only:
+    - main
