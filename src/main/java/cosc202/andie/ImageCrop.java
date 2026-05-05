@@ -6,12 +6,13 @@ package cosc202.andie;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  *
  * @author timnanevo
  */
-public class ImageCrop implements ImageOperation{
+public class ImageCrop implements ImageOperation, Serializable{
     
     private ImagePanel imagePanel;
     

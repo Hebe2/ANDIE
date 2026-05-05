@@ -3,6 +3,7 @@ package cosc202.andie;
 import static cosc202.andie.ImageAction.target;
 import java.awt.*;
 import java.net.URL;
+import java.util.ResourceBundle;
 import javax.swing.*;
 import javax.imageio.*;
 
@@ -53,13 +54,18 @@ public class Andie {
      *
      * @throws Exception if something goes wrong.
      */
+ 
     private static void createAndShowGUI() throws Exception {
+        ResourceBundle bundle = LanguageUtil.getBundle();
+        
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
@@ -73,6 +79,32 @@ public class Andie {
         // File menus are pretty standard, so things that usually go in File menus go here.
         FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
+        
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent e) {
+        if (target.getImage().hasUnsavedChanges()) {
+            int result = JOptionPane.showConfirmDialog(
+                target,
+                bundle.getString("UNSAVED CHANGES MESSAGE"),
+                bundle.getString("UNSAVED CHANGES TITLE"),
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+            if (result == JOptionPane.YES_OPTION) {
+                try {
+                    target.getImage().save();
+                } catch (Exception ex) {}
+                System.exit(0);
+            } else if (result == JOptionPane.NO_OPTION) {
+                System.exit(0);
+            }
+        } else {
+            System.exit(0);
+        }
+    }
+});
+        
 
         // Likewise Edit menus are very common, so should be clear what might go here.
         EditActions editActions = new EditActions();
@@ -97,11 +129,15 @@ public class Andie {
         // Settings to change language, english and german
         SettingAction settingActions = new SettingAction();
         menuBar.add(settingActions.createMenu());
-            
+        
+        // Draws shapes inside a selection
         DrawingOps drawingActions = new DrawingOps(imagePanel);
         menuBar.add(drawingActions.createMenu());
+        
+        MacrosAction macrosActions = new MacrosAction();
+        menuBar.add(macrosActions.createMenu());
 
-        frame.add(createToolBar(fileActions, editActions, viewActions), BorderLayout.PAGE_START);
+        frame.add(createToolBar(fileActions, editActions, viewActions, rotateActions), BorderLayout.PAGE_START);
 
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -133,7 +169,7 @@ public class Andie {
         });
     }
 
-    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions) {
+    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions, RotateActions rotateActions) {
         JToolBar toolBar = new JToolBar("Tools");
 
         int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
@@ -157,13 +193,13 @@ public class Andie {
 
         //undo
         addButton(toolBar, "undo.png", "undo last action", () -> {
-            target.getImage().undo();
+            editActions.actions.get(0).actionPerformed(null);
             target.repaint();
         });
 
         //redo
         addButton(toolBar, "redo.png", "redo last action", () -> {
-            target.getImage().redo();
+            editActions.actions.get(1).actionPerformed(null);
             target.repaint();
         });
 
@@ -171,7 +207,7 @@ public class Andie {
 
         //crop
         addButton(toolBar, "crop.png", "crop image", () -> {
-            target.getImage().apply(new ImageCrop(target));
+            editActions.actions.get(5).actionPerformed(null);
             target.repaint();
         });
         
@@ -184,19 +220,19 @@ public class Andie {
 
         //zoom In
         addButton(toolBar, "zoomIn.png", "zoom in", () -> {
-            target.setZoom(target.getZoom() + 10);
+            viewActions.actions.get(0).actionPerformed(null);
             target.repaint();
         });
 
         //zoomOut
         addButton(toolBar, "zoomOut.png", "zoom in", () -> {
-            target.setZoom(target.getZoom() - 10);
+           viewActions.actions.get(1).actionPerformed(null);
             target.repaint();
         });
 
         //zoom full
         addButton(toolBar, "zoomFull.png", "zoom full", () -> {
-            target.setZoom(100);
+            viewActions.actions.get(2).actionPerformed(null);
             target.repaint();
         });
 
@@ -204,33 +240,34 @@ public class Andie {
 
         //rotate 90cw
         addButton(toolBar, "90cw.png", "rotate 90 CW", () -> {
-            target.getImage().apply(new ImageRotation90clockwise());
+            rotateActions.actions.get(0).actionPerformed(null);
             target.repaint();
         });
 
         //rotate 90acw
         addButton(toolBar, "90acw.png", "rotate 90 ACW", () -> {
-            target.getImage().apply(new ImageRotation90ACW());
+            rotateActions.actions.get(1).actionPerformed(null);
             target.repaint();
         });
 
         //180
         addButton(toolBar, "180.png", "rotate 180", () -> {
-            target.getImage().apply(new ImageRotation180());
+            rotateActions.actions.get(2).actionPerformed(null);
             target.repaint();
         });
 
         toolBar.addSeparator();
 
         //vertical flip
+        
         addButton(toolBar, "flipVert.png", "flip vertical", () -> {
-            target.getImage().apply(new VerticalFlip());
+            editActions.actions.get(4).actionPerformed(null);
             target.repaint();
         });
 
         //horizontal flip
         addButton(toolBar, "flipHori.png", "flip horizontal", () -> {
-            target.getImage().apply(new HorizontalFlip());
+            editActions.actions.get(3).actionPerformed(null);
             target.repaint();
         });
 

@@ -5,13 +5,14 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  *
  * @author shika747
  * @author habebebebe
  */
-public class ColorChannelSwap implements ImageOperation {
+public class ColorChannelSwap implements ImageOperation, Serializable{
     /**
      * The target channel order, e.g. {@code "RGB"}, {@code "BGR"}, {@code "GRB"}, etc.
      * Must be one of the six permutations of R, G, and B.
