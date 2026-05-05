@@ -53,8 +53,6 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("MEDIAN FILTER"), null, bundle.getString("APPLY A MEDIAN FILTER"), KeyEvent.VK_D));
         actions.add(new GaussianFilterAction(bundle.getString("GAUSSIAN FILTER"), null, bundle.getString("APPLY A GAUSSIAN BLUR FILTER"), KeyEvent.VK_G));
         actions.add(new RandomScatteringAction(bundle.getString("RANDOM SCATTERING"), null, bundle.getString("APPLY RANDOM SCATTERING"), KeyEvent.VK_R));
-        actions.add(new EmbossFilterAction(bundle.getString("EMBOSS FILTER"), null, bundle.getString("APPLY EMBOSS FILTER"), KeyEvent.VK_E));
-        actions.add(new SobelFilterAction(bundle.getString("SOBEL FILTER"), null, bundle.getString("APPLY SOBEL FILTER"), KeyEvent.VK_O));
 
     }
 
@@ -71,7 +69,31 @@ public class FilterActions {
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
+        
+        //Emboss Submenu
+        JMenu embossMenu = new JMenu(bundle.getString("EMBOSS"));
 
+        embossMenu.add(new JMenuItem(new EmbossFilterAction(bundle.getString("EMBOSS LEFT"), null, bundle.getString("APPLY EMBOSS LEFT"), null, 0)));
+        embossMenu.add(new JMenuItem(new EmbossFilterAction(bundle.getString("EMBOSS TOP LEFT"), null, bundle.getString("APPLY EMBOSS TOP LEFT"), null, 1)));
+        embossMenu.add(new JMenuItem(new EmbossFilterAction(bundle.getString("EMBOSS TOP CENTER"), null, bundle.getString("APPLY EMBOSS TOP CENTER"), null, 2)));
+        embossMenu.add(new JMenuItem(new EmbossFilterAction(bundle.getString("EMBOSS TOP RIGHT"), null, bundle.getString("APPLY EMBOSS TOP RIGHT"), null, 3)));
+        embossMenu.add(new JMenuItem(new EmbossFilterAction(bundle.getString("EMBOSS RIGHT"), null, bundle.getString("APPLY EMBOSS RIGHT"), null, 4)));
+        embossMenu.add(new JMenuItem(new EmbossFilterAction(bundle.getString("EMBOSS BOTTOM RIGHT"), null, bundle.getString("APPLY EMBOSS BOTTOM RIGHT"), null, 5)));
+        embossMenu.add(new JMenuItem(new EmbossFilterAction(bundle.getString("EMBOSS BOTTOM"), null, bundle.getString("APPLY EMBOSS BOTTOM"), null, 6)));
+        embossMenu.add(new JMenuItem(new EmbossFilterAction(bundle.getString("EMBOSS BOTTOM LEFT"), null, bundle.getString("APPLY EMBOSS BOTTOM LEFT"), null, 7)));
+        
+        
+        //Sobel Submenu 
+        JMenu sobelMenu = new JMenu(bundle.getString("SOBEL"));
+
+        sobelMenu.add(new JMenuItem(new SobelFilterAction(bundle.getString("SOBEL HORIZONTAL"), null, bundle.getString("APPLY SOBEL HORIZONTAL"), null, 0)));
+        sobelMenu.add(new JMenuItem(new SobelFilterAction(bundle.getString("SOBEL VERTICAL"), null, bundle.getString("APPLY SOBEL VERTICAL"), null, 1)));
+        sobelMenu.add(new JMenuItem(new SobelFilterAction(bundle.getString("SOBEL COMBINED"), null, bundle.getString("APPLY SOBEL COMBINED"), null, 2)));
+
+        fileMenu.addSeparator();
+        fileMenu.add(embossMenu);
+        fileMenu.add(sobelMenu);
+        
         return fileMenu;
     }
 
@@ -383,6 +405,8 @@ public class FilterActions {
 
     public class EmbossFilterAction extends ImageAction {
 
+        private int direction;
+
         /**
          * Action to apply an emboss filter to image.
          *
@@ -396,8 +420,9 @@ public class FilterActions {
          * @param mnemonic - A mnemonic key to use as a shortcut (ignored if
          * null).
          */
-        EmbossFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        EmbossFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic, int direction) {
             super(name, icon, desc, mnemonic);
+            this.direction = direction;
         }
 
         /**
@@ -414,25 +439,7 @@ public class FilterActions {
                 return;
             }
 
-            String[] options = {"Left", "Top Left", "Top Center", "Top Right", "Right", "Bottom Right", "Bottom", "Bottom Left"};
-
-            int choice = JOptionPane.showOptionDialog(
-                    null,
-                    "Choose Emboss Direction: ",
-                    "Emboss Filter",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[0]
-            );
-
-            //this is to prevent -1 in kernelDirection if user chooses to close the window instead (array index out of bounds error :D)
-            if (choice == JOptionPane.CLOSED_OPTION) {
-                return;
-            }
-
-            target.getImage().apply(new EmbossFilter(choice));
+            target.getImage().apply(new EmbossFilter(direction));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -440,32 +447,20 @@ public class FilterActions {
 
     public class SobelFilterAction extends ImageAction {
 
-        SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        private int type;
+
+        SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic, int type) {
             super(name, icon, desc, mnemonic);
+            this.type = type;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String[] options = {
-                "Horizontal Sobel",
-                "Vertical Sobel",
-                "Combined Sobel"
-            };
-            int choice = JOptionPane.showOptionDialog(
-                    null,
-                    "Choose Sobel Filter:",
-                    "Sobel Filter",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[2]
-            );
-            if (choice == JOptionPane.CLOSED_OPTION) {
+            if (!imageCheck()) {
                 return;
             }
 
-            target.getImage().apply(new SobelFilter(choice));
+            target.getImage().apply(new SobelFilter(type));
             target.repaint();
             target.getParent().revalidate();
         }
