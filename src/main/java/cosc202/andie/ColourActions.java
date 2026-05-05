@@ -54,7 +54,6 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction(bundle.getString("GREYSCALE"), null, bundle.getString("CONVERT TO GREYSCALE"), KeyEvent.VK_G));
         actions.add(new ThresholdAction(bundle.getString("THRESHOLD"), null, bundle.getString("APPLY THRESHOLD"), KeyEvent.VK_T));
         actions.add(new InversionAction(bundle.getString("INVERSION"), null, bundle.getString("APPLY INVERSION"), KeyEvent.VK_I));
-        actions.add(new ColorChannelSwapAction(bundle.getString("COLOR CHANNEL SWAP"), null, bundle.getString("COLOR CHANNEL SWAP"), KeyEvent.VK_Z));
         actions.add(new BrightnessContrastAction(bundle.getString("BRIGHTNESS CONTRAST"), null, bundle.getString("ADJUST BRIGHTNESS AND CONTRAST"), KeyEvent.VK_B));
         actions.add(new ColourTinterAction(bundle.getString("COLOUR TINTER"), null, bundle.getString("APPLY COLOUR TINTER"), KeyEvent.VK_N));
         actions.add(new ContrastMaskAction(bundle.getString("CONTRAST MASK"), null, bundle.getString("APPLY CONTRAST MASK"), KeyEvent.VK_M));
@@ -74,7 +73,21 @@ public class ColourActions {
             fileMenu.add(new JMenuItem(action));
         }
 
+        //Color Channel Swap Submenu
+        JMenu channelSwapMenu = new JMenu(bundle.getString("COLOR CHANNEL SWAP"));
+
+        channelSwapMenu.add(new JMenuItem(new ColorChannelSwapAction(bundle.getString("CHANNEL RGB"), null,bundle.getString("APPLY CHANNEL RGB"), null,"RGB")));
+        channelSwapMenu.add(new JMenuItem(new ColorChannelSwapAction(bundle.getString("CHANNEL RBG"), null,bundle.getString("APPLY CHANNEL RBG"), null,"RBG")));
+        channelSwapMenu.add(new JMenuItem(new ColorChannelSwapAction(bundle.getString("CHANNEL GRB"), null,bundle.getString("APPLY CHANNEL GRB"), null,"GRB")));
+        channelSwapMenu.add(new JMenuItem(new ColorChannelSwapAction(bundle.getString("CHANNEL GBR"), null,bundle.getString("APPLY CHANNEL GBR"), null,"GBR")));
+        channelSwapMenu.add(new JMenuItem(new ColorChannelSwapAction(bundle.getString("CHANNEL BRG"), null,bundle.getString("APPLY CHANNEL BRG"), null,"BRG")));
+        channelSwapMenu.add(new JMenuItem(new ColorChannelSwapAction(bundle.getString("CHANNEL BGR"), null,bundle.getString("APPLY CHANNEL BGR"), null,"BGR")));
+
+        fileMenu.addSeparator();
+        fileMenu.add(channelSwapMenu);
+
         return fileMenu;
+
     }
 
     /**
@@ -256,6 +269,8 @@ public class ColourActions {
      */
     private static class ColorChannelSwapAction extends ImageAction {
 
+        private String channelOrder;
+
         /**
          * <p>
          * Create a new color channel swap action.
@@ -267,8 +282,9 @@ public class ColourActions {
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if
          * null).
          */
-        public ColorChannelSwapAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        public ColorChannelSwapAction(String name, ImageIcon icon, String desc, Integer mnemonic, String channelOrder) {
             super(name, icon, desc, mnemonic);
+            this.channelOrder = channelOrder;
         }
 
         /**
@@ -288,23 +304,10 @@ public class ColourActions {
             if (!imageCheck()) {
                 return;
             }
-            String[] options = {"RGB", "RBG", "GRB", "GBR", "BRG", "BGR"};
 
-            String choice = (String) JOptionPane.showInputDialog(
-                    null,
-                    bundle.getString("CHOOSE CHANNEL ORDER: "),
-                    bundle.getString("COLOR CHANNEL SWAP"),
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[0]
-            );
-
-            if (choice != null) {
-                target.getImage().apply(new ColorChannelSwap(choice));
-                target.repaint();
-                target.getParent().revalidate();
-            }
+            target.getImage().apply(new ColorChannelSwap(channelOrder));
+            target.repaint();
+            target.getParent().revalidate();
         }
     }
 
