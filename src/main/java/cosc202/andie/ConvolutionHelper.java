@@ -38,22 +38,24 @@ public class ConvolutionHelper {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
 
-                float a = 0, r = 0, g = 0, b = 0;
+                float r = 0, g = 0, b = 0;
+                
+                //leave alpha untouched
+                int originalARGB = input.getRGB(x, y);
+                int newAlpha = (originalARGB >> 24) & 0xFF;
 
                 for (int ky = -radius; ky <= radius; ky++) {
                     for (int kx = -radius; kx <= radius; kx++) {
                         int nx = Math.max(0, Math.min(x + kx, width - 1));
                         int ny = Math.max(0, Math.min(y + ky, height - 1));
 
-                        int argb = input.getRGB(nx, ny);
-
-                        int alpha = (argb >> 24) & 0xFF;
-                        int red = (argb >> 16) & 0xFF;
-                        int green = (argb >> 8) & 0xFF;
-                        int blue = argb & 0xFF;
+                        int rgb = input.getRGB(nx, ny);
+                      
+                        int red = (rgb >> 16) & 0xFF;
+                        int green = (rgb >> 8) & 0xFF;
+                        int blue = rgb & 0xFF;
                         float weight = kernel[ky + radius][kx + radius];
 
-                        a += alpha * weight;
                         r += red * weight;
                         g += green * weight;
                         b += blue * weight;
@@ -61,7 +63,6 @@ public class ConvolutionHelper {
                     }
                 }
 
-                int newAlpha = (int) Math.min(255, Math.max(0, Math.round(a)));
                 int newRed = (int) Math.min(255, Math.max(0, Math.round(r + offset)));
                 int newGreen = (int) Math.min(255, Math.max(0, Math.round(g + offset)));
                 int newBlue = (int) Math.min(255, Math.max(0, Math.round(b + offset)));

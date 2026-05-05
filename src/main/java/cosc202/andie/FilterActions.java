@@ -54,6 +54,7 @@ public class FilterActions {
         actions.add(new GaussianFilterAction(bundle.getString("GAUSSIAN FILTER"), null, bundle.getString("APPLY A GAUSSIAN BLUR FILTER"), KeyEvent.VK_G));
         actions.add(new RandomScatteringAction(bundle.getString("RANDOM SCATTERING"), null, bundle.getString("APPLY RANDOM SCATTERING"), KeyEvent.VK_R));
         actions.add(new EmbossFilterAction(bundle.getString("EMBOSS FILTER"), null, bundle.getString("APPLY EMBOSS FILTER"), KeyEvent.VK_E));
+        actions.add(new SobelFilterAction(bundle.getString("SOBEL FILTER"), null, bundle.getString("APPLY SOBEL FILTER"), KeyEvent.VK_O));
 
     }
 
@@ -389,7 +390,8 @@ public class FilterActions {
          * applies the corresponding emboss filter to the image.
          *
          * @param name - The name of the action (ignored if null).
-         * @param icon - An icon to use to represent the action (ignored if null).
+         * @param icon - An icon to use to represent the action (ignored if
+         * null).
          * @param desc - A brief description of the action (ignored if null).
          * @param mnemonic - A mnemonic key to use as a shortcut (ignored if
          * null).
@@ -406,14 +408,13 @@ public class FilterActions {
          *
          * @param e - the event triggering this action.
          */
-        
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!imageCheck()) {
                 return;
             }
 
-            String[] options = {"Emboss 1", "Emboss 2", "Emboss 3", "Emboss 4", "Emboss 5", "Emboss 6", "Emboss 7", "Emboss 8"};
+            String[] options = {"Left", "Top Left", "Top Center", "Top Right", "Right", "Bottom Right", "Bottom", "Bottom Left"};
 
             int choice = JOptionPane.showOptionDialog(
                     null,
@@ -435,5 +436,39 @@ public class FilterActions {
             target.repaint();
             target.getParent().revalidate();
         }
+    }
+
+    public class SobelFilterAction extends ImageAction {
+
+        SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String[] options = {
+                "Horizontal Sobel",
+                "Vertical Sobel",
+                "Combined Sobel"
+            };
+            int choice = JOptionPane.showOptionDialog(
+                    null,
+                    "Choose Sobel Filter:",
+                    "Sobel Filter",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[2]
+            );
+            if (choice == JOptionPane.CLOSED_OPTION) {
+                return;
+            }
+
+            target.getImage().apply(new SobelFilter(choice));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
     }
 }
