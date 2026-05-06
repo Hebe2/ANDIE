@@ -15,24 +15,24 @@ import java.io.Serializable;
 public class ImageCrop implements ImageOperation, Serializable{
     
     private ImagePanel imagePanel;
+    private int imgX, imgY, imgWidth, imgHeight;
     
     public ImageCrop(ImagePanel panel){
-        this.imagePanel = panel;
+         Rectangle selection = panel.getSelection();
+        double scale = panel.getZoom() / 100.0;
+        
+        this.imgX = (int)(selection.x / scale);
+        this.imgY = (int)(selection.y / scale);
+        this.imgWidth = (int)(selection.width / scale);
+        this.imgHeight = (int)(selection.height / scale);
+        
+        panel.clearSelection();
     }
   
 
     @Override
     public BufferedImage apply(BufferedImage input) {
-        Rectangle selection = imagePanel.getSelection();
-        if (selection == null){
-            return input;
-        }
-        double scale = imagePanel.getZoom() / 100.0;
         
-        int imgX = (int)(selection.x / scale);
-        int imgY = (int)(selection.y / scale);
-        int imgWidth = (int)(selection.width / scale);
-        int imgHeight = (int)(selection.height / scale);
         
         //ensure in bounds
         imgX = Math.max(0, imgX);
@@ -49,7 +49,7 @@ public class ImageCrop implements ImageOperation, Serializable{
         BufferedImage copy = new BufferedImage(imgWidth, imgHeight, input.getType());
         copy.getGraphics().drawImage(crop, 0, 0, null);
         
-        imagePanel.clearSelection();
+        //imagePanel.clearSelection();
         
         
         return copy;
