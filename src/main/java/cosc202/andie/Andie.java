@@ -67,7 +67,7 @@ public class Andie {
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        // Add in menus for various types of action the usFer may perform.
+        // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
 
         // File menus are pretty standard, so things that usually go in File menus go here.

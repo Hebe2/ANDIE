@@ -393,21 +393,24 @@ class EditableImage {
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> macroOps = (Stack<ImageOperation>) objIn.readObject();
 
-            if (current.getWidth() != width || current.getHeight() != height) {
-            JOptionPane.showMessageDialog(
-                null,
-                "Cannot apply macro image size is different from when it was recorded.\n" +
-                "Recorded on: " + width + " x " + height + "\n" +
-                "Current image: " + current.getWidth() + " x " + current.getHeight(),
-                "Size Mismatch Error",
-                JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
+            
+        
             
             for (ImageOperation op : macroOps) {
                 apply(op);
             }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(
+                null,
+                "Cannot apply macro image size is different from when it was recorded.\n" +
+                "Recorded on:" +
+                "Current image: " + current.getWidth() + " x " + current.getHeight(),
+                "Size Mismatch Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            //JOptionPane.showMessageDialog(null, "error, cannot apply this macro", "Error", JOptionPane.WARNING_MESSAGE);
+
         }
     }
 }
