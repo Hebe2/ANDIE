@@ -1,11 +1,11 @@
 # Docker image to use on the CI / pipeline worker machines
 image:
-  name: gradle:9-jdk25-alpine
+  name: altitude.otago.ac.nz:4567/cosc202-2026-immortaljellyfish/temurin-17-with-zip-tool:latest
   pull_policy: if-not-present
 
 before_script:
   - set +o pipefail # stop pipes from failing entire pipeline if they return something weird
-  - | 
+  - |
     cat <<EOF > gradle.properties
     systemProp.http.proxyHost=rtis-proxy-r01.uod.otago.ac.nz
     systemProp.http.proxyPort=3128
@@ -32,6 +32,16 @@ compile-code:
     paths:
       - build
 
+javadoc:
+  stage: build
+  script:
+    - echo 'Attempting to generate JavaDoc documentation...'
+    - gradle -Dorg.gradle.welcome=never javadoc
+    - echo 'Done.'
+  artifacts:
+    paths:
+      - build/docs
+
 test:
   stage: test
   script:
@@ -46,5 +56,25 @@ create-jar:
     - gradle -Dorg.gradle.welcome=never jar
     - echo 'Done.'
   artifacts:
+    paths:  
+      - build/libs/andie-1.0.0.jar
+
+pages:
+  stage: deploy
+  script: 
+    - set +o pipefail
+    - mkdir public
+    - echo "testing 123" > public/test.txt
+    - cp -r build/docs/javadoc/ public/docs/
+    - cp build/libs/andie-1.0.0.jar public/
+    - cp index.html public/
+    - find public | head
+    - echo 'Diagnostic output - first ten public/ files listed'
+    - cd public
+    - zip -r9 ANDIE.zip andie-1.0.0.jar docs/
+    - cd -
+  artifacts:
     paths:
-      - build/libs/*.jar
+      - public
+  only:
+    - main

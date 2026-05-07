@@ -12,6 +12,8 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Flip-Vertical** Once an image is uploaded, click on the Edit menu at the top menu bar. Click on "Flip - Vertical" to flip your image vertically.
 
+**Crop**
+
 ## Color Operations
 
 **ImageThresholding:** Once an image is uploaded, click on colour on the top bar, then threshold. Enter any integer between 0 and 255 and click ok. If the input is outside of the range or not an integer, the computer will explain the issue. Then click ok and you will be prompted to enter an integer again.
@@ -22,17 +24,28 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Color Channel Swapping** Once your image is uploaded, click on Colour on the top menu. Click on "Color Channel Swap." A window will popup asking you to pick a channel order. Click on the arrow and a drop down menu will appear. Select your desired color swaps. 
 
+**Brightness & Contrast:** Once your image is uploaded, click **Colour** on the menu bar and select **Brightness & Contrast**. A dialog box will appear showing a small preview of your image along with two sliders — one for brightness and one for contrast, both ranging from -100 to 100. As you adjust the sliders the preview will update so you can see the effect before committing. Once you're happy with the result, click **OK** to apply it to your image.
+
+
+**Contrast Mask:** Once your image is uploaded, click **Colour** on the menu bar and select **Contrast Mask**. A dialog box will appear with two sliders — **Blur Radius** (1–16) and **Strength** (0–100%). Contrast masking sharpens the detail in your image by blending a blurred version
+
+**Colour Tinter (Extra Feature):** Once your image is uploaded, click **Colour** on the menu bar and select **Colour Tinter**. A dialog box will appear with a colour picker where you can select your desired tint colour using Swatches, HSV, HSL, RGB, or CMYK colour modes. Use the **Strength** slider (0–100) to control how intense the tint is applied. Once you're happy, click **OK** to apply it to your image.
+
 ## File Operations
 
 **Export:** Once you're finished editing your image, go to File and click Export. You'll be given the option to save it anywhere on your computer. Once you've chosen a destination, name your file in the format `ImageName.extension` (e.g. `image.jpg`, `image.png`) and click Save.
 
 ## Filter Operations
 
-**MedianFilter** Once your image is uploaded, click Filter on the menu bar and select Median Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
+**(Multi Threading)Median Filter:** Once your image is uploaded, click **Filter** on the menu bar and select **Median Filter**. A dialog box will appear where you can adjust the filter radius and choose how many threads to use for computation (it will suggest a thread count based on your computer's available cores). Each time you apply the filter it will be applied on top of the previous result. Keep applying until you're happy with the outcome.
 
-**SharpenFilter** Once your image is uploaded, click Filter on the menu bar and select Sharpen Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
+**Sharpen Filter** Once your image is uploaded, click Filter on the menu bar and select Sharpen Filter. Each time you click it, the filter will be applied again. Keep clicking until you're happy with the result.
 
-**GaussianFilter** Once your image is uploaded, click Filter on the top menu bar and selecct Gassian Filter. A window will appear prompting you to choose a radius value. Use the up and down arrows to adjust the radius. The radius ranges from 1 (lowest blur) to 10 (strongest blur).
+**Gaussian Filter** Once your image is uploaded, click Filter on the top menu bar and selecct Gassian Filter. A window will appear prompting you to choose a radius value. Use the up and down arrows to adjust the radius. The radius ranges from 1 (lowest blur) to 10 (strongest blur).
+
+**Random Scattering:** Once your image is uploaded, click **Filter** on the menu bar and select **Random Scattering**. A dialog box will appear where you can enter a scatter radius between 1 and 50 — the higher the value, the more scattered and noisy the image will appear. Click **OK** to apply the effect.
+
+**Emboss Filter**
 
 ## Rotate Operations
 
@@ -42,6 +55,8 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **180 rotate:**  Once your image is uploaded, click Rotate on the menu bar and select 180° rotate. Each time you click it, the image will rotate again.
 
+##Macros 
+##Draw 
 
 ## Settings
 

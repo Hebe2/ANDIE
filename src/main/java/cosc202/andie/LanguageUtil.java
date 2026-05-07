@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * <p>
  *
  * <p>
- * Feel free to use this class in your ANDIE project.</p>
+ * Feel free to use this class in your ANDIE project.
  * </p>
  *
  * <p>
@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  * 4.0</a>
  * </p>
  *
- * @author Mark George <mark.george@otago.ac.nz>
+ * @author Mark George &lt;mark.george@otago.ac.nz&gt;
  * @version 1.0
  */
 public class LanguageUtil {

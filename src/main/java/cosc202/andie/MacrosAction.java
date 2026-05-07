@@ -87,6 +87,7 @@ private int recordedImageHeight = 0;
             super(name, icon, desc, mnemonic);
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             if (!EditActions.imageCheck()) {
                 return;
@@ -121,6 +122,7 @@ private int recordedImageHeight = 0;
             super(name, icon, desc, mnemonic);
         }
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             if (!EditActions.imageCheck()) {
                 return;
