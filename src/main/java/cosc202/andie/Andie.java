@@ -129,15 +129,14 @@ public class Andie {
         // Settings to change language, english and german
         SettingAction settingActions = new SettingAction();
         menuBar.add(settingActions.createMenu());
-        
-        // Draws shapes inside a selection
+
         DrawingOps drawingActions = new DrawingOps(imagePanel);
         menuBar.add(drawingActions.createMenu());
-        
+
         MacrosAction macrosActions = new MacrosAction();
         menuBar.add(macrosActions.createMenu());
 
-        frame.add(createToolBar(fileActions, editActions, viewActions, rotateActions), BorderLayout.PAGE_START);
+        frame.add(createToolBar(fileActions, editActions, viewActions, rotateActions, macrosActions), BorderLayout.PAGE_START);
 
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -169,7 +168,7 @@ public class Andie {
         });
     }
 
-    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions, RotateActions rotateActions) {
+    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions, RotateActions rotateActions, MacrosAction macrosActions) {
         JToolBar toolBar = new JToolBar("Tools");
 
         int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
@@ -210,12 +209,12 @@ public class Andie {
             editActions.actions.get(5).actionPerformed(null);
             target.repaint();
         });
-        
+
         addButton(toolBar, "resize.png", "resize image", () -> {
             editActions.actions.get(2).actionPerformed(null);
             target.repaint();
         });
-        
+
         toolBar.addSeparator();
 
         //zoom In
@@ -226,7 +225,7 @@ public class Andie {
 
         //zoomOut
         addButton(toolBar, "zoomOut.png", "zoom in", () -> {
-           viewActions.actions.get(1).actionPerformed(null);
+            viewActions.actions.get(1).actionPerformed(null);
             target.repaint();
         });
 
@@ -259,7 +258,6 @@ public class Andie {
         toolBar.addSeparator();
 
         //vertical flip
-        
         addButton(toolBar, "flipVert.png", "flip vertical", () -> {
             editActions.actions.get(4).actionPerformed(null);
             target.repaint();
@@ -270,7 +268,25 @@ public class Andie {
             editActions.actions.get(3).actionPerformed(null);
             target.repaint();
         });
+        toolBar.addSeparator();
 
+        //record macros 
+        addButton(toolBar, "record.png", "flip vertical", () -> {
+            macrosActions.actions.get(0).actionPerformed(null);
+            target.repaint();
+        });
+
+        //stop macros 
+        addButton(toolBar, "stop.png", "flip horizontal", () -> {
+            macrosActions.actions.get(1).actionPerformed(null);
+            target.repaint();
+        });
+
+        //apply
+        addButton(toolBar, "m.png", "flip horizontal", () -> {
+            macrosActions.actions.get(2).actionPerformed(null);
+            target.repaint();
+        });
         toolBar.addSeparator();
 
         return toolBar;
