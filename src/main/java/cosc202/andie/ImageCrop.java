@@ -15,47 +15,51 @@ import java.io.Serializable;
  * 
  * @author timnanevo
  */
-public class ImageCrop implements ImageOperation, Serializable{
-    
-    private ImagePanel imagePanel;
-    
-    public ImageCrop(ImagePanel panel){
-        this.imagePanel = panel;
+public class ImageCrop implements ImageOperation, Serializable {
+
+    private int imgX, imgY, imgWidth, imgHeight;
+
+    public ImageCrop(ImagePanel panel) {
+        Rectangle selection = panel.getSelection();
+
+        if (selection == null) {
+            this.imgX = 0;
+            this.imgY = 0;
+            this.imgWidth = 0;
+            this.imgHeight = 0;
+            return;
+        }
+
+        double scale = panel.getZoom() / 100.0;
+
+        this.imgX = (int) (selection.x / scale);
+        this.imgY = (int) (selection.y / scale);
+        this.imgWidth = (int) (selection.width / scale);
+        this.imgHeight = (int) (selection.height / scale);
+
+        panel.clearSelection();
     }
-  
 
     @Override
     public BufferedImage apply(BufferedImage input) {
-        Rectangle selection = imagePanel.getSelection();
-        if (selection == null){
-            return input;
-        }
-        double scale = imagePanel.getZoom() / 100.0;
-        
-        int imgX = (int)(selection.x / scale);
-        int imgY = (int)(selection.y / scale);
-        int imgWidth = (int)(selection.width / scale);
-        int imgHeight = (int)(selection.height / scale);
-        
+
         //ensure in bounds
         imgX = Math.max(0, imgX);
         imgY = Math.max(0, imgY);
         imgWidth = Math.min(imgWidth, input.getWidth() - imgX);
         imgHeight = Math.min(imgHeight, input.getHeight() - imgY);
-        
-        if (imgWidth <=0 || imgHeight <= 0){
+
+        if (imgWidth <= 0 || imgHeight <= 0) {
             return input;
         }
-        
-        BufferedImage crop = input.getSubimage(imgX,imgY, imgWidth, imgHeight);       
-        
+
+        BufferedImage crop = input.getSubimage(imgX, imgY, imgWidth, imgHeight);
+
         BufferedImage copy = new BufferedImage(imgWidth, imgHeight, input.getType());
         copy.getGraphics().drawImage(crop, 0, 0, null);
-        
-        imagePanel.clearSelection();
-        
-        
+
+        //imagePanel.clearSelection();
         return copy;
     }
-    
+
 }

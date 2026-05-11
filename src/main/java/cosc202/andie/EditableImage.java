@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -74,6 +75,8 @@ class EditableImage {
     private boolean recording = false;
     private int recordingStartSize = 0;
     private Stack<ImageOperation> macros = new Stack();
+    private int recordedWidth = 0;
+    private int recordedHeight = 0;
 
     /**
      * <p>
@@ -351,6 +354,9 @@ class EditableImage {
     public void record() {
         recordingStartSize = ops.size();
         recording = true;
+        macros.clear();
+        recordedWidth = current.getWidth();
+        recordedHeight = current.getHeight();
     }
 
     public boolean isRecording() {
@@ -361,9 +367,7 @@ class EditableImage {
         recording = false;
 
         String macrosFolder = System.getProperty("user.home") + File.separator + "macros";
-        new File(macrosFolder).mkdirs(); 
-      
-        
+        new File(macrosFolder).mkdirs();
 
         List<ImageOperation> allOps = new ArrayList<>(ops);
         Stack<ImageOperation> recordedOps = new Stack<>();
@@ -372,25 +376,41 @@ class EditableImage {
 
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream(macroFilename);
-                ObjectOutputStream objOut = new ObjectOutputStream(fileOut)) {
+        try (FileOutputStream fileOut = new FileOutputStream(macroFilename); ObjectOutputStream objOut = new ObjectOutputStream(fileOut)) {
+            objOut.writeInt(recordedWidth);
+            objOut.writeInt(recordedHeight);
             objOut.writeObject(recordedOps);
         }
     }
 
     public void applyMacros(String macroFilePath) throws Exception {
-            System.out.println("Loading macro from: " + macroFilePath); // check path
+        System.out.println("Loading macro from: " + macroFilePath); // check path
 
         try (FileInputStream fileIn = new FileInputStream(macroFilePath); ObjectInputStream objIn = new ObjectInputStream(fileIn)) {
-
+            int width = objIn.readInt();
+            int height = objIn.readInt();
+            
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> macroOps = (Stack<ImageOperation>) objIn.readObject();
-                   
-            System.out.println("Number of ops in macro: " + macroOps.size()); // check ops loaded
 
+            
+        
+            
             for (ImageOperation op : macroOps) {
                 apply(op);
             }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(
+                null,
+                "Cannot apply macro image size is different from when it was recorded.\n" +
+                "Recorded on:" +
+                "Current image: " + current.getWidth() + " x " + current.getHeight(),
+                "Size Mismatch Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            //JOptionPane.showMessageDialog(null, "error, cannot apply this macro", "Error", JOptionPane.WARNING_MESSAGE);
+
         }
     }
 }

@@ -1,6 +1,6 @@
 # Docker image to use on the CI / pipeline worker machines
 image:
-  name: gradle:9-jdk25-alpine
+  name: altitude.otago.ac.nz:4567/cosc202-2026-immortaljellyfish/temurin-17-with-zip-tool:latest
   pull_policy: if-not-present
 
 before_script:
@@ -67,8 +67,12 @@ pages:
     - echo "testing 123" > public/test.txt
     - cp -r build/docs/javadoc/ public/docs/
     - cp build/libs/andie-1.0.0.jar public/
+    - cp index.html public/
     - find public | head
     - echo 'Diagnostic output - first ten public/ files listed'
+    - cd public
+    - zip -r9 ANDIE.zip andie-1.0.0.jar docs/
+    - cd -
   artifacts:
     paths:
       - public

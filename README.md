@@ -24,9 +24,12 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Color Channel Swapping** Once your image is uploaded, click on Colour on the top menu. Click on "Color Channel Swap." A window will popup asking you to pick a channel order. Click on the arrow and a drop down menu will appear. Select your desired color swaps. 
 
-**Brightness & Contrast**
-**Colour Mask**
-**Colour Tinter (Extra Feature)**
+**Brightness & Contrast:** Once your image is uploaded, click **Colour** on the menu bar and select **Brightness & Contrast**. A dialog box will appear showing a small preview of your image along with two sliders — one for brightness and one for contrast, both ranging from -100 to 100. As you adjust the sliders the preview will update so you can see the effect before committing. Once you're happy with the result, click **OK** to apply it to your image.
+
+
+**Contrast Mask:** Once your image is uploaded, click **Colour** on the menu bar and select **Contrast Mask**. A dialog box will appear with two sliders — **Blur Radius** (1–16) and **Strength** (0–100%). Contrast masking sharpens the detail in your image by blending a blurred version
+
+**Colour Tinter (Extra Feature):** Once your image is uploaded, click **Colour** on the menu bar and select **Colour Tinter**. A dialog box will appear with a colour picker where you can select your desired tint colour using Swatches, HSV, HSL, RGB, or CMYK colour modes. Use the **Strength** slider (0–100) to control how intense the tint is applied. Once you're happy, click **OK** to apply it to your image.
 
 ## File Operations
 
@@ -40,7 +43,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Gaussian Filter** Once your image is uploaded, click Filter on the top menu bar and selecct Gassian Filter. A window will appear prompting you to choose a radius value. Use the up and down arrows to adjust the radius. The radius ranges from 1 (lowest blur) to 10 (strongest blur).
 
-**Random Scattering**
+**Random Scattering:** Once your image is uploaded, click **Filter** on the menu bar and select **Random Scattering**. A dialog box will appear where you can enter a scatter radius between 1 and 50 — the higher the value, the more scattered and noisy the image will appear. Click **OK** to apply the effect.
 
 **Emboss Filter**
 

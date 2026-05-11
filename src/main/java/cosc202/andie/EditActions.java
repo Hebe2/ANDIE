@@ -86,6 +86,10 @@ public class EditActions {
             if (!imageCheck()) {
                 return;
             }
+            if (target.getSelection() == null) {
+                JOptionPane.showMessageDialog(target, "Please make a selection first");
+                return;
+            }
             target.getImage().apply(new ImageCrop(target));
             target.repaint();
             target.getParent().revalidate();

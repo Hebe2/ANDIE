@@ -6,6 +6,7 @@ package cosc202.andie;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /**
  *<p>
@@ -72,17 +74,22 @@ public class MacrosAction {
         return macrosMenu;
     }
 
+    private int recordedImageWidth = 0;
+    private int recordedImageHeight = 0;
+
     public class recordAction extends ImageAction {
 
         public recordAction(String name, ImageIcon icon, String desc, int mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, shortcut | InputEvent.SHIFT_DOWN_MASK));
+
         }
 
         public void actionPerformed(ActionEvent e) {
             if (!EditActions.imageCheck()) {
                 return;
             }
-            JOptionPane.showMessageDialog(target, bundle.getString("MACROS RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog(target, bundle.getString("MACROS RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE);
             target.getImage().record();
         }
     }
@@ -91,6 +98,8 @@ public class MacrosAction {
 
         public stopAction(String name, ImageIcon icon, String desc, int mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, shortcut | InputEvent.SHIFT_DOWN_MASK));
+
         }
 
         @Override
@@ -126,6 +135,8 @@ public class MacrosAction {
 
         public applyAction(String name, ImageIcon icon, String desc, int mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A,shortcut| InputEvent.SHIFT_DOWN_MASK));
+
         }
 
         @Override
@@ -160,6 +171,17 @@ public class MacrosAction {
                 return;
             }
 
+//            int warning = JOptionPane.showConfirmDialog(
+//                    target,
+//                    "drawing proportions may not match if the image size is different from when the macro was recorded. Do you want to continue?",
+//                    "Proportions Warning",
+//                    JOptionPane.YES_NO_OPTION,
+//                    JOptionPane.WARNING_MESSAGE
+//            );
+//
+//            if (warning == JOptionPane.NO_OPTION) {
+//                return;
+//            }
             try {
                 String fullPath = macrosFolder + File.separator + chosen;
                 target.getImage().applyMacros(fullPath);

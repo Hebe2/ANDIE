@@ -44,49 +44,55 @@ public class EmbossFilter implements ImageOperation, java.io.Serializable {
             
             //collection of 8 emboss directions
             
-            //kernel 0
+            //kernel 0 - light on left side 
             {
                 {0f, 0f, 0f},
                 {1f, 0f, -1f},
                 {0f, 0f, 0f}
             },
-            //kernel 1
+            
+            //kernel 1 - light at top left
             {
                 {1f, 0f, 0f},
                 {0f, 0f, 0f},
                 {0f, 0f, -1f}
             },
-            //kernel 2
+            
+            //kernel 2 - light at top center 
             {
                 {0f, 1f, 0f},
                 {0f, 0f, 0f},
                 {0f, -1f, 0f}
             },
-            //kernel 3
+            
+            //kernel 3 - light at top right 
             {
                 {0f, 0f, 1f},
                 {0f, 0f, 0f},
                 {-1f, 0f, 0f}
             },
-            //kernel 4
+            //kernel 4 - light at  center right 
             {
                 {0f, 0f, 0f},
                 {-1f, 0f, 1f},
                 {0f, 0f, 0f}
             },
-            //kernel 5
+            
+            //kernel 5 - light at bottom right 
             {
                 {-1f, 0f, 0f},
                 {0f, 0f, 0f},
                 {0f, 0f, 1f}
             },
-            //kernel 6
+            
+            //kernel 6 - light at bottom center
             {
                 {0f, -1f, 0f},
                 {0f, 0f, 0f},
                 {0f, 1f, 0f}
             },
-            //kernel 7
+            
+            //kernel 7 - light at bottom left 
             {
                 {0f, 0f, -1f},
                 {0f, 0f, 0f},
