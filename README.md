@@ -80,8 +80,6 @@ In both cases you can choose:
 ## Testing
 **Unit Test** a unit test to ensure the ImageResize operation worked after doubling and halving an image
 
-**Unit Test** a unit test to ensure the ImageResize operation worked after doubling and halving an image
-
 **Visual Testing** 
 
 **General Images**
