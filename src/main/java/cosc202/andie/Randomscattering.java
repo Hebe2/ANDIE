@@ -9,6 +9,7 @@ import java.util.Random;
 
 /**
  *
+ * 
  * @author manuella
  */
 public class Randomscattering implements ImageOperation, java.io.Serializable {
