@@ -35,6 +35,7 @@ public class DrawShape implements ImageOperation, java.io.Serializable {
         this.selection = selection;
         this.scale = scale;
         this.dashed = dashed;
+        
     }
     
     @Override

@@ -47,7 +47,6 @@ public class DrawingOps {
         actions.add(new RectangleAction(bundle.getString("RECTANGLE"), null, bundle.getString("DRAW"), null));
         actions.add(new OvalAction(bundle.getString("OVAL"), null, bundle.getString("DRAW"), null));
         actions.add(new LineAction(bundle.getString("LINE"), null, bundle.getString("DRAW"), null));
-
     }
     
     /**
