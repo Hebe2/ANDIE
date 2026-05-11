@@ -80,10 +80,14 @@ In both cases you can choose:
 ## Testing
 **Unit Test** a unit test to ensure the ImageResize operation worked after doubling and halving an image
 
-**Visual Testing: General Images**
-Checked that entering invalid user inputs for Guassian Filter, Mean Filter, Threshold, or Resize is either not possible, or prompts the user to try again after explaining the issue. Tested that pop-ups show up when the user tries to change an image before something has been uploaded. Checked that rotations and flips did the desired action on the image. Checked that all settings, filters and pop-ups turn german when the setting is switched to German. Tested all filters and color actions to ensure they had the desired effect. Tested that save and exporting an image worked and was able to export to the computer. 
+**Unit Test** a unit test to ensure the ImageResize operation worked after doubling and halving an image
 
-**Visual Testing: Testing Image** 
+**Visual Testing** 
+
+**General Images**
+Checked that entering invalid user inputs for Guassian Filter, Mean Filter, Threshold, or Resize is either not possible, or prompts the user to try again after explaining the issue. Tested that pop-ups show up when the user tries to change an image before something has been uploaded. Checked that rotations and flips did the desired action on the image. Checked that all settings, filters and pop-ups turn german when the setting is switched to German. Tested all filters and color actions to ensure they had the desired effect. Tested that save and exporting an image worked and was able to export to the computer. 
+ 
+**Testing Image** 
 The testing image was used to check proper color swapping and that the alpha channel was not thrown away. All filters were also checked again on the testing image to ensure proper functionality. 
 
 ## Bugs and refactoring
