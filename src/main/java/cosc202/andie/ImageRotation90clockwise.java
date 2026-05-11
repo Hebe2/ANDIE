@@ -11,10 +11,10 @@ package cosc202.andie;
  *
  * <p>
  * The rotation is performed using an {@link AffineTransform} applied with a
- * {@link Graphics2D} context. The output image has its width and height swapped
- * relative to the input to accommodate the rotated content.
+ * {@link Graphics2D} context. The output image result image 
+*swap dimensions - width becomes height, height becomes width
  * </p>
- *
+ * 
  * @author leuhe253
  */
 import java.awt.Graphics2D;

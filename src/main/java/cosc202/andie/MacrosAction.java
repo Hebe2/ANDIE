@@ -20,18 +20,19 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 /**
- *<p>
- * Provides the actions and menu components used for recording, saving and applying image editing
- * macros within the application
- * </p>
- * 
  * <p>
- * This class created a Macros menu containing actions for starting a macro recording, stopping and saving a 
- * recorded macro, and applying a previously saved macro. Macros are stored as .ops files in a macros
- * directory in the user's home folder. The macro is a recorded sequence of image operations that are recorded and saved to a file,
- * that can be reapplied to another image. 
+ * Provides the actions and menu components used for recording, saving and
+ * applying image editing macros within the application
  * </p>
- * 
+ *
+ * <p>
+ * This class created a Macros menu containing actions for starting a macro
+ * recording, stopping and saving a recorded macro, and applying a previously
+ * saved macro. Macros are stored as .ops files in a macros directory in the
+ * user's home folder. The macro is a recorded sequence of image operations that
+ * are recorded and saved to a file, that can be reapplied to another image.
+ * </p>
+ *
  * @author hebebebebe
  */
 public class MacrosAction {
@@ -40,13 +41,13 @@ public class MacrosAction {
     public int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 
     /**
-     * A list of actions for the File menu.
+     * A list of actions for the macros menu.
      */
     protected ArrayList<Action> actions;
 
     /**
      * <p>
-     * Create a set of File menu actions.
+     * Create a set of macros menu actions.
      * </p>
      */
     public MacrosAction() {
@@ -59,10 +60,10 @@ public class MacrosAction {
 
     /**
      * <p>
-     * Create a menu containing the list of Edit actions.
+     * Create a menu containing the list of macros actions.
      * </p>
      *
-     * @return The edit menu UI element.
+     * @return The macros menu UI element.
      */
     public JMenu createMenu() {
         JMenu macrosMenu = new JMenu(bundle.getString("MACROS"));
@@ -77,6 +78,13 @@ public class MacrosAction {
     private int recordedImageWidth = 0;
     private int recordedImageHeight = 0;
 
+    /**
+     * <p>
+     * Action to record an macros.
+     * </p>
+     *
+     * @see record
+     */
     public class recordAction extends ImageAction {
 
         public recordAction(String name, ImageIcon icon, String desc, int mnemonic) {
@@ -93,7 +101,15 @@ public class MacrosAction {
             target.getImage().record();
         }
     }
-
+    
+    
+/**
+     * <p>
+     * Action to stop recording an macros.
+     * </p>
+     *
+     * @see EditableImage#stopRecording()
+     */
     public class stopAction extends ImageAction {
 
         public stopAction(String name, ImageIcon icon, String desc, int mnemonic) {
@@ -130,12 +146,19 @@ public class MacrosAction {
 
         }
     }
-
+    
+    /**
+     * <p>
+     * Action to apply an macros.
+     * </p>
+     *
+     * @see EditableImage#applyMacros()
+     */
     public class applyAction extends ImageAction {
 
         public applyAction(String name, ImageIcon icon, String desc, int mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A,shortcut| InputEvent.SHIFT_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, shortcut | InputEvent.SHIFT_DOWN_MASK));
 
         }
 
