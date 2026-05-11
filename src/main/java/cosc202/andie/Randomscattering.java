@@ -8,7 +8,17 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
+ *<p>
+ * An ImageOperation that applies to a random scattering effect to an image by randomly displacing pixels 
+ * within a user specified radius
+ * </p>
  *
+ * <p>
+ * For each pixel in the image, a nearby pixel is randomly selected from within
+ * the scattering radius, and its colour value is copied to the current pixel
+ * location.
+ * </p>
+ * 
  * @author manuella
  */
 public class Randomscattering implements ImageOperation, java.io.Serializable {

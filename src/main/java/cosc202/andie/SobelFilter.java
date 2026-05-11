@@ -7,7 +7,16 @@ package cosc202.andie;
 import java.awt.image.BufferedImage;
 
 /**
+ *<p>
+ * An ImageOperation that applies the Sobel edge detection filter to an image
+ * in order to highlight areas of rapid intensity change
+ * </p>
  *
+ * <p>
+ * The operation uses convolution with horizontal and vertical Sobel kernels to detect edges in different
+ * directions. 
+ * </p>
+ * 
  * @author shika747
  */
 public class SobelFilter implements ImageOperation, java.io.Serializable {
