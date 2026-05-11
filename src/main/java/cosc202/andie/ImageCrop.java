@@ -9,7 +9,10 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 /**
- *
+ *<p>
+ * ImageOperation that crops an image to a user selected region 
+ *</p>
+ * 
  * @author timnanevo
  */
 public class ImageCrop implements ImageOperation, Serializable{

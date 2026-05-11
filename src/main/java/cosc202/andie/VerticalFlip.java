@@ -7,17 +7,16 @@ package cosc202.andie;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-
-/**
- *Flips an image vertically
- * 
- * @author shika747
- */
-
 import cosc202.andie.ImageOperation;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+
+/**
+ * ImageOperation that flips an image horizontally (mirror along the vertical axis).
+ * 
+ * @author shika747
+ */
 
 public class VerticalFlip implements ImageOperation, java.io.Serializable {
     /**

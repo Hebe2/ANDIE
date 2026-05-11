@@ -23,7 +23,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *
+ *<p>
+ * Actions provided by the Draw Menu
+ * </p>
+ * 
+ * * <p>
+ * The Draw menu contains actions that draw a shape within a user selected region. The shape options
+ * are rectangle, oval, and line. Each shape has options for changing the fill and and outline color
+ * as well as whether the outline is dashed or solid. 
+ * </p>
+ * 
  * @author timnanevo
  */
 public class DrawingOps {
@@ -114,7 +123,6 @@ public class DrawingOps {
         if (result != JOptionPane.OK_OPTION) return;
         
             boolean filled = fillBox.getSelectedIndex() == 0;
-//          Color color = colorValues[colorBox.getSelectedIndex()];
             Color fillColor = fillColorValues[fillColorBox.getSelectedIndex()];
             Color outlineColor = outlineColorValues[outlineColorBox.getSelectedIndex()];
             boolean dashed = dashBox.getSelectedIndex() == 1;

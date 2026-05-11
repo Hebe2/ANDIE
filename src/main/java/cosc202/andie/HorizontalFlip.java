@@ -3,22 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-/**
- *
- * @author shika747
- */
 package cosc202.andie;
 
 import cosc202.andie.ImageOperation;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-/**
- * Flips an image horizontally (mirror along the vertical axis).
- *
- * 
- */
 
+/**
+ * ImageOperation that flips an image horizontally (mirror along the vertical axis).
+ * 
+ * @author shika747
+ */
 public class HorizontalFlip implements ImageOperation, java.io.Serializable {
     /**
      * Applies a horizontal flip to the given image.

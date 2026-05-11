@@ -8,7 +8,15 @@ import java.awt.*;
 import java.io.Serializable; 
 
 /**
- *
+ *<p>
+ * ImageOperation that tints an entire image a specific color
+ *</p>
+ * 
+ * <p>
+ * The color tint can be applied at a strength of 0-1, where 0 applies no tint and 1 replaces the image
+ * color with the tint color. All other values blend the tint color and image color together. 
+ * </p>
+ * 
  * @author manuella
  */
 public class ColourTinter implements ImageOperation, Serializable {
@@ -17,9 +25,7 @@ public class ColourTinter implements ImageOperation, Serializable {
     
     ColourTinter(Color tintColor, float strength){
     this.tintColor = tintColor; 
-    this.strength = Math.max(0.0f, Math.min(1.0f, strength)); 
-   
-    
+    this.strength = Math.max(0.0f, Math.min(1.0f, strength));    
     }
     
     public BufferedImage apply(BufferedImage input){
@@ -45,15 +51,11 @@ public class ColourTinter implements ImageOperation, Serializable {
           int newBlue = Math.round((1 - strength) * b + strength * tintBlue); 
           
           int newArgb = (alpha << 24) | (newRed << 16) | (newGreen << 8) | newBlue;output.setRGB(x, y, newArgb);
-          
-          
-                
+             
             }
         }
         
      return output; 
-     }
-    
-    
+     }   
     
 }

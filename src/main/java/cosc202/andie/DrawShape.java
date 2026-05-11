@@ -9,12 +9,19 @@ package cosc202.andie;
 import cosc202.andie.ImageOperation;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.BasicStroke;
 
 /**
- *
+ *<p>
+ * ImageOperation that draws a shape within a user selected region. 
+ * </p>
+ * 
+ * * <p>
+ * The operation allows the user to customize their shape. Users can choose a rectangle, oval or line as the shape.
+ * Users can pick whether to have the shape filled or unfilled, change the fill color, outline color and whether the 
+ * outline is dashed or solid. 
+ * </p>
+ * 
  * @author timnanevo
  */
 public class DrawShape implements ImageOperation, java.io.Serializable {
@@ -45,9 +52,6 @@ public class DrawShape implements ImageOperation, java.io.Serializable {
         int y = (int)(selection.y / scale);
         int w = (int)(selection.width / scale);
         int h = (int)(selection.height / scale);
-
-        
-//        g2.setColor(color);
        
         if (dashed) {
             float[] dashPattern = {10f, 5f};

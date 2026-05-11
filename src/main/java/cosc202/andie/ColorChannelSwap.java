@@ -8,7 +8,14 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 /**
- *
+ *<p>
+ * ImageOperation that rearranges each RGB color channel in the image based on a user identified order
+ *</p>
+ * 
+ * <p>
+ * This operation can rearrange the order of the RGB color channel into RGB, RBG, GRB, GBR, BRG, and BGR.
+ * </p>
+ * 
  * @author shika747
  * @author habebebebe
  */

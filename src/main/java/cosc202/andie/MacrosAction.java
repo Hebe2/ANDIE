@@ -18,10 +18,19 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *<p>
+ * Provides the actions and menu components used for recording, saving and applying image editing
+ * macros within the application
+ * </p>
+ * 
+ * <p>
+ * This class created a Macros menu containing actions for starting a macro recording, stopping and saving a 
+ * recorded macro, and applying a previously saved macro. Macros are stored as .ops files in a macros
+ * directory in the user's home folder. The macro is a recorded sequence of image operations that are recorded and saved to a file,
+ * that can be reapplied to another image. 
+ * </p>
+ * 
  * @author hebebebebe
- *
- *
  */
 public class MacrosAction {
 

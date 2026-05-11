@@ -5,7 +5,16 @@
 package cosc202.andie;
 import java.awt.image.BufferedImage;
 /**
- *
+ *<p>
+ * ImageOperation that adjusts the brightness and contrast of an image
+ *</p>
+ * 
+ * <p>
+ * The brightness operation controls how light or dark the image is and contrast controls the difference between the
+ * light and dark areas in the image. Users control the amount of brightness and contrast to apply to the image 
+ * using a slider.   
+ * </p>
+ * 
  * @author manuella
  */
 public class BrightnessContrast implements ImageOperation, java.io.Serializable {

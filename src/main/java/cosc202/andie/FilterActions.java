@@ -373,7 +373,7 @@ public class FilterActions {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 int radius = radiusModel.getNumber().intValue();
-                target.getImage().apply(new Randomscattering(radius));
+                target.getImage().apply(new RandomScattering(radius));
                 target.repaint();
                 target.getParent().revalidate();
             }

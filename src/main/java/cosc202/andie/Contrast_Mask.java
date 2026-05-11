@@ -8,19 +8,25 @@ import java.awt.image.*;
 import java.io.Serializable;
 
 /**
- *
+ *<p>
+ * ImageOperation that applies a contrast mask to an image  
+ *</p>
+ * 
+ * <p>
+ * This operation uses a combination of greyscale, image inversion, gaussian blur and soft light blend
+ * to create the contrast mask. The strength of the mask and the size of the blur can be adjusted to change the mask. 
+ * </p>
+ * 
  * @author manuella
  */
 public class Contrast_Mask implements ImageOperation, Serializable {
 
     private int radius;
     private double strength;
-   
 
     Contrast_Mask(int radius, double strength) {
         this.radius = radius;
-        this.strength = strength;
-        
+        this.strength = strength;   
     }
 
     Contrast_Mask() {
@@ -81,7 +87,7 @@ public class Contrast_Mask implements ImageOperation, Serializable {
         return input;
 
     }
-// helper method cause bruh we need all the help we can get bro 
+// helper method
 
     private int blendAndWeight(double orig, double mask, double weight) {
         double blended;
@@ -94,6 +100,5 @@ public class Contrast_Mask implements ImageOperation, Serializable {
         double weighted = blended * weight + orig * (1 - weight);
         return (int) Math.round(weighted * 255);
     }
-
 
 }
