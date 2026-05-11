@@ -12,7 +12,7 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Flip-Vertical** Once an image is uploaded, click on the Edit menu at the top menu bar. Click on "Flip - Vertical" to flip your image vertically.
 
-**Crop**
+**Crop** Once an image is uploaded, select a region by dragging your mouse across the image. Then click on the Edit menu at the top menu bar and select Crop to crop the image to your selected region. 
 
 ## Color Operations
 
@@ -56,7 +56,9 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 **180 rotate:**  Once your image is uploaded, click Rotate on the menu bar and select 180° rotate. Each time you click it, the image will rotate again.
 
 ##Macros 
-##Draw 
+
+##Draw
+Once an image is uploaded and select a region by dragging your mouse across the image. Click on the Draw menu at the top menu bar and select a shape type: rectangle, oval or line. Once the shape type is selected, you can select whether to make the shape filled or unfilled, pick the fill color and outline color (Black, Red, Green, Blue, White, Yellow), and whether to make the outline solid or dashed. Once you are happy with your selections click ok and the shape will be drawn onto the selected regions.  
 
 ## Settings
 
