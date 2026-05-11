@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 
 /**
  *
+ * 
  * @author timnanevo
  */
 public class DrawingOps {
