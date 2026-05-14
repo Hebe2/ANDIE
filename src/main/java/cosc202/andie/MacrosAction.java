@@ -101,9 +101,8 @@ public class MacrosAction {
             target.getImage().record();
         }
     }
-    
-    
-/**
+
+    /**
      * <p>
      * Action to stop recording an macros.
      * </p>
@@ -121,6 +120,22 @@ public class MacrosAction {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!EditActions.imageCheck()) {
+                return;
+            }
+            int choice = JOptionPane.showConfirmDialog(
+                    target,
+                    "Do you want to save the recorded macro? hit no if you want to discard macros.",
+                    "Stop Recording",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (choice == JOptionPane.CANCEL_OPTION) {// do nothing, keep recording
+                return;
+            }
+
+            if (choice == JOptionPane.NO_OPTION) {//discard the macros 
+                target.getImage().cancelRecording();
                 return;
             }
 
@@ -146,7 +161,7 @@ public class MacrosAction {
 
         }
     }
-    
+
     /**
      * <p>
      * Action to apply an macros.

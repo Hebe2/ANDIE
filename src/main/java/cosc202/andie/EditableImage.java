@@ -383,31 +383,32 @@ class EditableImage {
         }
     }
 
+    public void cancelRecording() {
+        recording = false;
+        macros.clear();
+    }
+
     public void applyMacros(String macroFilePath) throws Exception {
         System.out.println("Loading macro from: " + macroFilePath); // check path
 
         try (FileInputStream fileIn = new FileInputStream(macroFilePath); ObjectInputStream objIn = new ObjectInputStream(fileIn)) {
             int width = objIn.readInt();
             int height = objIn.readInt();
-            
+
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> macroOps = (Stack<ImageOperation>) objIn.readObject();
 
-            
-        
-            
             for (ImageOperation op : macroOps) {
                 apply(op);
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(
-                null,
-                "Cannot apply macro image size is different from when it was recorded.\n" +
-                "Recorded on:" +
-                "Current image: " + current.getWidth() + " x " + current.getHeight(),
-                "Size Mismatch Error",
-                JOptionPane.ERROR_MESSAGE
+                    null,
+                    "Cannot apply macro image size is different from when it was recorded.\n"
+                    + "Recorded on:"
+                    + "Current image: " + current.getWidth() + " x " + current.getHeight(),
+                    "Size Mismatch Error",
+                    JOptionPane.ERROR_MESSAGE
             );
             //JOptionPane.showMessageDialog(null, "error, cannot apply this macro", "Error", JOptionPane.WARNING_MESSAGE);
 

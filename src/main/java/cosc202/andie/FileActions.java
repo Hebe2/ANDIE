@@ -34,7 +34,6 @@ public class FileActions {
     private static ResourceBundle bundle = LanguageUtil.getBundle();
     public int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
 
-
     /**
      * A list of actions for the File menu.
      */
@@ -94,7 +93,7 @@ public class FileActions {
          */
         FileOpenAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_O, shortcut));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, shortcut));
         }
 
         /**
@@ -142,6 +141,26 @@ public class FileActions {
 
             target.repaint();
             target.getParent().revalidate();
+            
+            if (target.getImage().hasImage()) {
+        int recordChoice = JOptionPane.showConfirmDialog(
+            target,
+            "Would you like to record a macro?",
+            "Record Macro",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (recordChoice == JOptionPane.YES_OPTION) {
+            target.getImage().record();
+            JOptionPane.showMessageDialog(
+                target,
+                "Recording started! Apply filters to record them.",
+                "Recording",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }
         }
 
     }
@@ -168,7 +187,7 @@ public class FileActions {
          */
         FileSaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_S, shortcut));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, shortcut));
 
         }
 
@@ -220,7 +239,7 @@ public class FileActions {
          */
         FileSaveAsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_S, shortcut| InputEvent.SHIFT_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, shortcut | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -275,7 +294,7 @@ public class FileActions {
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_Q, shortcut));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Q, shortcut));
 
         }
 
@@ -294,6 +313,14 @@ public class FileActions {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            if (target.getImage().isRecording()) {
+                JOptionPane.showMessageDialog(
+                        target,
+                        bundle.getString("MACROS STILL RECORDING"),
+                        bundle.getString("ERROR"),
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             if (target.getImage().hasUnsavedChanges()) {
                 int result = JOptionPane.showConfirmDialog(
                         target,
@@ -339,7 +366,7 @@ public class FileActions {
          */
         FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_E, shortcut| InputEvent.SHIFT_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_E, shortcut | InputEvent.SHIFT_DOWN_MASK));
 
         }
 

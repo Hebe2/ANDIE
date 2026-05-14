@@ -54,18 +54,15 @@ public class Andie {
      *
      * @throws Exception if something goes wrong.
      */
- 
     private static void createAndShowGUI() throws Exception {
         ResourceBundle bundle = LanguageUtil.getBundle();
-        
+
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        
-        
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
@@ -79,10 +76,20 @@ public class Andie {
         // File menus are pretty standard, so things that usually go in File menus go here.
         FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
-        
+
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
-    @Override
-    public void windowClosing(java.awt.event.WindowEvent e) {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                if (target.getImage().isRecording()) {
+                    JOptionPane.showMessageDialog(
+                            target,
+                            bundle.getString("MACROS STILL RECORDING"),
+                            bundle.getString("ERROR"),
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                
+                else{
         if (target.getImage().hasUnsavedChanges()) {
             int result = JOptionPane.showConfirmDialog(
                 target,
@@ -102,9 +109,10 @@ public class Andie {
         } else {
             System.exit(0);
         }
-    }
-});
-        
+                }
+
+            }
+        });
 
         // Likewise Edit menus are very common, so should be clear what might go here.
         EditActions editActions = new EditActions();
