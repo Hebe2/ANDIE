@@ -81,10 +81,34 @@ public class DrawingOps {
             return;
         }
         
+        double scale = imagePanel.getZoom() / 100.0;
+        
         Rectangle selection = imagePanel.getSelection();
         
         if (selection == null || selection.width == 0 || selection.height == 0) {
             JOptionPane.showMessageDialog(target, bundle.getString("PLEASE MAKE A SELECTION"));
+            return;
+        }
+        
+        int x = (int)(selection.x / scale);
+        int y = (int)(selection.y / scale);
+        int w = (int)(selection.width / scale);
+        int h = (int)(selection.height / scale);
+
+        
+        // Get image bounds
+        int imgWidth = imagePanel.getImage().getWidth();
+        int imgHeight = imagePanel.getImage().getHeight();
+
+        // Check if selection is outside image
+        boolean outOfBounds =
+                x < 0 ||
+                y < 0 ||
+                x + selection.width > imgWidth ||
+                y + selection.height > imgHeight;
+
+        if (outOfBounds) {
+            JOptionPane.showMessageDialog(target, bundle.getString("SELECTION OUT OF BOUNDS"));
             return;
         }
         

@@ -58,7 +58,6 @@ public class ImageCrop implements ImageOperation, Serializable {
         BufferedImage copy = new BufferedImage(imgWidth, imgHeight, input.getType());
         copy.getGraphics().drawImage(crop, 0, 0, null);
 
-        //imagePanel.clearSelection();
         return copy;
     }
 
