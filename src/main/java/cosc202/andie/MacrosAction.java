@@ -97,8 +97,13 @@ public class MacrosAction {
             if (!EditActions.imageCheck()) {
                 return;
             }
-            JOptionPane.showMessageDialog(target, bundle.getString("MACROS RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE);
-            target.getImage().record();
+            if (target.getImage().isRecording()) {
+                JOptionPane.showMessageDialog(target, bundle.getString("MACROS ALREADY RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(target, bundle.getString("MACROS RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE);
+                target.getImage().record();
+            }
         }
     }
 
@@ -124,7 +129,7 @@ public class MacrosAction {
             }
             int choice = JOptionPane.showConfirmDialog(
                     target,
-                    "Do you want to save the recorded macro? hit no if you want to discard macros.",
+                    "Do you want to save the recorded macro? \n hit no if you want to discard macros.",
                     "Stop Recording",
                     JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE
