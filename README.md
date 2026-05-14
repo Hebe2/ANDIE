@@ -29,8 +29,6 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Contrast Mask:** Once your image is uploaded, click **Colour** on the menu bar and select **Contrast Mask**. A dialog box will appear with two sliders — **Blur Radius** (1–16) and **Strength** (0–100%). Contrast masking sharpens the detail in your image by blending a blurred version
 
-**Colour Tinter (Extra Feature):** Once your image is uploaded, click **Colour** on the menu bar and select **Colour Tinter**. A dialog box will appear with a colour picker where you can select your desired tint colour using Swatches, HSV, HSL, RGB, or CMYK colour modes. Use the **Strength** slider (0–100) to control how intense the tint is applied. Once you're happy, click **OK** to apply it to your image.
-
 ## File Operations
 
 **Export:** Once you're finished editing your image, go to File and click Export. You'll be given the option to save it anywhere on your computer. Once you've chosen a destination, name your file in the format `ImageName.extension` (e.g. `image.jpg`, `image.png`) and click Save.
@@ -92,4 +90,7 @@ The testing image was used to check proper color swapping and that the alpha cha
 No known bugs or problems exist and no signficant refactoring was done to ANDIE
 
 ## Special Feature
-After more than two attempts to edit an image without opening an image first, the user will recieve a surprise
+**pop up**After more than two attempts to edit an image without opening an image first, the user will recieve a surprise
+
+**Colour Tinter:** Once your image is uploaded, click **Colour** on the menu bar and select **Colour Tinter**. A dialog box will appear with a colour picker where you can select your desired tint colour using Swatches, HSV, HSL, RGB, or CMYK colour modes. Use the **Strength** slider (0–100) to control how intense the tint is applied. Once you're happy, click **OK** to apply it to your image.
+
