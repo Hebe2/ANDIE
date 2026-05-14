@@ -53,7 +53,11 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **180 rotate:**  Once your image is uploaded, click Rotate on the menu bar and select 180° rotate. Each time you click it, the image will rotate again.
 
-## Macros 
+## Macros
+Once image is open, a pop up message will ask if you would like the macros to start recording, you can choose yes or no.
+Once you hit the record macros button a pop up message will show recording has started.
+When you hit the stop recording button, pop up will ask if you want to save the macros, if you click yes, the macros save pop up will open, if you click no, macros is discarded and stops recording, if you click cancel, macros will continue recording and not save.
+
 
 ## Draw
 Once an image is uploaded and select a region by dragging your mouse across the image. Click on the Draw menu at the top menu bar and select a shape type: rectangle, oval or line. Once the shape type is selected, you can select whether to make the shape filled or unfilled, pick the fill color and outline color (Black, Red, Green, Blue, White, Yellow), and whether to make the outline solid or dashed. Once you are happy with your selections click ok and the shape will be drawn onto the selected regions.  
