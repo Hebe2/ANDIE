@@ -83,7 +83,7 @@ public class MacrosAction {
      * Action to record an macros.
      * </p>
      *
-     * @see record
+     * see record
      */
     public class recordAction extends ImageAction {
 
@@ -107,7 +107,7 @@ public class MacrosAction {
      * Action to stop recording an macros.
      * </p>
      *
-     * @see EditableImage#stopRecording()
+     * see EditableImage stopRecording()
      */
     public class stopAction extends ImageAction {
 
@@ -167,7 +167,7 @@ public class MacrosAction {
      * Action to apply an macros.
      * </p>
      *
-     * @see EditableImage#applyMacros()
+     * see EditableImage applyMacros()
      */
     public class applyAction extends ImageAction {
 
