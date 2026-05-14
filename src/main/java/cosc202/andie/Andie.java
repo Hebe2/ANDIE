@@ -28,6 +28,9 @@ import javax.imageio.*;
  */
 public class Andie {
 
+    private static JFrame frame;
+    
+
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -58,7 +61,7 @@ public class Andie {
         ResourceBundle bundle = LanguageUtil.getBundle();
 
         // Set up the main GUI frame
-        JFrame frame = new JFrame("ANDIE");
+        frame = new JFrame("ANDIE");
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
@@ -87,28 +90,27 @@ public class Andie {
                             bundle.getString("ERROR"),
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
-                }
-                
-                else{
-        if (target.getImage().hasUnsavedChanges()) {
-            int result = JOptionPane.showConfirmDialog(
-                target,
-                bundle.getString("UNSAVED CHANGES MESSAGE"),
-                bundle.getString("UNSAVED CHANGES TITLE"),
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.WARNING_MESSAGE
-            );
-            if (result == JOptionPane.YES_OPTION) {
-                try {
-                    target.getImage().save();
-                } catch (Exception ex) {}
-                System.exit(0);
-            } else if (result == JOptionPane.NO_OPTION) {
-                System.exit(0);
-            }
-        } else {
-            System.exit(0);
-        }
+                } else {
+                    if (target.getImage().hasUnsavedChanges()) {
+                        int result = JOptionPane.showConfirmDialog(
+                                target,
+                                bundle.getString("UNSAVED CHANGES MESSAGE"),
+                                bundle.getString("UNSAVED CHANGES TITLE"),
+                                JOptionPane.YES_NO_CANCEL_OPTION,
+                                JOptionPane.WARNING_MESSAGE
+                        );
+                        if (result == JOptionPane.YES_OPTION) {
+                            try {
+                                target.getImage().save();
+                            } catch (Exception ex) {
+                            }
+                            System.exit(0);
+                        } else if (result == JOptionPane.NO_OPTION) {
+                            System.exit(0);
+                        }
+                    } else {
+                        System.exit(0);
+                    }
                 }
 
             }
@@ -143,8 +145,11 @@ public class Andie {
 
         MacrosAction macrosActions = new MacrosAction();
         menuBar.add(macrosActions.createMenu());
+        
+       ThemeActions themeActions = new ThemeActions();
+        menuBar.add(themeActions.createMenu());
 
-        frame.add(createToolBar(fileActions, editActions, viewActions, rotateActions, macrosActions), BorderLayout.PAGE_START);
+        frame.add(createToolBar(fileActions, editActions, viewActions, rotateActions, macrosActions, themeActions), BorderLayout.PAGE_START);
 
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -176,7 +181,7 @@ public class Andie {
         });
     }
 
-    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions, RotateActions rotateActions, MacrosAction macrosActions) {
+private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions, RotateActions rotateActions, MacrosAction macrosActions, ThemeActions themeActions) {
         JToolBar toolBar = new JToolBar("Tools");
 
         int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
@@ -296,7 +301,17 @@ public class Andie {
             target.repaint();
         });
         toolBar.addSeparator();
+        
+        addButton(toolBar, "light.png", "light mode", () -> {
+            themeActions.actions.get(0).actionPerformed(null);
+            target.repaint();
+        });
 
+        //apply
+        addButton(toolBar, "dark.png", "dark mode", () -> {
+            themeActions.actions.get(1).actionPerformed(null);
+            target.repaint();
+        });
         return toolBar;
     }
 
@@ -316,6 +331,10 @@ public class Andie {
             return new ImageIcon(scaled);
         }
         return null;
+    }
+
+    public static JFrame getFrame() {
+        return frame;
     }
 
 }
