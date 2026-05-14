@@ -90,7 +90,7 @@ The testing image was used to check proper color swapping and that the alpha cha
 No known bugs or problems exist and no signficant refactoring was done to ANDIE
 
 ## Special Feature
-**pop up**After more than two attempts to edit an image without opening an image first, the user will recieve a surprise
+**pop up** After more than two attempts to edit an image without opening an image first, the user will recieve a surprise
 
 **Colour Tinter:** Once your image is uploaded, click **Colour** on the menu bar and select **Colour Tinter**. A dialog box will appear with a colour picker where you can select your desired tint colour using Swatches, HSV, HSL, RGB, or CMYK colour modes. Use the **Strength** slider (0–100) to control how intense the tint is applied. Once you're happy, click **OK** to apply it to your image.
 
