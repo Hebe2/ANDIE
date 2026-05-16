@@ -5,14 +5,9 @@
 package cosc202.andie;
 
 import java.awt.event.ActionEvent;
+import static java.nio.file.Files.size;
 import java.util.ArrayList;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 /**
  *
@@ -32,33 +27,66 @@ public class ThemeActions {
 
     }
 
-    public JMenu createMenu() {
-        JMenu themeMenu = new JMenu("Theme");
+    public JMenu createSubMenu() {
+        JMenu themeMenu = new JMenu(LanguageUtil.getBundle().getString("THEMES"));
+        
         for (Action action : actions) {
             themeMenu.add(new JMenuItem(action));
         }
+        
         return themeMenu;
     }
 
-    class SetThemeAction extends ImageAction {
+    private void setDefaultFont(java.awt.Font font) {
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+
+            if (value instanceof javax.swing.plaf.FontUIResource) {
+                UIManager.put(key,
+                        new javax.swing.plaf.FontUIResource(font));
+            }
+        }
+    }
+
+    class SetThemeAction extends AbstractAction {
 
         private String lafClass;
 
         SetThemeAction(String name, ImageIcon icon, String desc, Integer mnemonic, String lafClass) {
-            super(name, icon, desc, mnemonic);
+            super(name, icon);
             this.lafClass = lafClass;
+            putValue(Action.SHORT_DESCRIPTION, desc);
         }
 
         public void actionPerformed(ActionEvent e) {
             try {
+                // saves current window size
+                java.awt.Dimension currentSize = Andie.getFrame().getSize();
 
+                // change theme
                 UIManager.setLookAndFeel(lafClass);
+
+                //set cconsistent font
+                java.awt.Font font = new java.awt.Font("SansSerif", java.awt.Font.BOLD, 14);
+                setDefaultFont(font);
+
+                // Refresh UI
                 SwingUtilities.updateComponentTreeUI(Andie.getFrame());
-                Andie.getFrame().pack();
+
+                // restore window size
+                Andie.getFrame().setSize(currentSize);
+
+                // final refresh
+                Andie.getFrame().revalidate();
+                Andie.getFrame().repaint();
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Could not apply theme: " + ex.getMessage());
             }
         }
     }
+
 }

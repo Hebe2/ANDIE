@@ -147,7 +147,7 @@ public class Andie {
         menuBar.add(macrosActions.createMenu());
         
        ThemeActions themeActions = new ThemeActions();
-        menuBar.add(themeActions.createMenu());
+//        menuBar.add(themeActions.createMenu());
 
         frame.add(createToolBar(fileActions, editActions, viewActions, rotateActions, macrosActions, themeActions), BorderLayout.PAGE_START);
 
