@@ -43,7 +43,9 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Random Scattering:** Once your image is uploaded, click **Filter** on the menu bar and select **Random Scattering**. A dialog box will appear where you can enter a scatter radius between 1 and 50 — the higher the value, the more scattered and noisy the image will appear. Click **OK** to apply the effect.
 
-**Emboss Filter**
+**Emboss Filter** Once your image is uploaded, click "Filter" and bring your cursor down to "Emboss." A submenu will appear with different emboss directions for you to choose from.
+
+**Sobel Filter** Once your image is uploaded, click "Filter" and bring your cursor down to "Sobel." A submenu will appear with options for "Horizontal", "Vertical", and "Combined" edge detection.
 
 ## Rotate Operations
 
@@ -64,7 +66,7 @@ Once an image is uploaded and select a region by dragging your mouse across the 
 
 ## Settings
 
-**LanguageChange:** If you'd like to switch the language, head to **Settings** it will drop down with the option of **English** or **German**. Click your preferred language and a pop-up will appear letting you know you need to restart ANDIE for the change to take effect. Once you reopen ANDIE, the language will have changed. You can do the same thing to switch back anytime.
+**Language Change:** If you'd like to switch the language, head to **Settings**. Hover your cursor over **Languages** and a submenu will appear with the option of **English** or **German**. Click your preferred language and a pop-up will appear letting you know you need to restart ANDIE for the change to take effect. Once you reopen ANDIE, the language will have changed. You can do the same thing to switch back anytime.
 
 ## Pop ups 
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
