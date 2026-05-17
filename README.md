@@ -70,7 +70,7 @@ Once an image is uploaded and select a region by dragging your mouse across the 
 
 **Language Change:** If you'd like to switch the language, head to **Settings**. Hover your cursor over **Languages** and a submenu will appear with the option of **English** or **German**. Click your preferred language and a pop-up will appear letting you know you need to restart ANDIE for the change to take effect. Once you reopen ANDIE, the language will have changed. You can do the same thing to switch back anytime.
 
-**Themes:(Special Feature) ** To change the appearance of ANDIE, click Settings on the menu bar and hover over Themes. A submenu will appear with four options: Light, Dark (Motif), Nimbus, and Metal. Click your preferred theme and it will apply instantly. You can also quickly toggle between light and dark mode using the sun and moon icons in the toolbar.
+**Themes:(Special Feature)** To change the appearance of ANDIE, click Settings on the menu bar and hover over Themes. A submenu will appear with four options: Light, Dark (Motif), Nimbus, and Metal. Click your preferred theme and it will apply instantly. You can also quickly toggle between light and dark mode using the sun and moon icons in the toolbar.
 
 ## Pop ups 
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
