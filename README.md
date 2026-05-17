@@ -101,5 +101,7 @@ No known bugs or problems exist and no signficant refactoring was done to ANDIE
 
 ## Special Feature
 **pop up** After more than two attempts to edit an image without opening an image first, the user will recieve a surprise
+
 **Colour Tinter** 
+
 **Themes** 
