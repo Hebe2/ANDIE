@@ -19,21 +19,19 @@ public class ThemeActions {
 
     public ThemeActions() {
         actions = new ArrayList<>();
-        actions.add(new SetThemeAction("Light", null, "Light theme", null, UIManager.getSystemLookAndFeelClassName()));
-        actions.add(new SetThemeAction("Dark (Motif)", null, "Dark theme", null, "com.sun.java.swing.plaf.motif.MotifLookAndFeel"));
-
-        actions.add(new SetThemeAction("Nimbus", null, "Dark theme", null, "javax.swing.plaf.nimbus.NimbusLookAndFeel"));
-        actions.add(new SetThemeAction("Metal", null, "Metal theme", null, "javax.swing.plaf.metal.MetalLookAndFeel"));
-
+        actions.add(new SetThemeAction(LanguageUtil.getBundle().getString("LIGHT"), null, LanguageUtil.getBundle().getString("LIGHT_THEME_DESC"), null, UIManager.getSystemLookAndFeelClassName()));
+        actions.add(new SetThemeAction(LanguageUtil.getBundle().getString("DARK_MOTIF"), null, LanguageUtil.getBundle().getString("DARK_THEME_DESC"), null, "com.sun.java.swing.plaf.motif.MotifLookAndFeel"));
+        actions.add(new SetThemeAction(LanguageUtil.getBundle().getString("NIMBUS"), null, LanguageUtil.getBundle().getString("DARK_THEME_DESC"), null, "javax.swing.plaf.nimbus.NimbusLookAndFeel"));
+        actions.add(new SetThemeAction(LanguageUtil.getBundle().getString("METAL"), null, LanguageUtil.getBundle().getString("METAL_THEME_DESC"), null, "javax.swing.plaf.metal.MetalLookAndFeel"));
     }
 
     public JMenu createSubMenu() {
         JMenu themeMenu = new JMenu(LanguageUtil.getBundle().getString("THEMES"));
-        
+
         for (Action action : actions) {
             themeMenu.add(new JMenuItem(action));
         }
-        
+
         return themeMenu;
     }
 
@@ -84,7 +82,7 @@ public class ThemeActions {
                 Andie.getFrame().repaint();
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Could not apply theme: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null, LanguageUtil.getBundle().getString("THEME_ERROR") + ex.getMessage());
             }
         }
     }
