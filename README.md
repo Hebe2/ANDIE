@@ -29,6 +29,8 @@ Team Members: Timna Nevo, Manuella Parackal, Kai Shieffelbein, Hebe Leung
 
 **Contrast Mask:** Once your image is uploaded, click **Colour** on the menu bar and select **Contrast Mask**. A dialog box will appear with two sliders — **Blur Radius** (1–16) and **Strength** (0–100%). Contrast masking sharpens the detail in your image by blending a blurred version
 
+**Colour Tinter:(Special Feature)** Once your image is uploaded, click **Colour** on the menu bar and select **Colour Tinter**. A dialog box will appear with a colour picker where you can select your desired tint colour using Swatches, HSV, HSL, RGB, or CMYK colour modes. Use the **Strength** slider (0–100) to control how intense the tint is applied. Once you're happy, click **OK** to apply it to your image.
+
 ## File Operations
 
 **Export:** Once you're finished editing your image, go to File and click Export. You'll be given the option to save it anywhere on your computer. Once you've chosen a destination, name your file in the format `ImageName.extension` (e.g. `image.jpg`, `image.png`) and click Save.
@@ -68,6 +70,8 @@ Once an image is uploaded and select a region by dragging your mouse across the 
 
 **Language Change:** If you'd like to switch the language, head to **Settings**. Hover your cursor over **Languages** and a submenu will appear with the option of **English** or **German**. Click your preferred language and a pop-up will appear letting you know you need to restart ANDIE for the change to take effect. Once you reopen ANDIE, the language will have changed. You can do the same thing to switch back anytime.
 
+**Themes:(Special Feature) ** To change the appearance of ANDIE, click Settings on the menu bar and hover over Themes. A submenu will appear with four options: Light, Dark (Motif), Nimbus, and Metal. Click your preferred theme and it will apply instantly. You can also quickly toggle between light and dark mode using the sun and moon icons in the toolbar.
+
 ## Pop ups 
 **Heads up:** If you try to export an image with transparency, a pop-up will appear saying "Unsupported Image type".
 
@@ -97,6 +101,5 @@ No known bugs or problems exist and no signficant refactoring was done to ANDIE
 
 ## Special Feature
 **pop up** After more than two attempts to edit an image without opening an image first, the user will recieve a surprise
-
-**Colour Tinter:** Once your image is uploaded, click **Colour** on the menu bar and select **Colour Tinter**. A dialog box will appear with a colour picker where you can select your desired tint colour using Swatches, HSV, HSL, RGB, or CMYK colour modes. Use the **Strength** slider (0–100) to control how intense the tint is applied. Once you're happy, click **OK** to apply it to your image.
-
+**Colour Tinter** 
+**Themes** 
