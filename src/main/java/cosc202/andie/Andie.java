@@ -29,7 +29,6 @@ import javax.imageio.*;
 public class Andie {
 
     private static JFrame frame;
-    
 
     /**
      * <p>
@@ -145,8 +144,8 @@ public class Andie {
 
         MacrosAction macrosActions = new MacrosAction();
         menuBar.add(macrosActions.createMenu());
-        
-       ThemeActions themeActions = new ThemeActions();
+
+        ThemeActions themeActions = new ThemeActions();
         menuBar.add(themeActions.createMenu());
 
         frame.add(createToolBar(fileActions, editActions, viewActions, rotateActions, macrosActions, themeActions), BorderLayout.PAGE_START);
@@ -181,7 +180,7 @@ public class Andie {
         });
     }
 
-private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions, RotateActions rotateActions, MacrosAction macrosActions, ThemeActions themeActions) {
+    private static JToolBar createToolBar(FileActions fileActions, EditActions editActions, ViewActions viewActions, RotateActions rotateActions, MacrosAction macrosActions, ThemeActions themeActions) {
         JToolBar toolBar = new JToolBar("Tools");
 
         int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
@@ -284,14 +283,27 @@ private static JToolBar createToolBar(FileActions fileActions, EditActions editA
         toolBar.addSeparator();
 
         //record macros 
-        addButton(toolBar, "record.png", "flip vertical", () -> {
+        JButton recordButton = new JButton();
+        macrosActions.setRecordButton(recordButton);
+        fileActions.setRecordButton(recordButton);
+        recordButton.setIcon(loadIcon("record.png"));
+        recordButton.setToolTipText("Record Macro");
+        recordButton.addActionListener(e -> {
             macrosActions.actions.get(0).actionPerformed(null);
+
+            if (target.getImage().isRecording()) {
+                recordButton.setIcon(loadIcon("recordRed.png"));
+            } else {
+                recordButton.setIcon(loadIcon("record.png"));
+            }
             target.repaint();
         });
+        toolBar.add(recordButton);
 
         //stop macros 
         addButton(toolBar, "stop.png", "flip horizontal", () -> {
             macrosActions.actions.get(1).actionPerformed(null);
+            recordButton.setIcon(loadIcon("record.png"));
             target.repaint();
         });
 
@@ -301,7 +313,7 @@ private static JToolBar createToolBar(FileActions fileActions, EditActions editA
             target.repaint();
         });
         toolBar.addSeparator();
-        
+
         addButton(toolBar, "light.png", "light mode", () -> {
             themeActions.actions.get(0).actionPerformed(null);
             target.repaint();
@@ -323,7 +335,7 @@ private static JToolBar createToolBar(FileActions fileActions, EditActions editA
         toolBar.add(button);
     }
 
-    private static ImageIcon loadIcon(String filename) {
+    public static ImageIcon loadIcon(String filename) {
         URL url = Andie.class.getClassLoader().getResource("toolIcons/" + filename);
         if (url != null) {
             ImageIcon icon = new ImageIcon(url);

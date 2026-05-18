@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -39,6 +40,7 @@ public class MacrosAction {
 
     private static ResourceBundle bundle = LanguageUtil.getBundle();
     public int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
+    private JButton recordButton;
 
     /**
      * A list of actions for the macros menu.
@@ -78,6 +80,10 @@ public class MacrosAction {
     private int recordedImageWidth = 0;
     private int recordedImageHeight = 0;
 
+    public void setRecordButton(JButton button) {
+        this.recordButton = button;
+    }
+
     /**
      * <p>
      * Action to record an macros.
@@ -97,12 +103,16 @@ public class MacrosAction {
             if (!EditActions.imageCheck()) {
                 return;
             }
+            
             if (target.getImage().isRecording()) {
                 JOptionPane.showMessageDialog(target, bundle.getString("MACROS ALREADY RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE);
 
             } else {
                 JOptionPane.showMessageDialog(target, bundle.getString("MACROS RECORDING"), bundle.getString("MACROS"), JOptionPane.INFORMATION_MESSAGE);
                 target.getImage().record();
+                if (recordButton != null) {
+            recordButton.setIcon(Andie.loadIcon("recordRed.png")); 
+        }
             }
         }
     }
@@ -141,7 +151,13 @@ public class MacrosAction {
 
             if (choice == JOptionPane.NO_OPTION) {//discard the macros 
                 target.getImage().cancelRecording();
+                if (recordButton != null) {
+                recordButton.setIcon(Andie.loadIcon("record.png"));
+            }
                 return;
+            }
+            if (recordButton != null) {
+                recordButton.setIcon(Andie.loadIcon("record.png"));
             }
 
             String macrosFolder = System.getProperty("user.home") + File.separator + "macros";

@@ -33,6 +33,7 @@ public class FileActions {
     //private static final ResourceBundle bundle = ResourceBundle.getBundle("Bundle");
     private static ResourceBundle bundle = LanguageUtil.getBundle();
     public int shortcut = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
+    private JButton recordButton;
 
     /**
      * A list of actions for the File menu.
@@ -141,26 +142,29 @@ public class FileActions {
 
             target.repaint();
             target.getParent().revalidate();
-            
-            if (target.getImage().hasImage()) {
-        int recordChoice = JOptionPane.showConfirmDialog(
-            target,
-            "Would you like to record a macro?",
-            "Record Macro",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE
-        );
 
-        if (recordChoice == JOptionPane.YES_OPTION) {
-            target.getImage().record();
-            JOptionPane.showMessageDialog(
-                target,
-                "Recording started! Apply filters to record them.",
-                "Recording",
-                JOptionPane.INFORMATION_MESSAGE
-            );
-        }
-    }
+            if (target.getImage().hasImage()) {
+                int recordChoice = JOptionPane.showConfirmDialog(
+                        target,
+                        "Would you like to record a macro?",
+                        "Record Macro",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (recordChoice == JOptionPane.YES_OPTION) {
+                    target.getImage().record();
+                    JOptionPane.showMessageDialog(
+                            target,
+                            "Recording started! Apply filters to record them.",
+                            "Recording",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                    if (recordButton != null) {
+                        recordButton.setIcon(Andie.loadIcon("recordRed.png"));
+                    }
+                }
+            }
         }
 
     }
@@ -460,4 +464,7 @@ public class FileActions {
         }
     }
 
+    public void setRecordButton(JButton button) {
+        this.recordButton = button;
+    }
 }
