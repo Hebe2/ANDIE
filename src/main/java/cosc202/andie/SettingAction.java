@@ -42,9 +42,20 @@ public class SettingAction {
      */
     public JMenu createMenu() {
         JMenu settingsMenu = new JMenu(bundle.getString("SETTINGS"));
+
+        JMenu languageMenu = new JMenu(bundle.getString("LANGUAGES"));
+
         for (Action action : actions) {
-            settingsMenu.add(new JMenuItem(action));
+            languageMenu.add(new JMenuItem(action));
         }
+
+        settingsMenu.add(languageMenu);
+
+        settingsMenu.addSeparator();
+
+        ThemeActions themeActions = new ThemeActions();
+        settingsMenu.add(themeActions.createSubMenu());
+
         return settingsMenu;
     }
 

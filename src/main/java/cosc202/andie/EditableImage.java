@@ -414,4 +414,12 @@ class EditableImage {
 
         }
     }
+
+    public int getWidth() {
+        return current.getWidth();
+    }
+
+    public int getHeight() {
+        return current.getHeight();
+    }
 }

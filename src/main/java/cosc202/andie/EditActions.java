@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import static cosc202.andie.ImageAction.target;
+import java.awt.Rectangle;
 import java.util.*;
 import java.awt.Toolkit;
 import java.awt.event.*;
@@ -86,10 +87,37 @@ public class EditActions {
             if (!imageCheck()) {
                 return;
             }
-            if (target.getSelection() == null) {
-                JOptionPane.showMessageDialog(target, "Please make a selection first");
+//            if (target.getSelection() == null) {
+//                JOptionPane.showMessageDialog(target, bundle.getString("PLEASE MAKE A SELECTION"));
+//                return;
+//            }
+            
+            Rectangle selection = target.getSelection();
+        
+            if (selection == null || selection.width == 0 || selection.height == 0) {
+                JOptionPane.showMessageDialog(target, bundle.getString("PLEASE MAKE A SELECTION"));
                 return;
             }
+
+
+            // Get image bounds
+            int imgWidth = target.getImage().getWidth();
+            int imgHeight = target.getImage().getHeight();
+
+            // Check if selection is outside image
+            boolean outOfBounds =
+                    selection.x < 0 ||
+                    selection.y < 0 ||
+                    selection.x + selection.width > imgWidth ||
+                    selection.y + selection.height > imgHeight;
+
+            if (outOfBounds) {
+                JOptionPane.showMessageDialog(target, bundle.getString("SELECTION OUT OF BOUNDS"));
+                return;
+            }   
+            
+            
+            
             target.getImage().apply(new ImageCrop(target));
             target.repaint();
             target.getParent().revalidate();
